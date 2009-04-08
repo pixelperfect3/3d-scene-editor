@@ -1,5 +1,59 @@
-#summary Related work
+#summary Project 4 Assignment
 
-= Related Work =
-  * 3D Modeling with Hand Gesture Interaction in a Semi-Immersive Environment:
-    (PDF) http://www.cgv.tugraz.at/CGV/People/people/kim/Publications/_id227bb_
+{{{
+Assignment #4 – Interfaces and VR Art
+CIS4930/6930 –Virtual Environments
+Due: April 21st, 2009 (4 PM)
+
+Create a virtual experience using:
+1)	6 DOF head tracking
+2)	Mechanisms to enhance presence (haptics, user priming, and audio)
+3)	New 6DOF tracked physical interface device (the physical component)
+4)	New VE interface  (the virtual component)
+
+To provide the user an artistic experience.
+
+Allow the user to either 1) create an artistic experience or 2) experience an artistic piece.  The experience should leverage the benefits of VR (15 percent of total grade).
+
+The experience should have a beginning and end.
+
+You can incorporate models you’ve found on the web, but you must explicitly denote which models you’ve created and which models you’ve downloaded.
+
+Graduate Student requirement: must create a tracked physical device.  Undergraduates only need to create a new VE interface.
+
+The team with three members has to enable the system to: provide the user with at least two tracked physical devices and to provide two acts in the artistic piece.
+
+Undergraduate Grading
+All below are graded on accuracy and precision:
+		Head Tracking [10 points] 
+Creating a tracked physical interface [20 points]
+Novel VE interface [25 points]
+Audio [10 points]
+User Priming [5 points]
+The extent your art experience leveraged VR [20 points]
+
+Graduate Grading
+All below are graded on accuracy and precision:
+		Head Tracking and Stereo[10 points] 
+Creating a tracked physical interface [20 points]
+Novel VE interface [20 points]
+Audio [10 points]
+User Priming [5 points]
+Give the user an hardcopy of their experience [e.g. a print out of their artistic creation or a video of their experience]
+The extent your art experience leveraged VR [20 points]
+
+Turn in  (5 points):
+Create a webpage for your project.  The webpage should include the following:
+·	Video of the system in action 
+·	Samples of at least three user created artistic pieces or a videos of user reactions of the art experience.
+·	Information about the project
+·	Link to a .zip of your code + executable (I’ll download it and save it).
+
+Presentation (5 points):
+·	2 minutes explain virtual experience (PowerPoint)
+·	3 minute demo of work
+·	2 minutes show examples of produced work or videos of users going through the experience
+·	2 minutes of future work
+
+Each teammate will evaluate the other teammate’s contribution and ability to work as a teammate.
+}}}
