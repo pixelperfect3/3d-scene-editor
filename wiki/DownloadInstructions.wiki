@@ -1,0 +1,19 @@
+#summary How to download, install, etc.
+
+=== Download ===
+  # Get a SVN checkout of trunk.
+  # Download the Ogre Debug and Release DLLs 7-zip archives from our Downloads tab.
+
+
+=== Installation ===
+  # Extract the Ogre DLLs directly into the src/VEProj4 folder.
+  # Open the MSVC solution src/vrpn/vrpn.sln (If you're having compat issues, try vrpn.dsw).
+  # Build both Release and Debug versions of the following VRPN projects: quatlib, vrpn, vrpn_server, vrpndll.
+  # Open the MSVC solution src/VEProj4 (should be VC++ 2005).
+  # Build the project in Release mode.
+  # I didn't include any of the skybox or models, so good luck executing it.
+
+
+=== Other issues ===
+  # You probably need to set the OGRE_SRC or OGRE_SDK variable to your Ogre build directory.
+  # And you probably want to use Joon's patched Ogre binaries in said directories.
