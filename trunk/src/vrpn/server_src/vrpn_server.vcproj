@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="8.00"
 	Name="vrpn_server"
-	ProjectGUID="{92162D21-8739-4DF2-89AC-7629B294F1C4}"
-	TargetFrameworkVersion="131072"
+	ProjectGUID="{0800C874-6414-408F-9899-D9A7789461B6}"
 	>
 	<Platforms>
 		<Platform
@@ -44,8 +43,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(SYSTEMDRIVE)\Program Files\Microsoft Platform SDK for Windows Server 2003 R2\Include,../../dtrack,$(SYSTEMDRIVE)\Program Files\National Instruments\NI-DAQ\Include,$(SYSTEMDRIVE)/Program Files/SensAble/3DTouch/include,$(SYSTEMDRIVE)/Program Files/SensAble/3DTouch/utilities/include,../../isense,..,../../quat,../../Dtrack"
-				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE"
+				AdditionalIncludeDirectories="../../Adrienne/AEC_DLL,$(SYSTEMDRIVE)\Program Files\National Instruments\NI-DAQ\Include,$(SYSTEMDRIVE)/Program Files/SensAble/3DTouch/include,$(SYSTEMDRIVE)/Program Files/SensAble/3DTouch/utilities/include,../../isense,..,../../quat,../../Dtrack"
+				PreprocessorDefinitions="_CONSOLE;_DEBUG;WIN32"
 				RuntimeLibrary="3"
 				PrecompiledHeaderFile=".\../pc_win32/server_src/vrpn_server/Debug/vrpn_server.pch"
 				AssemblerListingLocation=".\../pc_win32/server_src/vrpn_server/Debug/"
@@ -77,8 +76,6 @@
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile=".\../pc_win32/server_src/vrpn_server/Debug/vrpn_server.pdb"
 				SubSystem="1"
-				RandomizedBaseAddress="1"
-				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -169,8 +166,6 @@
 				AdditionalLibraryDirectories="..\;&quot;$(SYSTEMDRIVE)\sdk\cpp&quot;;&quot;$(SYSTEMDRIVE)\Program Files\boost\boost_1_34_1\lib&quot;"
 				ProgramDatabaseFile=".\../pc_win32/server_src/vrpn_server/Release/vrpn_server.pdb"
 				SubSystem="1"
-				RandomizedBaseAddress="1"
-				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
