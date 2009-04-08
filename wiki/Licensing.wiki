@@ -1,10 +1,10 @@
 #summary Licensing for project and dependencies.
 
-= This project =
+=== This project ===
 We are using LGPL... cause we don't like paying for good software, either.
 
 
-= Dependencies =
+=== Dependencies ===
   * Wiiuse - GNU GPLv3 and GNU LGPLv3 (non-commercial)
    http://www.wiiuse.net/
 
