@@ -1,0 +1,8 @@
+Wiiuse - GNU GPLv3 and GNU LGPLv3 (non-commercial)
+http://www.wiiuse.net/
+
+VRPN - Public Domain
+http://www.cs.unc.edu/Research/vrpn/obtaining_vrpn.html
+
+Ogre - LGPL
+http://www.ogre3d.org/licensing
