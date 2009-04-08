@@ -3,6 +3,7 @@
 === Download ===
   # Get a SVN checkout of trunk.
   # Download the Ogre Debug and Release DLLs 7-zip archives from our Downloads tab.
+  # Download the sample resources 7-zip archive (until we get skybox/models of our own).
 
 
 === Installation ===
@@ -11,8 +12,8 @@
   # Build both Release and Debug versions of the following VRPN projects: quatlib, vrpn, vrpn_server, vrpndll.
   # Open the MSVC solution src/VEProj4 (should be VC++ 2005).
   # Build the project in Release mode.
-  # I didn't include any of the skybox or models, so good luck executing it.
-
+  # Extract the res.7z to the src/VEProj4/res folder (merge the skybox and scene folders).
+  # Run the app. You should get a grassy plane with a street and street-light overlay.
 
 === Other issues ===
   # You probably need to set the OGRE_SRC or OGRE_SDK variable to your Ogre build directory.
