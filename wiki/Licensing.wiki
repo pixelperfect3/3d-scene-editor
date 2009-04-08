@@ -1,0 +1,15 @@
+#summary Licensing for project and dependencies.
+
+= This project =
+We are using LGPL... cause we don't like paying for good software, either.
+
+
+= Dependencies =
+  * Wiiuse - GNU GPLv3 and GNU LGPLv3 (non-commercial)
+   http://www.wiiuse.net/
+
+  * VRPN - Public Domain
+   http://www.cs.unc.edu/Research/vrpn/obtaining_vrpn.html
+
+  * Ogre - LGPL
+   http://www.ogre3d.org/licensing
