@@ -1,20 +1,34 @@
 #summary How to download, install, etc.
 
-=== Download ===
-  # Get a SVN checkout of trunk.
-  # Download the Ogre Debug and Release DLLs 7-zip archives from our Downloads tab.
-  # Download the sample resources 7-zip archive (until we get skybox/models of our own).
+== Pre-requisites ==
+Download and installation requires a SVN client (e.g. http://tortoisesvn.tigris.org/) and a 7z archive extracter (e.g. http://www.7-zip.org/).
 
+=== Ogre binaries ===
+  # Set a global environment variable named OGRE_SRC to some folder (e.g. C:\Ogre).
+  # Download the Ogre+dependencies binaries: there is a 7-zip archive (built by Joon) in our Downloads tab. (This contains Stereo-plugin-patched binaries for both Release and Debug builds. Includes Ogre dependencies.)
+  # Extract the lib/ and Dependencies/ folders to the OGRE_SRC folder.
 
-=== Installation ===
-  # Extract the Ogre DLLs directly into the src/VEProj4 folder.
-  # Open the MSVC solution src/vrpn/vrpn.sln (If you're having compat issues, try vrpn.dsw).
-  # Build both Release and Debug versions of the following VRPN projects: quatlib, vrpn, vrpn_server, vrpndll.
-  # Open the MSVC solution src/VEProj4 (should be VC++ 2005).
+== SVN Checkout ==
+  # Get a SVN checkout of trunk. For instructions, see:
+   http://code.google.com/p/3d-scene-editor/source/checkout
+
+=== VRPN ===
+  # Open the MSVC solution checkout/src/vrpn/vrpn.sln (should be MSVC++ 2005).
+  # Build both Release and Debug versions of the solution. (It should contain the following VRPN projects: quatlib, vrpn, vrpndll, and vrpn_server.)
+
+=== Compiling ===
+  # Open the MSVC solution checkout/src/VEProj4.sln (should be MSVC++ 2005).
   # Build the project in Release mode.
-  # Extract the res.7z to the src/VEProj4/res folder (merge the skybox and scene folders).
-  # Run the app. You should get a grassy plane with a street and street-light overlay.
 
-=== Other issues ===
-  # You probably need to set the OGRE_SRC or OGRE_SDK variable to your Ogre build directory.
-  # And you probably want to use Joon's patched Ogre binaries in said directories.
+=== Running ===
+  # Download the Ogre/Plugin Debug and Release DLLs 7-zip archives from our Downloads tab. (These contain Stereo-plugin patched DLLs for Ogre, plugins, render systems, and dependencies.)
+  # Extract both sets of Ogre/Plugin DLLs and place them directly into the checkout/src/VEProj4/ folder.
+  # Download the sample resources 7-zip archive (until we get skybox/models of our own).
+  # Extract the res.7z to the checkout/src/VEProj4/res folder (merge the skybox and scene folders).
+  # Run the app. You should get a city skybox and a street ground-plane (with street lights).
+
+=== Issues ===
+  # We've had "side-by-side configuration errors" with the Debug Ogre DLLs. You will probably need to run the application in release mode.
+
+
+Note: The "checkout" folder is wherever you did a SVN checkout of our project.
