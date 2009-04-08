@@ -1,0 +1,17 @@
+Possible ideas for the physical interface devices:
+
+1) Tracked touch-pad:
+   Track a touch-pad with 6DOF. Apply 2D guestures to touch-pad. Use a tracked hand with button-presses to select/delete objects. Slight similarities to a tracked magic eye
+
+2) Minority-report:
+   Attach IR lights/reflectors to multiple finger-tips. Track finger gestures in 3D. Use ray-casting with button-presses to do selection. IR trackers may be Vtrak or stationary wiimotes.
+
+3) IR-tracking wiimotes:
+   Orient multiple IR light sources in environment. Place IR-tracking wiimotes in both hands. Usage is similar to HiBall tracker (http://www.3rdtech.com/HiBall.htm). Use wiimote button presses to select/manipulate objects.
+
+4) Accelerometer wiimotes:
+   Similar to #3, but use accelerometer data when possible (i.e. for rotations).
+
+
+5) Bop It:
+   Re-implement the electronics in a hand-held "Bop It" to use the "Twist", "Pull", and "Bop" widgets for rotate, translate, and select actions. Attach trackers.
