@@ -1,0 +1,9 @@
+== TODOs ==
+
+Gesture-recognition: select, translate, rotate, scale, delete/crush, panning.
+Gesture/model API.
+Gesture implementation (what does Ogre do to change node positions?).
+Undo options.
+Models: find and export many models from sketchup.
+Menus: store index of the models in a configuration file.
+Overlay "mouse pointer".
