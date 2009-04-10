@@ -391,12 +391,15 @@ void vrpn_WiiMote::handle_change_request(vrpn_int32 channel, vrpn_float64 value)
     o_channel[channel] = value;
 	switch (channel) {
 	case VRPN_WIIMOTE_CHANNEL_RUMBLE:
-		// Pull only channel 0 from the buffer, no matter how many values we received.
-		if (value >= 0.5) {
-		  wiiuse_rumble(wiimote->device, 1);
-		} else {
-		  wiiuse_rumble(wiimote->device, 0);
-		}
+		wiiuse_rumble(wiimote->device, (value >= 0.5 ? 1 : 0));
+		break;
+	case VRPN_WIIMOTE_CHANNEL_MODE_IR:
+		printf("Setting IR mode %s.\n", (value >= 0.5 ? "on" : "off"));
+		wiiuse_set_ir(wiimote->device, (value >= 0.5 ? 1 : 0));
+		break;
+	case VRPN_WIIMOTE_CHANNEL_MODE_MOTION_SENSE:
+		printf("Setting motion-sensing mode %s.\n", (value >= 0.5 ? "on" : "off"));
+		wiiuse_motion_sensing(wiimote->device, (value >= 0.5 ? 1 : 0));
 		break;
 	case VRPN_WIIMOTE_CHANNEL_LED_1:
 		wiiuse_set_leds(wiimote->device, WIIMOTE_LED_1);
