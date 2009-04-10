@@ -14,13 +14,18 @@
 #include "vrpn_Button.h"
 #include "vrpn_Analog_Output.h"
 
-#define VRPN_WIIMOTE_NUM_CHANNELS (5)
+#define VRPN_WIIMOTE_NUM_CHANNELS (7)
 #define VRPN_WIIMOTE_CHANNEL_RUMBLE (0)
 #define VRPN_WIIMOTE_CHANNEL_LED_1 (1)
 #define VRPN_WIIMOTE_CHANNEL_LED_2 (2)
 #define VRPN_WIIMOTE_CHANNEL_LED_3 (3)
 #define VRPN_WIIMOTE_CHANNEL_LED_4 (4)
+#define VRPN_WIIMOTE_CHANNEL_MODE_IR (5)
+#define VRPN_WIIMOTE_CHANNEL_MODE_MOTION_SENSE (6)
 
+#define VRPN_WIIMOTE_MAX_IR_X    (1023)
+#define VRPN_WIIMOTE_MAX_IR_Y    (767)
+#define VRPN_WIIMOTE_MAX_IR_SIZE (15)
 
 // Opaque class to keep us from having to include wiiuse.h in user files.
 // This is defined in vrpn_WiiMote.C.
