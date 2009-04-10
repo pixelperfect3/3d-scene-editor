@@ -2,6 +2,8 @@ Microsoft Visual Studio Solution File, Format Version 9.00
 # Visual Studio 2005
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VEProj4", "VEProj4\VEProj4.vcproj", "{FF861FFF-FBD3-43D5-AE18-2CE85E4F57AC}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WiiGestures", "WiiGestures\WiiGestures.vcproj", "{75DD70F6-FFA1-44BB-A5EC-E344B6E2CB6B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -12,6 +14,10 @@ Global
 		{FF861FFF-FBD3-43D5-AE18-2CE85E4F57AC}.Debug|Win32.Build.0 = Debug|Win32
 		{FF861FFF-FBD3-43D5-AE18-2CE85E4F57AC}.Release|Win32.ActiveCfg = Release|Win32
 		{FF861FFF-FBD3-43D5-AE18-2CE85E4F57AC}.Release|Win32.Build.0 = Release|Win32
+		{75DD70F6-FFA1-44BB-A5EC-E344B6E2CB6B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{75DD70F6-FFA1-44BB-A5EC-E344B6E2CB6B}.Debug|Win32.Build.0 = Debug|Win32
+		{75DD70F6-FFA1-44BB-A5EC-E344B6E2CB6B}.Release|Win32.ActiveCfg = Release|Win32
+		{75DD70F6-FFA1-44BB-A5EC-E344B6E2CB6B}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
