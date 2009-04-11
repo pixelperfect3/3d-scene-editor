@@ -1,5 +1,13 @@
+== Super-cool TODOs ==
+
 1) Make flowers, trees, grasses "wave" in the wind. See C:\ogre\Samples\Grass\
 2) Make *all* non-selected objects semi-transparent.
 3) when translating an object, use a semi-transparent copy (or make the original semi-transparent).
 4) "Height" map of house. Either: can't place objects when height > 0,
 	or place objects *at height y*, when inside some square (allows for stairs).
+5) Project the mouse "reticle" onto the background. See Ogre Tutorial 6 (Projective Decals).
+6) When translating, project a grid onto the landscape (X-Z plane).
+
+
+== Functionality TODOs ==
+1) Draw/place (textured) ground polygons.

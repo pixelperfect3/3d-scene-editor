@@ -7,6 +7,7 @@ PresenceApplication::PresenceApplication(char* wiimote_name) {
 }
 
 PresenceApplication::~PresenceApplication() {
+	delete gestureCallback;
 }
 
 void PresenceApplication::createCamera(void)

@@ -25,8 +25,8 @@ D:        Step right
              PgUp:     Move upwards
              PgDown:   Move downwards
              F:        Toggle frame rate stats on/off
-			 R:        Render mode
-             T:        Cycle texture filtering
+			 M:        Render mode
+             C:        Cycle texture filtering
                        Bilinear, Trilinear, Anisotropic(8)
              P:        Toggle on/off display of camera position / orientation
 -----------------------------------------------------------------------------
@@ -206,7 +206,7 @@ public:
 			mTimeUntilNextToggle = 1;
 		}
 
-		if( mKeyboard->isKeyDown(OIS::KC_T) && mTimeUntilNextToggle <= 0 )
+		if( mKeyboard->isKeyDown(OIS::KC_C) && mTimeUntilNextToggle <= 0 )
 		{
 			switch(mFiltering)
 			{
@@ -240,7 +240,7 @@ public:
 			mDebugText = "Saved: " + ss.str();
 		}
 
-		if(mKeyboard->isKeyDown(OIS::KC_R) && mTimeUntilNextToggle <=0)
+		if(mKeyboard->isKeyDown(OIS::KC_M) && mTimeUntilNextToggle <=0)
 		{
 			mSceneDetailIndex = (mSceneDetailIndex+1)%3 ;
 			switch(mSceneDetailIndex) {
