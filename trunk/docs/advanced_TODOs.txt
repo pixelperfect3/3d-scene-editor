@@ -1,0 +1,5 @@
+1) Make flowers, trees, grasses "wave" in the wind. See C:\ogre\Samples\Grass\
+2) Make *all* non-selected objects semi-transparent.
+3) when translating an object, use a semi-transparent copy (or make the original semi-transparent).
+4) "Height" map of house. Either: can't place objects when height > 0,
+	or place objects *at height y*, when inside some square (allows for stairs).
