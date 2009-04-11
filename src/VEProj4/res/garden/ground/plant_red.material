@@ -1,0 +1,12 @@
+material red_plant_main
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.349019607843137 0.0 0.0 1.0
+         ambient 0.349019607843137 0.0 0.0 1.0
+      }
+   }
+}
+
