@@ -1,9 +1,10 @@
 == TODOs ==
 
-Gesture-recognition: select, translate, rotate, scale, delete/crush, panning.
-Gesture/model API.
-Gesture implementation (what does Ogre do to change node positions?).
-Undo options.
-Models: find and export many models from sketchup.
-Menus: store index of the models in a configuration file.
-Overlay "mouse pointer".
+Gesture-recognition: select, translate, rotate, scale, delete/crush, panning - Shayan will look for gesture lib.
+Gesture/model API - Ethan will design API.
+Gesture implementation (what does Ogre do to change node positions?) - Ethan, too.
+Undo options - Sid
+Models: find and export many models from sketchup - Sid
+Menus: store index of the models in a configuration file - Shayan
+Overlay "mouse pointer" - Shayan
+Head-tracking - 

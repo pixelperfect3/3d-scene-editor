@@ -1,10 +1,9 @@
 #include "PresenceApplication.h"
-
+#include "KeyboardGestureDriver.h"
 #include "ogreconsole.h"
 
-PresenceApplication::PresenceApplication(char* wiimote1id, char* wiimote2id) {
-	this->wiimote1id = wiimote1id;
-	this->wiimote2id = wiimote2id;
+PresenceApplication::PresenceApplication(char* wiimote_name) {
+	this->wiimote_name = wiimote_name;
 }
 
 PresenceApplication::~PresenceApplication() {
@@ -79,8 +78,8 @@ void PresenceApplication::createScene(void)
 
 void PresenceApplication::createFrameListener(void)
 {
-	//TODO : create a FrameListener that can use one or more WiiMotes?
-	mFrameListener = new ExampleFrameListener(mWindow, mCamera);
+	//TODO : wiimote gesture driver goes here.
+	mFrameListener = new KeyboardGestureDriver(static_cast<ModelManager*>(gestureCallback), mWindow, mCamera);
     mRoot->addFrameListener(mFrameListener);
 	//mRoot->addFrameListener(&((PresenceFrameListener*)mFrameListener)->eventMgr->mTimer);
 }

@@ -215,7 +215,15 @@
 				>
 			</File>
 			<File
-				RelativePath=".\ModelEmitter.h"
+				RelativePath=".\gestures.h"
+				>
+			</File>
+			<File
+				RelativePath=".\KeyboardGestureDriver.h"
+				>
+			</File>
+			<File
+				RelativePath=".\model_manager.h"
 				>
 			</File>
 			<File
@@ -227,11 +235,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\simple_model.h"
+				>
+			</File>
+			<File
 				RelativePath=".\VTrak3DClient.h"
 				>
 			</File>
 			<File
 				RelativePath=".\wiimote_client.h"
+				>
+			</File>
+			<File
+				RelativePath=".\wiimote_gesture_driver.h"
 				>
 			</File>
 		</Filter>

@@ -90,7 +90,7 @@ int main(int argc, char **argv)
 	
 
     // Create application object
-    PresenceApplication app = PresenceApplication(wiimote1, wiimote2);
+    PresenceApplication app = PresenceApplication(wiimote1);
 
     try {
         app.go();
