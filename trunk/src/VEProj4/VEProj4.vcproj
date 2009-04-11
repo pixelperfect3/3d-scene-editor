@@ -193,6 +193,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\simple_model.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\VTrak3DClient.cpp"
 				>
 			</File>

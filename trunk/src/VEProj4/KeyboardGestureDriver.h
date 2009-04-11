@@ -4,11 +4,13 @@
 Filename:    KeyboardGestureDriver.h
 Description: Defines an gesture driver which responds to frame events.
 I:  Insert low-polygon tree.
-B:	Begin translation
-When translation is active:
-	Backspace:	Cancel translation
-	Enter:	Commit translation
-	W/A/S/D: Move tree around X-Z plane.
+T:	Begin translation
+R:	Begin rotation
+When translation/rotation action is active:
+	Backspace:	Cancel edit
+	Enter:	Commit edit
+	W/A/S/D: Move tree around X-Z plane (translation only)
+	A/D: rotate around Y-axis.
 -----------------------------------------------------------------------------
 */
 
@@ -26,6 +28,9 @@ private:
 	bool translating;
 	double delta[3];
 	double delta_delta;
+	bool rotating;
+	Radian angle;
+	Radian delta_angle;
 protected:
 	ModelManager *model_manager;
 	//virtual void updateStats(void) {}
@@ -37,7 +42,10 @@ public:
 		model_manager = callback;
 		created = false;
 		translating = false;
+		rotating = false;
 		delta_delta = 6;
+		angle = Radian(0);
+		delta_angle = Radian(Degree(30));
 		for (int ii = 0; ii < 3; ii++) {
 			delta[ii] = 0;
 		}
@@ -52,11 +60,15 @@ public:
 			return false;
 
 		if (mKeyboard->isKeyDown(OIS::KC_I) && !created) {
-			model = model_manager->placeModel("tree_low_poly.mesh", Vector3(17, 3, -28));
+			model = model_manager->placeModel("tree_low_poly.mesh", Vector3(17, 0, -28));
 			created = true;
 		}
-		if (mKeyboard->isKeyDown(OIS::KC_B) && created && !translating) {
+		if (mKeyboard->isKeyDown(OIS::KC_T) && created && !translating && !rotating) {
 			translating = true;
+			callback->translate_started(model);
+		}
+		if (mKeyboard->isKeyDown(OIS::KC_R) && created && !translating && !rotating) {
+			rotating = true;
 			callback->translate_started(model);
 		}
 
@@ -87,6 +99,25 @@ public:
 				callback->translate_cancelled();
 			} else {
 				callback->translate_update(Vector3(delta[0], delta[1], delta[2]));
+			}
+		} else if (rotating) {
+			angle = Radian(0);
+			if (mKeyboard->isKeyDown(OIS::KC_A)) { // Z
+				angle = delta_angle * evt.timeSinceLastFrame;
+			}
+			if (mKeyboard->isKeyDown(OIS::KC_D)) { // -Z
+				angle = -delta_angle * evt.timeSinceLastFrame;
+			}
+
+			if (mKeyboard->isKeyDown(OIS::KC_RETURN)) {
+				callback->rotate_finished();
+				rotating = false;
+				created = true; //Allow user to translate the item.
+			} else if (mKeyboard->isKeyDown(OIS::KC_BACK)) {
+				rotating = false;
+				callback->rotate_cancelled();
+			} else {
+				callback->rotate_update(angle);
 			}
 		} else {
 			return ExampleFrameListener::processUnbufferedKeyInput(evt);

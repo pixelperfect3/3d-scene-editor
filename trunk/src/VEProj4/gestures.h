@@ -13,6 +13,11 @@ public:
 	virtual void translate_finished() = 0;
 	virtual void translate_cancelled() = 0;
 
+	virtual void rotate_started(SimpleModel *o) = 0;
+	virtual void rotate_update(Ogre::Radian delta) = 0;
+	virtual void rotate_finished() = 0;
+	virtual void rotate_cancelled() = 0;
+
 	//TODO : other gestures...
 };
 
@@ -25,6 +30,6 @@ public:
 	GestureDriver(GestureCallback *callback) {
 		this->callback = callback;
 	};
-	~GestureDriver() {}
+	virtual ~GestureDriver() {}
 	virtual void update_gestures() = 0; //once per frame
 };
