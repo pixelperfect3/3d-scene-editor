@@ -1,0 +1,59 @@
+material <Chipboard>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.662745098039216 0.6 0.443137254901961 1.0
+         ambient 0.662745098039216 0.6 0.443137254901961 1.0
+      }
+   }
+}
+
+material <Green>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.0 0.63921568627451 0.0 1.0
+         ambient 0.0 0.63921568627451 0.0 1.0
+      }
+   }
+}
+
+material <Lime>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.282352941176471 1.0 0.101960784313725 1.0
+         ambient 0.282352941176471 1.0 0.101960784313725 1.0
+      }
+   }
+}
+
+material SketchupDefault
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.882352941176471 0.882352941176471 0.784313725490196
+         ambient 0.882352941176471 0.882352941176471 0.784313725490196
+      }
+   }
+}
+
+material SketchupDefault_Back
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.501960784313725 0.501960784313725 0.784313725490196
+         ambient 0.501960784313725 0.501960784313725 0.784313725490196
+      }
+   }
+}
