@@ -6,7 +6,6 @@
 4) "Height" map of house. Either: can't place objects when height > 0,
 	or place objects *at height y*, when inside some square (allows for stairs).
 5) Project the mouse "reticle" onto the background. See Ogre Tutorial 6 (Projective Decals).
-6) When translating, project a grid onto the landscape (X-Z plane).
 
 
 == Functionality TODOs ==

@@ -48,5 +48,6 @@ public:
 	bool getPointData(std::string name, int sensor, Point3d& toReturn);
 	bool getPosition(std::string name, double position[3]);
 	bool getOrientation(std::string name, double orientation[4]);
+	bool getTrackerData(std::string name, double position[3], double orientation[4]);
 	~VTrak3DClient(void);
 };

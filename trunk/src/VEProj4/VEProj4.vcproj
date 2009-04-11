@@ -223,6 +223,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\HeadTrackerFrameListener.h"
+				>
+			</File>
+			<File
 				RelativePath=".\KeyboardGestureDriver.h"
 				>
 			</File>

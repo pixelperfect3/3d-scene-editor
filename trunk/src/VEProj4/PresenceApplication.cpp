@@ -16,14 +16,12 @@ void PresenceApplication::createCamera(void)
     mCamera = mSceneMgr->createCamera("camera");
 
     // Position it at 500 in Z direction
-    mCamera->setPosition(Vector3(40, 3, -23));
+    mCamera->setPosition(Vector3(0, 3, 0));
     // Look back along -Z
-    mCamera->lookAt(Vector3(-500,3,-23));
-    mCamera->setNearClipDistance(0.5);
+    mCamera->lookAt(Vector3(0, 3, 500));
+    mCamera->setNearClipDistance(1);
 
 }
-
-AxisAlignedBox bboxArray[13];
 
 // Just override the mandatory create scene method
 void PresenceApplication::createScene(void)

@@ -16,11 +16,11 @@ When translation/rotation action is active:
 
 #include "gestures.h"
 #include "model_manager.h"
-#include "ExampleFrameListener.h"
+#include "HeadTrackerFrameListener.h"
 
 using namespace Ogre;
 
-class KeyboardGestureDriver : public ExampleFrameListener, public GestureDriver {
+class KeyboardGestureDriver : public HeadTrackerFrameListener, public GestureDriver {
 private:
 	//A finite-state-machine for placing low-poly models into the scene. :)
 	bool created;
@@ -35,9 +35,14 @@ protected:
 	ModelManager *model_manager;
 	//virtual void updateStats(void) {}
 public:
+	
+	bool frameStarted(const FrameEvent &evt) {
+		return HeadTrackerFrameListener::frameStarted(evt);
+	}
+
 	// Constructor takes a RenderWindow because it uses that to determine input context
 	KeyboardGestureDriver(ModelManager *callback, RenderWindow* win, Camera* cam) :
-			ExampleFrameListener(win, cam), GestureDriver(callback) {
+			HeadTrackerFrameListener(win, cam), GestureDriver(callback) {
 		showDebugOverlay(false);
 		model_manager = callback;
 		created = false;
@@ -51,8 +56,8 @@ public:
 		}
 	}
 
-	virtual void update_gestures() {
-	}
+	virtual void update_gestures() {}
+
 
 	virtual bool processUnbufferedKeyInput(const FrameEvent& evt) {
 
@@ -120,7 +125,7 @@ public:
 				callback->rotate_update(angle);
 			}
 		} else {
-			return ExampleFrameListener::processUnbufferedKeyInput(evt);
+			return HeadTrackerFrameListener::processUnbufferedKeyInput(evt);
 		}
 		return true;
 	}
