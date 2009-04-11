@@ -1,87 +1,3 @@
-material Carpet_Black_Dots
-{
-   technique
-   {
-      pass
-      {
-         diffuse 1 1 1 1.0
-         texture_unit
-         {
-            texture Carpet_Black_Dots.jpg
-         }
-      }
-   }
-}
-
-material Vegetation_Grass_Rough
-{
-   technique
-   {
-      pass
-      {
-         diffuse 1 1 1 1.0
-         texture_unit
-         {
-            texture Vegetation_Grass_Rough.jpg
-         }
-      }
-   }
-}
-
-material Tile_Various_Gray
-{
-   technique
-   {
-      pass
-      {
-         diffuse 1 1 1 1.0
-         texture_unit
-         {
-            texture Tile_Various_Gray.jpg
-         }
-      }
-   }
-}
-
-material Color_001
-{
-   technique
-   {
-      pass
-      {
-         diffuse 0.886274509803922 0.886274509803922 0.886274509803922 1.0
-         ambient 0.886274509803922 0.886274509803922 0.886274509803922 1.0
-      }
-   }
-}
-
-material <Chipboard>
-{
-   technique
-   {
-      pass
-      {
-         diffuse 0.619607843137255 0.580392156862745 0.505882352941176 1.0
-         ambient 0.619607843137255 0.580392156862745 0.505882352941176 1.0
-      }
-   }
-}
-
-material Tile_Stone_Earthy
-{
-   technique
-   {
-      pass
-      {
-         diffuse 1 1 1 1.0
-         texture_unit
-         {
-            texture Tile_Stone_Earthy.jpg
-         }
-      }
-   }
-}
-
 material Metal_Aluminum_Grooved
 {
    technique
@@ -92,135 +8,6 @@ material Metal_Aluminum_Grooved
          texture_unit
          {
             texture Metal_Aluminum_Grooved.jpg
-         }
-      }
-   }
-}
-
-material Sketchy_Lines_Wavy_Horizontal
-{
-   technique
-   {
-      pass
-      {
-         diffuse 1 1 1 1.0
-         texture_unit
-         {
-            texture Sketchy_Lines_Wavy_Horizontal.jpg
-         }
-      }
-   }
-}
-
-material Concrete_Rough
-{
-   technique
-   {
-      pass
-      {
-         diffuse 1 1 1 1.0
-         texture_unit
-         {
-            texture Concrete_Rough.jpg
-         }
-      }
-   }
-}
-
-material Brick_Inset_Dark1
-{
-   technique
-   {
-      pass
-      {
-         diffuse 1 1 1 1.0
-         texture_unit
-         {
-            texture Brick_Inset_Dark.jpg
-         }
-      }
-   }
-}
-
-material <LawnGreen>
-{
-   technique
-   {
-      pass
-      {
-         diffuse 0.227450980392157 0.466666666666667 0.0 1.0
-         ambient 0.227450980392157 0.466666666666667 0.0 1.0
-      }
-   }
-}
-
-material Concrete_Form_6x12
-{
-   technique
-   {
-      pass
-      {
-         diffuse 1 1 1 1.0
-         texture_unit
-         {
-            texture Concrete_Form_6x12.jpg
-         }
-      }
-   }
-}
-
-material Color_000
-{
-   technique
-   {
-      pass
-      {
-         diffuse 1.0 1.0 1.0 1.0
-         ambient 1.0 1.0 1.0 1.0
-      }
-   }
-}
-
-material Wood_Plywood_Knots
-{
-   technique
-   {
-      pass
-      {
-         diffuse 1 1 1 1.0
-         texture_unit
-         {
-            texture Wood_Plywood_Knots.jpg
-         }
-      }
-   }
-}
-
-material Groundcover_Dirt_Red
-{
-   technique
-   {
-      pass
-      {
-         diffuse 1 1 1 1.0
-         texture_unit
-         {
-            texture Groundcover_Dirt_Red.jpg
-         }
-      }
-   }
-}
-
-material Asphalt_New
-{
-   technique
-   {
-      pass
-      {
-         diffuse 1 1 1 1.0
-         texture_unit
-         {
-            texture Asphalt_New.jpg
          }
       }
    }
@@ -241,7 +28,7 @@ material Wood_Deck
    }
 }
 
-material Wood_Floor2
+material Brick_Inset_Dark1
 {
    technique
    {
@@ -250,7 +37,37 @@ material Wood_Floor2
          diffuse 1 1 1 1.0
          texture_unit
          {
-            texture Wood_Floor2.jpg
+            texture Brick_Inset_Dark.jpg
+         }
+      }
+   }
+}
+
+material Tile_Stone_Earthy
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Tile_Stone_Earthy.jpg
+         }
+      }
+   }
+}
+
+material Vegetation_Grass_Rough
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Vegetation_Grass_Rough.jpg
          }
       }
    }
@@ -268,7 +85,7 @@ material Color_B09
    }
 }
 
-material <Sketchy_Shingles>
+material Wood_Plywood_Knots
 {
    technique
    {
@@ -277,7 +94,148 @@ material <Sketchy_Shingles>
          diffuse 1 1 1 1.0
          texture_unit
          {
-            texture Sketchy_Shingles.jpg
+            texture Wood_Plywood_Knots.jpg
+         }
+      }
+   }
+}
+
+material Concrete_Rough
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Concrete_Rough.jpg
+         }
+      }
+   }
+}
+
+material Asphalt_New
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Asphalt_New.jpg
+         }
+      }
+   }
+}
+
+material Color_000
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1.0 1.0 1.0 1.0
+         ambient 1.0 1.0 1.0 1.0
+      }
+   }
+}
+
+material Color_001
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.886274509803922 0.886274509803922 0.886274509803922 1.0
+         ambient 0.886274509803922 0.886274509803922 0.886274509803922 1.0
+      }
+   }
+}
+
+material Color_007
+{
+   technique
+   {
+      pass
+      {
+         scene_blend alpha_blend
+         depth_check on
+         depth_write off
+         diffuse 0.227450980392157 0.227450980392157 0.227450980392157 0.8
+         ambient 0.227450980392157 0.227450980392157 0.227450980392157 0.8
+      }
+   }
+}
+
+material Carpet_Black_Dots
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Carpet_Black_Dots.jpg
+         }
+      }
+   }
+}
+
+material Concrete_Form_6x12
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Concrete_Form_6x12.jpg
+         }
+      }
+   }
+}
+
+material Wood_Floor2
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Wood_Floor2.jpg
+         }
+      }
+   }
+}
+
+material <Chipboard>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.619607843137255 0.580392156862745 0.505882352941176 1.0
+         ambient 0.619607843137255 0.580392156862745 0.505882352941176 1.0
+      }
+   }
+}
+
+material Roofing_Shingles_Asphalt
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Roofing_Shingles_Asphalt.jpg
          }
       }
    }
@@ -298,34 +256,7 @@ material Concrete_Brushed
    }
 }
 
-material Color_007
-{
-   technique
-   {
-      pass
-      {
-         scene_blend alpha_blend
-         depth_check on
-         depth_write off
-         diffuse 0.227450980392157 0.227450980392157 0.227450980392157 0.8
-         ambient 0.227450980392157 0.227450980392157 0.227450980392157 0.8
-      }
-   }
-}
-
-material <Green>
-{
-   technique
-   {
-      pass
-      {
-         diffuse 0.0 0.501960784313725 0.0 1.0
-         ambient 0.0 0.501960784313725 0.0 1.0
-      }
-   }
-}
-
-material Groundcover_Brick_Crushed
+material Groundcover_Dirt_Red
 {
    technique
    {
@@ -334,13 +265,13 @@ material Groundcover_Brick_Crushed
          diffuse 1 1 1 1.0
          texture_unit
          {
-            texture Groundcover_Brick_Crushed.jpg
+            texture Groundcover_Dirt_Red.jpg
          }
       }
    }
 }
 
-material Roofing_Shingles_Asphalt
+material Sketchy_Lines_Wavy_Horizontal
 {
    technique
    {
@@ -349,7 +280,22 @@ material Roofing_Shingles_Asphalt
          diffuse 1 1 1 1.0
          texture_unit
          {
-            texture Roofing_Shingles_Asphalt.jpg
+            texture Sketchy_Lines_Wavy_Horizontal.jpg
+         }
+      }
+   }
+}
+
+material Tile_Various_Gray
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Tile_Various_Gray.jpg
          }
       }
    }

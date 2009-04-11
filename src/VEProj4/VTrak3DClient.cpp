@@ -138,6 +138,18 @@ bool VTrak3DClient::getPosition(string name, double position[3]){
 	return true;
 }
 
+bool VTrak3DClient::getTrackerData(std::string name, double position[], double orientation[]) {
+	if(nameMap.find(name) == nameMap.end()){
+		return false;
+	}
+	for (int ii = 0; ii < 3; ii++) {
+		position[ii] = nameMap[name].position[ii];
+	}
+	for (int ii = 0; ii < 4; ii++) {
+		orientation[ii] = nameMap[name].orientation[ii];
+	}
+	return true;
+}
 
 bool VTrak3DClient::init(std::string name, std::string address, int port){
 	this->name = name;

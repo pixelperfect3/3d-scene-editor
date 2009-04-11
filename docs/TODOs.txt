@@ -4,7 +4,15 @@ Gesture-recognition: select, translate, rotate, scale, delete/crush, panning - S
 Gesture/model API - Ethan will design API.
 Gesture implementation (what does Ogre do to change node positions?) - Ethan, too.
 Undo options - Sid
-Models: find and export many models from sketchup - Sid
+Orbiting/zooming (with nunchuk?)
+When translating, draw a line from starting point to current point.
+
+On or by Easter:
+Models: find and export many models from sketchup - Shayan
 Menus: store index of the models in a configuration file - Shayan
-Overlay "mouse pointer" - Shayan
-Head-tracking - 
+Overlay "mouse pointers" - Shayan
+
+Create (quick) gesture tutorials program (2D animations?)
+
+== Done ==
+Head-tracking - Ethan
