@@ -21,15 +21,24 @@ When translation/rotation action is active:
 using namespace Ogre;
 		
 #define NUM_TREE_MODELS (6)
+#define NUM_PLANT_MODELS (5)
 
 char *trees[NUM_TREE_MODELS] = {
-	"tree_amarelo.mesh",
-	"tree_bamboo.mesh",
-	"tree_evergreen.mesh",
-	"tree_finihed.mesh",
-	"tree_low_poly.mesh", //TODO : ignore
-	"tree_palm.mesh"
+	"tree_amarelo.mesh",   //nice
+	"tree_bamboo.mesh",    //too green (tone it down or add texture)
+	"tree_evergreen.mesh", //cheap
+	"tree_finihed.mesh",   //broken? (or, just bad?)
+	"tree_low_poly.mesh",  //crap
+	"tree_palm.mesh"       //very nice
 };
+char *plants[NUM_PLANT_MODELS] = { //they all look good.
+	"plant_monstera.mesh",
+	"plant_octopus.mesh",
+	"plant_red.mesh",
+	"plant_sagopalm.mesh",
+	"plant_yucca.mesh"
+};
+
 OIS::KeyCode keys_to_trees[NUM_TREE_MODELS] = {
 	OIS::KC_1,
 	OIS::KC_2,
@@ -91,9 +100,37 @@ public:
 				callback->translate_started(model);
 			}
 		}
-		if (mKeyboard->isKeyDown(OIS::KC_R) && created && !translating && !rotating) {
+		if (mKeyboard->isKeyDown(OIS::KC_R) && created && !rotating) {
+			if (translating) {
+				callback->translate_finished();
+				translating = false;
+			}
 			rotating = true;
+			callback->rotate_started(model);
+		}
+		if (mKeyboard->isKeyDown(OIS::KC_T) && created && !translating) {
+			if (rotating) {
+				callback->rotate_finished();
+				rotating = false;
+			}
+			translating = true;
 			callback->translate_started(model);
+		}
+		if (mKeyboard->isKeyDown(OIS::KC_DELETE) && created && !translating && !rotating) {
+			model_manager->remove(model);
+			model = NULL;
+			created = false;
+		}
+
+		if (mKeyboard->isKeyDown(OIS::KC_END) && created) { //finishes with a piece
+			if (translating) {
+				callback->translate_finished();
+				translating = false;
+			} else if (rotating) {
+				callback->rotate_finished();
+				rotating = false;
+			}
+			created = false;
 		}
 
 		if (translating) {
@@ -118,7 +155,6 @@ public:
 			if (mKeyboard->isKeyDown(OIS::KC_RETURN)) {
 				callback->translate_finished();
 				translating = false;
-				created = false; //allow more objects to be placed...
 			} else if (mKeyboard->isKeyDown(OIS::KC_BACK)) {
 				translating = false;
 				callback->translate_cancelled();
@@ -137,7 +173,6 @@ public:
 			if (mKeyboard->isKeyDown(OIS::KC_RETURN)) {
 				callback->rotate_finished();
 				rotating = false;
-				created = true; //Allow user to translate the item.
 			} else if (mKeyboard->isKeyDown(OIS::KC_BACK)) {
 				rotating = false;
 				callback->rotate_cancelled();

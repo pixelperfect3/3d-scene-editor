@@ -21,7 +21,7 @@ public:
 	//TODO : other gestures...
 };
 
-//select, translate, rotate, scale/delete/crush, orbiting/zooming
+//select, translate, rotate, delete/crush, orbiting/zooming around scene
 class GestureDriver { //Gesture-driver "interface"
 protected:
 	GestureCallback *callback;
