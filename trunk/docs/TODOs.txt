@@ -1,10 +1,9 @@
 == TODOs ==
 
-Gesture-recognition: select, translate, rotate, scale, delete/crush, panning - Shayan will look for gesture lib.
-Gesture/model API - Ethan will design API.
-Gesture implementation (what does Ogre do to change node positions?) - Ethan, too.
+Wiimote Gesture-recognition: select, translate, rotate, delete/crush, panning - Ethan.
+Ogre-Gesture implementation (what does Ogre do to change stuff?) - Ethan, too.
 Undo options - Sid
-Orbiting/zooming (with nunchuk?)
+Orbiting/zooming (with nunchuk, for starters)
 When translating, draw a line from starting point to current point.
 
 On or by Easter:
@@ -16,3 +15,4 @@ Create (quick) gesture tutorials program (2D animations?)
 
 == Done ==
 Head-tracking - Ethan
+Gesture/model API - Ethan will design API.

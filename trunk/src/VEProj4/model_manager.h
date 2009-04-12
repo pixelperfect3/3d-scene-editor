@@ -44,6 +44,10 @@ public:
 		model_num++;
 		return m;
 	}
+	void remove(SimpleModel *model) {
+		model->parent->setVisible(false);
+		//TODO : delete model from nodeList, remove node from scene.
+	}
 	SceneNode *createSceneNode(String entityName, String meshName, Vector3 pos) {
 		std::cout << "Creating new model: " << meshName << " (" << model_num << ").\n";
 		SceneNode* node = static_cast<SceneNode*>(mgr->getRootSceneNode()->createChild(entityName));
