@@ -70,10 +70,10 @@ public:
 				//std::cout << "Q { " << q[0] << ", " << q[1] << ", " << q[2] << ", " << q[3] << " }\n";
 				//mCamera->setOrientation(q);
 			} else {
-				std::cout << "Not updating head-tracker data.\n";
+				//std::cout << "Not updating head-tracker data.\n";
 			}
 		} else {
-			std::cout << "Vtrak not initialized.\n";
+			//std::cout << "Vtrak not initialized.\n";
 		}
 		return res;
 	}
