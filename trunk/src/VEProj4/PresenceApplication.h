@@ -14,7 +14,7 @@ public:
 	~PresenceApplication();
 
 protected:
-	GestureCallback *gestureCallback;
+	ModelManager *model_manager;
 	SceneNode* mainSceneNode;
 	RenderWindow *mWindow2;
 	char* wiimote_name;
@@ -31,7 +31,7 @@ protected:
     {
         // Create the SceneManager, in this case a generic one
 		mSceneMgr = mRoot->createSceneManager("OctreeSceneManager");
-		gestureCallback = new ModelManager(mSceneMgr);
+		model_manager = new ModelManager(mSceneMgr);
     }
 };
 

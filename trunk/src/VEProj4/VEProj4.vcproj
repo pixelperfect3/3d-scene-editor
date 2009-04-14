@@ -219,7 +219,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\gestures.h"
+				RelativePath=".\GestureFSM.h"
 				>
 			</File>
 			<File

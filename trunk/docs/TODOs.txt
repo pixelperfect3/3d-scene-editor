@@ -12,6 +12,10 @@ Menus: store index of the models in a configuration file - Shayan
 Overlay "mouse pointers" - Shayan
 
 Create (quick) gesture tutorials program (2D animations?)
+Save screenshots.
+Recenter models around origin (Amarelo tree is off-center).
+Accurate "bounding-box" for house (don't translate plants through house).
+Allowing potted plants and accents to be placed on porch.
 
 == Done ==
 Head-tracking - Ethan

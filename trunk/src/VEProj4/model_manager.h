@@ -8,7 +8,7 @@ using std::vector;
 
 #define PI 3.1415926
 
-class ModelManager : public GestureCallback {
+class ModelManager {
 private:
 	int model_num;
 protected:
@@ -38,7 +38,7 @@ public:
 		m->meshName = meshName;
 		m->model_num = model_num;
 		resetModel(m, pos);
-		resetModel(m, Radian(0));
+		resetModel(m, Radian(0)); //TODO : use a random rotation to make it look less "canned".
 
 		nodeList.push_back(m);
 		model_num++;

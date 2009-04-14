@@ -14,24 +14,21 @@ When translation/rotation action is active:
 -----------------------------------------------------------------------------
 */
 
-#include "gestures.h"
 #include "model_manager.h"
 #include "HeadTrackerFrameListener.h"
+#include "GestureFSM.h"
 
 using namespace Ogre;
 		
-#define NUM_TREE_MODELS (6)
-#define NUM_PLANT_MODELS (5)
+#define NUM_MODELS (10)
 
-char *trees[NUM_TREE_MODELS] = {
-	"tree_amarelo.mesh",   //nice
-	"tree_bamboo.mesh",    //too green (tone it down or add texture)
-	"tree_evergreen.mesh", //cheap
-	"tree_finihed.mesh",   //broken? (or, just bad?)
-	"tree_low_poly.mesh",  //crap
-	"tree_palm.mesh"       //very nice
-};
-char *plants[NUM_PLANT_MODELS] = { //they all look good.
+char *models[NUM_MODELS] = {
+	"tree_amarelo.mesh",     //nice
+	"tree_arvore.mesh",      
+	"tree_bamboo.mesh",      //too green (tone it down or add texture)
+	"tree_cabbagepalm.mesh",
+	"tree_palm.mesh",         //very nice
+	//all the "ground" meshes look good.
 	"plant_monstera.mesh",
 	"plant_octopus.mesh",
 	"plant_red.mesh",
@@ -39,29 +36,30 @@ char *plants[NUM_PLANT_MODELS] = { //they all look good.
 	"plant_yucca.mesh"
 };
 
-OIS::KeyCode keys_to_trees[NUM_TREE_MODELS] = {
+OIS::KeyCode keys_to_trees[NUM_MODELS] = {
 	OIS::KC_1,
 	OIS::KC_2,
 	OIS::KC_3,
 	OIS::KC_4,
 	OIS::KC_5,
-	OIS::KC_6
+	OIS::KC_6,
+	OIS::KC_7,
+	OIS::KC_8,
+	OIS::KC_9,
+	OIS::KC_0
 };
 
-class KeyboardGestureDriver : public HeadTrackerFrameListener, public GestureDriver {
+class KeyboardGestureDriver : public HeadTrackerFrameListener {
 private:
 	//A finite-state-machine for placing low-poly models into the scene. :)
-	bool created;
-	SimpleModel *model;
-	bool translating;
 	double delta[3];
 	double delta_delta;
-	bool rotating;
 	Radian angle;
 	Radian delta_angle;
 protected:
+	Vector3 defaultPosition;
+	GestureFSM *fsm;
 	ModelManager *model_manager;
-	//virtual void updateStats(void) {}
 public:
 	
 	bool frameStarted(const FrameEvent &evt) {
@@ -69,71 +67,52 @@ public:
 	}
 
 	// Constructor takes a RenderWindow because it uses that to determine input context
-	KeyboardGestureDriver(ModelManager *callback, RenderWindow* win, Camera* cam) :
-			HeadTrackerFrameListener(win, cam), GestureDriver(callback) {
+	KeyboardGestureDriver(ModelManager *manager, RenderWindow* win, Camera* cam) :
+			HeadTrackerFrameListener(win, cam) {
 		showDebugOverlay(false);
-		model_manager = callback;
-		created = false;
-		translating = false;
-		rotating = false;
-		delta_delta = 6;
-		angle = Radian(0);
-		delta_angle = Radian(Degree(30));
+		model_manager = manager;
+		delta_delta = 5;
+		delta_angle = Radian(Degree(45));
 		for (int ii = 0; ii < 3; ii++) {
 			delta[ii] = 0;
 		}
+		angle = Radian(0);
+		defaultPosition = Vector3(-4, 0, 11);
+		fsm = new GestureFSM(manager);
+	}
+	~KeyboardGestureDriver() {
+		delete fsm;
 	}
 
 	virtual void update_gestures() {}
 
-
 	virtual bool processUnbufferedKeyInput(const FrameEvent& evt) {
-		if( mKeyboard->isKeyDown(OIS::KC_ESCAPE) || mKeyboard->isKeyDown(OIS::KC_Q) )
+		if (mKeyboard->isKeyDown(OIS::KC_ESCAPE) || mKeyboard->isKeyDown(OIS::KC_Q)) //quit
 			return false;
 
-		for (int ii = 0; ii < NUM_TREE_MODELS; ii++) {
-			if (mKeyboard->isKeyDown(keys_to_trees[ii]) && !created) {
-				model = model_manager->placeModel(trees[ii], Vector3(-4, 0, 11));
-				created = true;
-				//go ahead and start translating.
-				translating = true;
-				callback->translate_started(model);
+		for (int ii = 0; ii < NUM_MODELS; ii++) { //create model, start translating (menu-driven)
+			if (mKeyboard->isKeyDown(keys_to_trees[ii])) {
+				fsm->create_model(models[ii], defaultPosition);
 			}
 		}
-		if (mKeyboard->isKeyDown(OIS::KC_R) && created && !rotating) {
-			if (translating) {
-				callback->translate_finished();
-				translating = false;
-			}
-			rotating = true;
-			callback->rotate_started(model);
-		}
-		if (mKeyboard->isKeyDown(OIS::KC_T) && created && !translating) {
-			if (rotating) {
-				callback->rotate_finished();
-				rotating = false;
-			}
-			translating = true;
-			callback->translate_started(model);
-		}
-		if (mKeyboard->isKeyDown(OIS::KC_DELETE) && created && !translating && !rotating) {
-			model_manager->remove(model);
-			model = NULL;
-			created = false;
+		if (mKeyboard->isKeyDown(OIS::KC_DELETE)) {
+			fsm->delete_selection();
+		} else if (mKeyboard->isKeyDown(OIS::KC_END)) {
+			fsm->done_with_selection();
+		} else if (mKeyboard->isKeyDown(OIS::KC_RETURN)) {
+			fsm->done_with_move();
+		} else if (mKeyboard->isKeyDown(OIS::KC_BACK)) {
+			fsm->cancel_move();
+		} else if (mKeyboard->isKeyDown(OIS::KC_R)) {
+			fsm->start_rotating();
+		} else if (mKeyboard->isKeyDown(OIS::KC_T)) {
+			fsm->start_translating();
 		}
 
-		if (mKeyboard->isKeyDown(OIS::KC_END) && created) { //finishes with a piece
-			if (translating) {
-				callback->translate_finished();
-				translating = false;
-			} else if (rotating) {
-				callback->rotate_finished();
-				rotating = false;
-			}
-			created = false;
-		}
-
-		if (translating) {
+		if (fsm->is_translating()) {
+			//TODO : re-orient delta according to camera's orientation
+			// (see what ExampleFrameListener does for delta position each frame).
+			Vector3 delta_vector(delta[0], delta[1], delta[2]);
 			for (int ii = 0; ii < 3; ii++) {
 				delta[ii] = 0;
 			}
@@ -149,36 +128,16 @@ public:
 			if (mKeyboard->isKeyDown(OIS::KC_D)) { // -X
 				delta[0] -= delta_delta * evt.timeSinceLastFrame;
 			}
-			//TODO : re-orient delta according to camera's orientation.
-			Vector3 delta_vector(delta[0], delta[1], delta[2]);
-
-			if (mKeyboard->isKeyDown(OIS::KC_RETURN)) {
-				callback->translate_finished();
-				translating = false;
-			} else if (mKeyboard->isKeyDown(OIS::KC_BACK)) {
-				translating = false;
-				callback->translate_cancelled();
-			} else {
-				callback->translate_update(delta_vector);
-			}
-		} else if (rotating) {
+			model_manager->translate_update(delta_vector);
+		} else if (fsm->is_rotating()) {
 			angle = Radian(0);
-			if (mKeyboard->isKeyDown(OIS::KC_A)) { // Z
+			if (mKeyboard->isKeyDown(OIS::KC_A)) { // around Y
 				angle = delta_angle * evt.timeSinceLastFrame;
 			}
-			if (mKeyboard->isKeyDown(OIS::KC_D)) { // -Z
+			if (mKeyboard->isKeyDown(OIS::KC_D)) { // around -Y
 				angle = -delta_angle * evt.timeSinceLastFrame;
 			}
-
-			if (mKeyboard->isKeyDown(OIS::KC_RETURN)) {
-				callback->rotate_finished();
-				rotating = false;
-			} else if (mKeyboard->isKeyDown(OIS::KC_BACK)) {
-				rotating = false;
-				callback->rotate_cancelled();
-			} else {
-				callback->rotate_update(angle);
-			}
+			model_manager->rotate_update(angle);
 		} else {
 			return HeadTrackerFrameListener::processUnbufferedKeyInput(evt);
 		}
