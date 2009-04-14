@@ -1,3 +1,15 @@
+material <Green>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.0 0.47843137254902 0.0 1.0
+         ambient 0.0 0.47843137254902 0.0 1.0
+      }
+   }
+}
+
 material <Chipboard>
 {
    technique
@@ -10,26 +22,14 @@ material <Chipboard>
    }
 }
 
-material <Green>
-{
-   technique
-   {
-      pass
-      {
-         diffuse 0.0 0.63921568627451 0.0 1.0
-         ambient 0.0 0.63921568627451 0.0 1.0
-      }
-   }
-}
-
 material <Lime>
 {
    technique
    {
       pass
       {
-         diffuse 0.282352941176471 1.0 0.101960784313725 1.0
-         ambient 0.282352941176471 1.0 0.101960784313725 1.0
+         diffuse 0.172549019607843 0.619607843137255 0.0627450980392157 1.0
+         ambient 0.172549019607843 0.619607843137255 0.0627450980392157 1.0
       }
    }
 }
