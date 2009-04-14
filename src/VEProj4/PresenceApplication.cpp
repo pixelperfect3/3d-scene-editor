@@ -7,7 +7,7 @@ PresenceApplication::PresenceApplication(char* wiimote_name) {
 }
 
 PresenceApplication::~PresenceApplication() {
-	delete gestureCallback;
+	delete model_manager;
 }
 
 void PresenceApplication::createCamera(void)
@@ -78,7 +78,7 @@ void PresenceApplication::createScene(void)
 void PresenceApplication::createFrameListener(void)
 {
 	//TODO : wiimote gesture driver goes here.
-	mFrameListener = new KeyboardGestureDriver(static_cast<ModelManager*>(gestureCallback), mWindow, mCamera);
+	mFrameListener = new KeyboardGestureDriver(static_cast<ModelManager*>(model_manager), mWindow, mCamera);
     mRoot->addFrameListener(mFrameListener);
 	//mRoot->addFrameListener(&((PresenceFrameListener*)mFrameListener)->eventMgr->mTimer);
 }
