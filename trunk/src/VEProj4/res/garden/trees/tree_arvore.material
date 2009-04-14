@@ -1,0 +1,56 @@
+material foto14g_cópia1
+{
+   technique
+   {
+      pass
+      {
+         scene_blend alpha_blend
+         depth_check on
+         depth_write off
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture foto14g_cópia.png
+         }
+      }
+   }
+}
+
+material bark
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture BarkPine0008_1_S.jpg
+         }
+      }
+   }
+}
+
+material SketchupDefault
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.882352941176471 0.882352941176471 0.784313725490196
+         ambient 0.882352941176471 0.882352941176471 0.784313725490196
+      }
+   }
+}
+
+material SketchupDefault_Back
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.501960784313725 0.501960784313725 0.784313725490196
+         ambient 0.501960784313725 0.501960784313725 0.784313725490196
+      }
+   }
+}
