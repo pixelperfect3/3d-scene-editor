@@ -88,6 +88,9 @@ void WiiMoteClient::updateFromServer() {
 }
 
 void WiiMoteClient::disconnect() {
+	analog_listener->unregister_change_handler((void *)this, analog_change_callback);
+	button_listener->unregister_change_handler((void *)this, button_change_callback);
+
 	if (analog_listener) {
 		delete analog_listener;
 	}
