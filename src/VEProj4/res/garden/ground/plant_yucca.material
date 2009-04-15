@@ -1,11 +1,14 @@
-material jean_blue
+material bark_palm2
 {
    technique
    {
       pass
       {
-         diffuse 0.219607843137255 0.219607843137255 0.227450980392157 1.0
-         ambient 0.219607843137255 0.219607843137255 0.227450980392157 1.0
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture bark_palm2.jpg
+         }
       }
    }
 }
@@ -25,17 +28,14 @@ material <OSB_(chip_board)>
    }
 }
 
-material bark_palm2
+material jean_blue
 {
    technique
    {
       pass
       {
-         diffuse 1 1 1 1.0
-         texture_unit
-         {
-            texture bark_palm2.jpg
-         }
+         diffuse 0.219607843137255 0.219607843137255 0.227450980392157 1.0
+         ambient 0.219607843137255 0.219607843137255 0.227450980392157 1.0
       }
    }
 }
