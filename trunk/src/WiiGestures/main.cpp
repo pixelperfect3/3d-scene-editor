@@ -15,6 +15,7 @@
 
 #include "program.h"
 #include "wiimote_client.h"
+#include "wiimote_gesturer.h"
 
 using namespace std;
 
@@ -27,6 +28,9 @@ Program p = {
 
 bool flip = true; //flip by default
 WiiMoteClient *wiimote;
+WiiMoteGesturer *gesturer;
+double point[2] = { 0, 0 };
+DWORD last_time = 0;
 
 void checkGLErrors(char *reason) {
 	GLenum error = glGetError();
@@ -91,49 +95,76 @@ void KeyPressed(unsigned char key, int x, int y) {
 	}
 }
 
-void DrawScene() {
-	glPushMatrix();
-
-	glPointSize(5);
-	glColor3f(1, 1, 1);
-	
-	glBegin(GL_POINTS);
-	glVertex3d(0, 0, 0);
-	glEnd();
-
-	if (flip) {
-		glScaled(-1.0, 1.0, 1.0);
-	}
-	glScaled(2.0 * p.screen_width / (VRPN_WIIMOTE_MAX_IR_X + 0.0), 2.0 * p.screen_height / (VRPN_WIIMOTE_MAX_IR_Y + 0.0), 1.0);
-	glTranslated(-p.screen_width / 2.0, -p.screen_height / 2.0, 0.0);
-
-	//TODO : put a "last updated" variable into wiimote_client.
-	for (int ii = 0; ii < 4; ii++) {
-		double x = wiimote->ir_x[ii];
-		double y = wiimote->ir_y[ii];
-		int size = wiimote->ir_size[ii];
-		if (size > 0) {
-			glPointSize(size);
-			glBegin(GL_POINTS);
-			glVertex3d(x, y, 0);
-			glEnd();
-			std::cout << "IR[" << ii << "]: { " << x << ", " << y << " } (" << size << " pts).\n";
-		} else {
-			//std::cout << "IR[" << ii << "]: NA.\n";
-		}
-	}
-	glPopMatrix();
-}
 
 void UpdateTrackers() {
 	if (wiimote) {
 		wiimote->updateFromServer();
-		vrpn_SleepMsecs(2);
+		vrpn_SleepMsecs(10);
 	}
 }
 
+void ToggleMouseCursor(bool useMouse) {
+	//TODO : stub
+}
+
+void MouseMoved(double mouse[3], double old_mouse[3], double distance[2]) {
+	std::cout << "Mouse: { " << mouse[0] << ", " << mouse[1] << " }\n";
+}
+void Rotate(double degrees) {
+	//TODO : stub
+}
+void Translate(double distance[2]) {
+	//std::cout << "Distance: { " << distance[0] << ", " << distance[1] << " }\n";
+	point[0] += distance[0];
+	point[1] -= distance[1];
+}
+void DrawPoint2D(const double x, const double y, const GLfloat size, const GLfloat color[3]) {
+	glPointSize(size);
+	glBegin(GL_POINTS);
+		glColor3fv(color);
+		glVertex3d(x, y, 0);
+	glEnd();
+}
+void DrawPoint2D(const double point[2], const GLfloat size, const GLfloat color[3]) {
+	DrawPoint2D(point[0], point[1], size, color);
+}
+
+void DrawPoints(int num_points, double points[4][3]) { //called by WiiMoteGesturer::frameStarted
+	gluLookAt(0,0,-1000, 0,0,0, 0,1,0);
+	GLfloat color[3] = { 1, 1, 1 };
+	DrawPoint2D(point, 5, color);
+
+	glPushMatrix();
+	if (flip) {
+		glScaled(-1.0, 1.0, 1.0);
+	}
+	glScaled(p.screen_width / 2.0, p.screen_height, 1.0);
+	const GLfloat colors[4][3] = {
+		{ 0, 0, 1 },
+		{ 0, 1, 0 },
+		{ 1, 0, 0 },
+		{ 0, 1, 1 },
+	};
+	//TODO : put a "last updated" variable into wiimote_client.
+	for (int ii = 0; ii < num_points; ii++) {
+		double x = points[ii][0];
+		double y = points[ii][1];
+		GLfloat size = points[ii][2];
+		if (size > 0) {
+			DrawPoint2D(x, y, size, colors[ii]);
+			//std::cout << "IR[" << ii << "]: { " << x << ", " << y << " } (" << size << " px).\n";
+		}
+	}
+	if (num_points == 2) {
+		double tmp[2];
+		Midpoint(points[0], points[1], tmp);
+		DrawPoint2D(tmp, 2, colors[3]);
+	}
+	glPopMatrix();
+}
 void RenderScene() {
 	UpdateTrackers();
+
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
 	glMatrixMode(GL_PROJECTION);
@@ -144,8 +175,12 @@ void RenderScene() {
 	glLoadIdentity();
    	glViewport(0, 0, p.screen_width, p.screen_height);
 
-	gluLookAt(0,0,-1000, 0,0,0, 0,1,0); //for wheelchair position rendering.
-	DrawScene();
+	DWORD tickCount = GetTickCount();
+	gesturer->frameStarted(tickCount - last_time);
+	last_time = tickCount;
+
+	//gluLookAt(0,0,-1000, 0,0,0, 0,1,0);
+	//DrawScene();
 
 	glFlush();
 	checkGLErrors("An OpenGL error occurred while drawing");
@@ -157,6 +192,8 @@ void ParseArgs(int argc, char **argv) {
 		exit(-1);
 	} else if (argc == 2) {
 		wiimote = new WiiMoteClient(argv[1], 1);
+		gesturer = new WiiMoteGesturer(wiimote);
+		wiimote->set_mode(VRPN_WIIMOTE_CHANNEL_MODE_IR, true);
 		std::cout << "Using WiiMote \"" << argv[1] << "\"\n";
 	}
 }
@@ -179,9 +216,7 @@ void init() {
     glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
 	glDepthRange(0.0, 1.0);
-	if (wiimote != NULL) {
-		wiimote->set_mode(VRPN_WIIMOTE_CHANNEL_MODE_IR, true);
-	}
+	last_time = GetTickCount();
 }
 
 int main(int argc, char** argv) {
