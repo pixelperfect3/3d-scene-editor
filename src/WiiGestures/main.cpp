@@ -31,6 +31,7 @@ WiiMoteClient *wiimote;
 WiiMoteGesturer *gesturer;
 double point[2] = { 0, 0 };
 DWORD last_time = 0;
+double degrees = 90;
 
 void checkGLErrors(char *reason) {
 	GLenum error = glGetError();
@@ -108,15 +109,15 @@ void ToggleMouseCursor(bool useMouse) {
 }
 
 void MouseMoved(double mouse[3], double old_mouse[3], double distance[2]) {
-	std::cout << "Mouse: { " << mouse[0] << ", " << mouse[1] << " }\n";
+	//std::cout << "Mouse: { " << mouse[0] << ", " << mouse[1] << " }\n";
 }
-void Rotate(double degrees) {
-	//TODO : stub
+void Rotate(double delta) {
+	degrees += delta;
 }
 void Translate(double distance[2]) {
 	//std::cout << "Distance: { " << distance[0] << ", " << distance[1] << " }\n";
 	point[0] += distance[0];
-	point[1] -= distance[1];
+	point[1] += distance[1];
 }
 void DrawPoint2D(const double x, const double y, const GLfloat size, const GLfloat color[3]) {
 	glPointSize(size);
@@ -130,15 +131,24 @@ void DrawPoint2D(const double point[2], const GLfloat size, const GLfloat color[
 }
 
 void DrawPoints(int num_points, double points[4][3]) { //called by WiiMoteGesturer::frameStarted
+	glPushMatrix();
 	gluLookAt(0,0,-1000, 0,0,0, 0,1,0);
-	GLfloat color[3] = { 1, 1, 1 };
-	DrawPoint2D(point, 5, color);
 
 	glPushMatrix();
 	if (flip) {
 		glScaled(-1.0, 1.0, 1.0);
 	}
 	glScaled(p.screen_width / 2.0, p.screen_height, 1.0);
+	
+	glPushMatrix();
+	glTranslated(-point[0], -point[1], 0);
+	glRotated(degrees, 0, 0, 1.0);
+	GLfloat color[3] = { 1, 1, 1 };
+	DrawPoint2D( 0,  0, 5, color);
+	DrawPoint2D(0.1,  0, 3, color);
+	DrawPoint2D( 0, 0.1, 3, color);
+	glPopMatrix();
+
 	const GLfloat colors[4][3] = {
 		{ 0, 0, 1 },
 		{ 0, 1, 0 },
@@ -161,6 +171,7 @@ void DrawPoints(int num_points, double points[4][3]) { //called by WiiMoteGestur
 		DrawPoint2D(tmp, 2, colors[3]);
 	}
 	glPopMatrix();
+	glPopMatrix(); //gluLookAt
 }
 void RenderScene() {
 	UpdateTrackers();

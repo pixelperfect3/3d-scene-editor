@@ -1,6 +1,7 @@
 #pragma once
 
 #include "math.h"
+#define PI 3.14159265898
 
 void ToggleMouseCursor(bool useMouse); // (toggles mouse cursor visibility).
 void DrawPoints(int num_points, double points[4][3]);
@@ -15,6 +16,11 @@ double UnitizeY(double y) {
 	return 2.0 * y / (double) VRPN_WIIMOTE_MAX_IR_Y - 1.0;
 }
 
+double Distance(double a[3], double b[3]) {
+	double deltaX = b[0] - a[0];
+	double deltaY = b[1] - a[1];
+	return sqrt(deltaX * deltaX + deltaY * deltaY);
+}
 void Distance(double a[3], double b[3], double dest[2]) {
 	for (int ii = 0; ii < 2; ii++) {
 		dest[ii] = b[ii] - a[ii];
@@ -26,12 +32,26 @@ void Midpoint(double a[3], double b[3], double dest[2]) {
 	}
 }
 
+double Dot(double b[2], double a[3], double c[3]) {
+	double v1[2] = { b[0] - a[0], b[1] - a[1] };
+	double v2[2] = { c[0] - a[0], c[1] - a[1] };
+	//double mag1 = sqrt(v1[0] * v1[0] + v1[1] * v1[1]);
+	//double mag2 = sqrt(v2[0] * v2[0] + v2[1] * v2[1]);
+	//v1[0] /= mag1;
+	//v1[1] /= mag1;
+	//v2[0] /= mag2;
+	//v2[1] /= mag2;
+	return v1[0] * v2[0] + v1[1] + v2[1];
+}
+
 class WiiMoteGesturer {
 protected:
 	WiiMoteClient *wiimote;
 	int previous_points;
 	double midpoint[2];
 	double old_mouse[3];
+	double prev_center[2];
+	double prev_tangent[2];
 public:
 	WiiMoteGesturer(WiiMoteClient *wiimote) : previous_points(0) {
 		this->wiimote = wiimote;
@@ -65,13 +85,16 @@ public:
 				active_points++;
 			}
 		}
-		if (active_points != previous_points) {
+		//std::cout << "Size: " << wiimote->ir_size[0];
+		//std::cout << "Active points: " << active_points << "\n";
+		bool newGesture = active_points != previous_points;
+		if (newGesture) {
 			ToggleMouseCursor(active_points == 1);
 		}
 		switch (active_points) {
 			case 1:
 				{
-					if (previous_points == 1) {
+					if (!newGesture) {
 						double distance[2];
 						Distance(points[0], old_mouse, distance); //TODO : necessary?
 						MouseMoved(points[0], old_mouse, distance);
@@ -81,23 +104,33 @@ public:
 					}
 				}
 				break;
-			case 2:
+			case 3:
 				double distance[2];
 				double tmp[2];
 				Midpoint(points[0], points[1], tmp);
 				Distance(tmp, midpoint, distance);
+				if (!newGesture) {
+					Translate(distance);
+				}
 				for (int ii = 0; ii < 2; ii++) {
 					midpoint[ii] = tmp[ii];
 				}
-				if (previous_points == 2) {
-					Translate(distance);
-				}
 				break;
-			case 3:
-				{	//TODO : stub
-					double degrees = 0;
-					if (previous_points == 3) {
-						Rotate(degrees);
+			case 2:
+				{
+					int center = 0;
+					int tangent = 1;
+					double tmp[2];
+					Distance(points[center], points[tangent], tmp);
+					if (!newGesture) {
+						double dot = Dot(prev_tangent, points[center], points[tangent]);
+						double delta = acos(dot) * 180.0 / PI;
+						std::cout << "Delta angle: " << delta << " (dot=" << dot << ")\n";
+						Rotate(delta);
+					}
+					for (int ii = 0; ii < 2; ii++) {
+						prev_center[ii] = points[center][ii];
+						prev_tangent[ii] = points[tangent][ii];
 					}
 				}
 				break;
