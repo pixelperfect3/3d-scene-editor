@@ -182,6 +182,10 @@
 				RelativePath=".\wiimote_client.h"
 				>
 			</File>
+			<File
+				RelativePath=".\wiimote_gesturer.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"
