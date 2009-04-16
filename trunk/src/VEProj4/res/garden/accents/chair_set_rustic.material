@@ -1,0 +1,62 @@
+material Wood
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Wood-cherry.jpg
+         }
+      }
+   }
+}
+
+material <Chipboard>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.662745098039216 0.6 0.443137254901961 1.0
+         ambient 0.662745098039216 0.6 0.443137254901961 1.0
+      }
+   }
+}
+
+material <Green>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.286274509803922 0.447058823529412 0.250980392156863 1.0
+         ambient 0.286274509803922 0.447058823529412 0.250980392156863 1.0
+      }
+   }
+}
+
+material SketchupDefault
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.882352941176471 0.882352941176471 0.784313725490196
+         ambient 0.882352941176471 0.882352941176471 0.784313725490196
+      }
+   }
+}
+
+material SketchupDefault_Back
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.501960784313725 0.501960784313725 0.784313725490196
+         ambient 0.501960784313725 0.501960784313725 0.784313725490196
+      }
+   }
+}
