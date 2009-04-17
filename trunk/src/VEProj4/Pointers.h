@@ -15,6 +15,17 @@ typedef struct {
 	Ogre::String name;
 } Pointer;
 
+/**
+ * Called once per frame:
+ * @param num_points how many of the up-to-four points are "visible".
+ * @param points an array of up-to-four 2D points (all points above num_points are "garbage").
+ *    3-tuple includes: x-coord (between -1,1), y-coord (between -1,1), "size" of point (will be -1 if not visible).
+ */
+static void DrawPoints(int num_points, double points[4][3]) {
+	for (int ii = 0; ii < num_points; ii++) {
+		//change point points[ii]...
+	} //all else are invisible
+}
 // initialize the 4 pointers
 static Pointer pointers[4];//, pointer2, pointer3, pointer4;
 
