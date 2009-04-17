@@ -18,6 +18,9 @@ When translation/rotation action is active:
 #include "HeadTrackerFrameListener.h"
 #include "GestureFSM.h"
 
+#include "CEGUI/CEGUI.h"
+
+
 using namespace Ogre;
 		
 #define NUM_MODELS (10)
@@ -49,13 +52,16 @@ OIS::KeyCode keys_to_trees[NUM_MODELS] = {
 	OIS::KC_0
 };
 
-class KeyboardGestureDriver : public HeadTrackerFrameListener {
+class KeyboardGestureDriver : public HeadTrackerFrameListener,public OIS::KeyListener, public OIS::MouseListener {
 private:
 	//A finite-state-machine for placing low-poly models into the scene. :)
 	double delta[3];
 	double delta_delta;
 	Radian angle;
 	Radian delta_angle;
+
+	CEGUI::Renderer* mGUIRenderer;
+	bool mShutdownRequested;
 protected:
 	Vector3 defaultPosition;
 	GestureFSM *fsm;
@@ -67,8 +73,11 @@ public:
 	}
 
 	// Constructor takes a RenderWindow because it uses that to determine input context
-	KeyboardGestureDriver(ModelManager *manager, RenderWindow* win, Camera* cam) :
-			HeadTrackerFrameListener(win, cam) {
+	KeyboardGestureDriver(ModelManager *manager, RenderWindow* win, Camera* cam, CEGUI::Renderer* renderer) :
+			HeadTrackerFrameListener(win, cam), mGUIRenderer(renderer),mShutdownRequested(false)
+			{
+				mMouse->setEventCallback(this);
+				mKeyboard->setEventCallback(this);
 		showDebugOverlay(false);
 		model_manager = manager;
 		delta_delta = 5;
@@ -141,6 +150,67 @@ public:
 		} else {
 			return HeadTrackerFrameListener::processUnbufferedKeyInput(evt);
 		}
+		return true;
+	}
+
+	CEGUI::MouseButton convertOISMouseButtonToCegui(int buttonID)
+	{
+		switch (buttonID)
+		{
+		case 0: return CEGUI::LeftButton;
+		case 1: return CEGUI::RightButton;
+		case 2:	return CEGUI::MiddleButton;
+		case 3: return CEGUI::X1Button;
+		default: return CEGUI::LeftButton;
+		}
+	}
+	void requestShutdown(void)
+	{
+		mShutdownRequested = true;
+	}
+
+	bool frameEnded(const FrameEvent& evt)
+	{
+		if (mShutdownRequested)
+			return false;
+		else
+			return ExampleFrameListener::frameEnded(evt);
+	}
+	//----------------------------------------------------------------//
+	bool mouseMoved( const OIS::MouseEvent &arg )
+	{
+		CEGUI::System::getSingleton().injectMouseMove( arg.state.X.rel, arg.state.Y.rel );
+		return true;
+	}
+
+	//----------------------------------------------------------------//
+	bool mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
+	{
+		CEGUI::System::getSingleton().injectMouseButtonDown(convertOISMouseButtonToCegui(id));
+		return true;
+	}
+
+	//----------------------------------------------------------------//
+	bool mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
+	{
+		CEGUI::System::getSingleton().injectMouseButtonUp(convertOISMouseButtonToCegui(id));
+		return true;
+	}
+
+	//----------------------------------------------------------------//
+	bool keyPressed( const OIS::KeyEvent &arg )
+	{
+		if( arg.key == OIS::KC_ESCAPE )
+			mShutdownRequested = true;
+		CEGUI::System::getSingleton().injectKeyDown( arg.key );
+		CEGUI::System::getSingleton().injectChar( arg.text );
+		return true;
+	}
+
+	//----------------------------------------------------------------//
+	bool keyReleased( const OIS::KeyEvent &arg )
+	{
+		CEGUI::System::getSingleton().injectKeyUp( arg.key );
 		return true;
 	}
 };

@@ -137,7 +137,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="atls.lib OIS.lib OgreMain.lib ode.lib alut.lib OpenAL32.lib vrpn.lib quat.lib wiiuse.lib"
+				AdditionalDependencies="atls.lib OIS.lib OgreMain.lib ode.lib alut.lib OpenAL32.lib vrpn.lib quat.lib wiiuse.lib CEGUIBase.lib OgreGUIRenderer.lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\lib;&quot;$(OGRE_SRC)\Dependencies\lib\$(ConfigurationName)&quot;;&quot;$(OGRE_SRC)\lib&quot;;&quot;..\quat\pc_win32\$(ConfigurationName)&quot;;..\wiiuse_v0.12_win;&quot;..\vrpn\pc_win32\$(ConfigurationName)&quot;"
 				GenerateDebugInformation="true"
