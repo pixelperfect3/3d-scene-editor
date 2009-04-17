@@ -32,7 +32,11 @@ static SceneManager* mSceneMgr;
  * @param posy  The y-position of the pointer
  * @param visibility Whether the point is visible or not (-1 = not visible)
  */
-static void updatePoint(int index, double posx, double posy, double visibility) {
+static void updatePoint(int index, double posx, double posy, bool visibility) {
+	pointers[index].pointerNode->setVisible(visibility);
+	if (!visibility) {
+		return;
+	}
 	// first set the position
 	pointers[index].posx = posx;
 	pointers[index].posy = posy;
@@ -89,15 +93,10 @@ static void updatePoint(int index, double posx, double posy, double visibility) 
  *    3-tuple includes: x-coord (between -1,1), y-coord (between -1,1), "size" of point (will be -1 if not visible).
  */
 static void DrawPoints(int num_points, double points[4][3]) {
-	for (int ii = 0; ii < num_points; ii++) {
+	for (int ii = 0; ii < 4; ii++) {
 		// update the points
-		updatePoint(ii, points[ii][0], points[ii][1], points[ii][2]); 
+		updatePoint(ii, points[ii][0], points[ii][1], points[ii][2] > 0); 
 	} //all else are invisible
-
-	// set the others to be invisible
-	for (int ii = num_points - 1; ii < 4; ii++) {
-		pointers[ii].pointerNode->setVisible(false);
-	}
 }
 
 // initializes one pointer
