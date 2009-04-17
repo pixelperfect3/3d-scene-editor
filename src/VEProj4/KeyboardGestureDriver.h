@@ -14,6 +14,7 @@ When translation/rotation action is active:
 -----------------------------------------------------------------------------
 */
 
+#include "mouseDriver.h"
 #include "model_manager.h"
 #include "HeadTrackerFrameListener.h"
 #include "GestureFSM.h"
@@ -22,12 +23,12 @@ When translation/rotation action is active:
 
 
 using namespace Ogre;
-		
+
 #define NUM_MODELS (10)
 
 char *models[NUM_MODELS] = {
 	"tree_amarelo.mesh",     //nice
-	"tree_arvore.mesh",      
+	"tree_arvore.mesh",
 	"tree_bamboo.mesh",      //too green (tone it down or add texture)
 	"tree_cabbagepalm.mesh",
 	"tree_palm.mesh",         //very nice
@@ -52,7 +53,7 @@ OIS::KeyCode keys_to_trees[NUM_MODELS] = {
 	OIS::KC_0
 };
 
-class KeyboardGestureDriver : public HeadTrackerFrameListener,public OIS::KeyListener, public OIS::MouseListener {
+class KeyboardGestureDriver : public HeadTrackerFrameListener,public OIS::KeyListener, public OIS::MouseListener, public MouseDriver {
 private:
 	//A finite-state-machine for placing low-poly models into the scene. :)
 	double delta[3];
@@ -74,19 +75,16 @@ public:
 
 	// Constructor takes a RenderWindow because it uses that to determine input context
 	KeyboardGestureDriver(ModelManager *manager, RenderWindow* win, Camera* cam, CEGUI::Renderer* renderer) :
-			HeadTrackerFrameListener(win, cam), mGUIRenderer(renderer),mShutdownRequested(false)
-			{
-				mMouse->setEventCallback(this);
-				mKeyboard->setEventCallback(this);
+			HeadTrackerFrameListener(win, cam), mGUIRenderer(renderer), mShutdownRequested(false),
+			defaultPosition(-4, 0, 11), angle(0),
+			delta_delta(5), delta_angle(Radian(Degree(45))) {
+		mMouse->setEventCallback(this);
+		mKeyboard->setEventCallback(this);
 		showDebugOverlay(false);
 		model_manager = manager;
-		delta_delta = 5;
-		delta_angle = Radian(Degree(45));
 		for (int ii = 0; ii < 3; ii++) {
 			delta[ii] = 0;
 		}
-		angle = Radian(0);
-		defaultPosition = Vector3(-4, 0, 11);
 		fsm = new GestureFSM(manager);
 	}
 	~KeyboardGestureDriver() {
@@ -176,6 +174,13 @@ public:
 		else
 			return ExampleFrameListener::frameEnded(evt);
 	}
+	void ToggleMouseCursor(bool useMouse) {
+		//TODO : stub
+	}
+	void MouseMoved(double mouse[3], double old_mouse[3], double distance[2]) {
+		//TODO : stub
+	}
+
 	//----------------------------------------------------------------//
 	bool mouseMoved( const OIS::MouseEvent &arg )
 	{
