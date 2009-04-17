@@ -75,9 +75,9 @@ public:
 
 	// Constructor takes a RenderWindow because it uses that to determine input context
 	KeyboardGestureDriver(ModelManager *manager, RenderWindow* win, Camera* cam, CEGUI::Renderer* renderer, WiiMoteClient *nunchuk) :
-			HeadTrackerFrameListener(win, cam), mGUIRenderer(renderer), mShutdownRequested(false),
+			HeadTrackerFrameListener(win, cam, nunchuk), mGUIRenderer(renderer), mShutdownRequested(false),
 			defaultPosition(-4, 0, 11), angle(0),
-			delta_delta(5), delta_angle(Radian(Degree(45))) {
+			delta_delta(5), delta_angle(Degree(45)) {
 		mMouse->setEventCallback(this);
 		mKeyboard->setEventCallback(this);
 		showDebugOverlay(false);
