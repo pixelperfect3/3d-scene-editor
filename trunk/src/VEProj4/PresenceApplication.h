@@ -56,6 +56,22 @@ protected:
 		CEGUI::WindowManager& wmgr = CEGUI::WindowManager::getSingleton();
 
 		wmgr.getWindow("Menu")->setVisible(true);
+
+		CEGUI::Window* editorWindow = CEGUI::WindowManager::getSingleton().getWindow((CEGUI::utf8*)"Menu");
+
+		CEGUI::Window* window = 0;
+
+		Real posX = 0.2; //Math::RangeRandom(0.0, 0.0); 
+		Real posY = 0.2; //Math::RangeRandom(0.0, 0.0);
+
+		window = createRttGuiObject();
+
+		editorWindow->addChildWindow(window);
+
+		window->setPosition(CEGUI::UVector2(CEGUI::UDim(posX, 0), CEGUI::UDim(posY, 0)));
+
+
+
 		return true;
 	}
 	bool handleCancel(const CEGUI::EventArgs& e){
@@ -83,6 +99,24 @@ protected:
 	bool handleTrash(const CEGUI::EventArgs& e){
 		CEGUI::WindowManager& wmgr = CEGUI::WindowManager::getSingleton();
 		return true;
+	}
+
+	CEGUI::Window* createRttGuiObject(void)
+	{
+		static unsigned int rttCounter = 0;
+		String guiObjectName = "NewRttImage" + StringConverter::toString(rttCounter);
+
+		CEGUI::Imageset* rttImageSet = 
+			CEGUI::ImagesetManager::getSingleton().getImageset((CEGUI::utf8*)"RttImageset");
+
+		CEGUI::Window* si = CEGUI::WindowManager::getSingleton().createWindow((CEGUI::utf8*)"TaharezLook/StaticImage", (CEGUI::utf8*)guiObjectName.c_str());
+		si->setSize(CEGUI::UVector2( CEGUI::UDim(0.5f, 0), CEGUI::UDim(0.4f, 0)));
+
+		si->setProperty("Image", CEGUI::PropertyHelper::imageToString(&rttImageSet->getImage((CEGUI::utf8*)"RttImage")));
+
+		rttCounter++;
+
+		return si;
 	}
 
 };
