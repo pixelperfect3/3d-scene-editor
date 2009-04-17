@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GUILayout >
+    <Window Type="DefaultWindow" Name="Root" >
+        <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+        <Property Name="UnifiedAreaRect" Value="{{0,0},{0.00208333,0},{1,0},{1.00208,0}}" />
+        <Window Type="TaharezLook/Button" Name="Models" >
+            <Property Name="Font" Value="BlueHighway-12" />
+            <Property Name="Text" Value="Models" />
+            <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+            <Property Name="UnifiedAreaRect" Value="{{0.015625,0},{0.0212499,0},{0.117187,0},{0.1,0}}" />
+        </Window>
+        <Window Type="TaharezLook/FrameWindow" Name="Menu" >
+            <Property Name="Font" Value="BlueHighway-12" />
+            <Property Name="Text" Value="Menu" />
+            <Property Name="TitlebarFont" Value="BlueHighway-12" />
+            <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+            <Property Name="TitlebarEnabled" Value="True" />
+            <Property Name="UnifiedAreaRect" Value="{{0.020313,0},{0.0145837,0},{0.985937,0},{0.983334,0}}" />
+            <Window Type="TaharezLook/Button" Name="Cancel" >
+                <Property Name="Font" Value="BlueHighway-12" />
+                <Property Name="Text" Value="Cancel" />
+                <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+                <Property Name="UnifiedAreaRect" Value="{{0.815858,0},{0.900001,0},{0.973625,0},{0.976191,0}}" />
+            </Window>
+        </Window>
+    </Window>
+</GUILayout>
