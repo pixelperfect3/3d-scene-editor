@@ -97,26 +97,11 @@ void PresenceApplication::createScene(void)
 	light->setDirection(1,-1,1	);
 	light->setCastShadows(true);
 
-	//mSceneMgr->setSkyBox(true, "Examples/CitySkybox" );
-
-	//Plane plane;
-	//plane.normal = Vector3::UNIT_Y;
-	//plane.d = 0;
-	//MeshManager::getSingleton().createPlane("Myplane",
-	//		ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, plane,
-	//		30000,30000,10,10,true,1,50,50,Vector3::UNIT_Z);
-	//Entity* pPlaneEnt = mSceneMgr->createEntity( "plane", "Myplane" );
-	//pPlaneEnt->setMaterialName("Examples/GrassFloor");
-	//pPlaneEnt->setCastShadows(false);
-	//SceneNode* planeNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("planeNode");
-	//planeNode->translate(0,-5,0);
-	//planeNode->attachObject(pPlaneEnt);
+	mSceneMgr->setSkyBox(true, "Examples/Skybox" );
 	
 	mainSceneNode = static_cast<SceneNode*>(mSceneMgr->getRootSceneNode()->createChild("mainScene")); 
 	Entity* mainSceneEn = mSceneMgr->createEntity("home","home_with_lawn.mesh");
 	mainSceneNode->attachObject(mainSceneEn);
-
-	
 
 	// setup GUI system
 	mGUIRenderer = new CEGUI::OgreCEGUIRenderer(mWindow, 

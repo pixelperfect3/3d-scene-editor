@@ -16,6 +16,23 @@ material Examples/CitySkybox
 		}
 	}
 }
+material Examples/Skybox
+{
+	technique
+	{
+		pass
+		{
+			lighting off
+			depth_write off
+
+			texture_unit
+			{
+				cubic_texture  cloudy_noon.jpg separateUV
+				tex_address_mode clamp
+			}
+		}
+	}
+}
 
 material Examples/EveningSkyBox
 {
