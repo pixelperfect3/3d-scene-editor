@@ -116,6 +116,8 @@ void PresenceApplication::createScene(void)
 	Entity* mainSceneEn = mSceneMgr->createEntity("home","home_with_lawn.mesh");
 	mainSceneNode->attachObject(mainSceneEn);
 
+	
+
 	// setup GUI system
 	mGUIRenderer = new CEGUI::OgreCEGUIRenderer(mWindow, 
 		Ogre::RENDER_QUEUE_OVERLAY, false, 3000, mSceneMgr);
@@ -123,6 +125,36 @@ void PresenceApplication::createScene(void)
 	mGUISystem = new CEGUI::System(mGUIRenderer);
 
 	CEGUI::Logger::getSingleton().setLoggingLevel(CEGUI::Informative);
+
+	// Setup Render To Texture for preview window
+	TexturePtr rttTex = TextureManager::getSingleton().createManual("RttTex", 
+		ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, TEX_TYPE_2D, 
+		512, 512, 1, 0, PF_R8G8B8, TU_RENDERTARGET);
+	{
+		Camera* rttCam = mSceneMgr->createCamera("RttCam");
+		SceneNode* camNode = 
+			mSceneMgr->getRootSceneNode()->createChildSceneNode("rttCamNode");
+		camNode->attachObject(rttCam);
+		rttCam->setPosition(0,10,270);
+		//rttCam->setVisible(true);
+
+		Viewport *v = rttTex->getBuffer()->getRenderTarget()->addViewport( rttCam );
+		v->setOverlaysEnabled(false);
+		v->setClearEveryFrame( true );
+		v->setBackgroundColour( ColourValue::Black );
+	}
+
+	// Retrieve CEGUI texture for the RTT
+	CEGUI::Texture* rttTexture = mGUIRenderer->createTexture((CEGUI::utf8*)"RttTex");
+
+	CEGUI::Imageset* rttImageSet = 
+		CEGUI::ImagesetManager::getSingleton().createImageset(
+		(CEGUI::utf8*)"RttImageset", rttTexture);
+
+	rttImageSet->defineImage((CEGUI::utf8*)"RttImage", 
+		CEGUI::Point(0.0f, 0.0f),
+		CEGUI::Size(rttTexture->getWidth(), rttTexture->getHeight()),
+		CEGUI::Point(0.0f,0.0f));
 
 	// load scheme and set up defaults
 	CEGUI::SchemeManager::getSingleton().loadScheme(
