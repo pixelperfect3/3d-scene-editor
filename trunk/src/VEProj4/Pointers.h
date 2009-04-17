@@ -13,7 +13,74 @@ typedef struct {
 	SceneNode* pointerNode;
 	ManualObject *pointer;
 	Ogre::String name;
+
+	// the position (-1, 1)
+	double posx;
+	double posy;
 } Pointer;
+
+// initialize the 4 pointers
+static Pointer pointers[4];
+
+// The scene manager
+static SceneManager* mSceneMgr;
+
+/**
+ * Updates the pointer properties
+ * @param index The index tells us which point we are modifying
+ * @param posx  The x-position of the pointer
+ * @param posy  The y-position of the pointer
+ * @param visibility Whether the point is visible or not (-1 = not visible)
+ */
+static void updatePoint(int index, double posx, double posy, double visibility) {
+	// first set the position
+	pointers[index].posx = posx;
+	pointers[index].posy = posy;
+
+	// re-draw it
+	//ManualObject* pointer1 = mSceneMgr->getManualObject(pointers[index].name);
+
+	// TODO: consider calling estimateVertex/IndexCount()
+	//pointer1->clear();
+	pointers[index].pointer->beginUpdate(0);//("BaseWhiteNoLighting", RenderOperation::OT_TRIANGLE_STRIP);//Update(0);
+
+	// set the colo(u)r
+	if (index == 0) // red
+		pointers[index].pointer->colour(Ogre::ColourValue(1.0, 0.0, 0.0));
+	else if (index == 1) // blue
+		pointers[index].pointer->colour(Ogre::ColourValue(0.0, 0.0, 1.0));
+	else if (index == 2) // green
+		pointers[index].pointer->colour(Ogre::ColourValue(0.0, 1.0, 0.0));
+	else if (index == 3) // yellow
+		pointers[index].pointer->colour(Ogre::ColourValue(1.0, 1.0, 0.0));
+
+	// the offset
+	float offset = 0.008;
+	float yoffset = 0.005;
+
+	// set the positions
+	pointers[index].pointer->position( posx - offset, posy - offset, 0.0);  // left-down
+	pointers[index].pointer->position( posx + offset, posy - offset, 0.0);  // right-down
+	pointers[index].pointer->position( posx + offset, posy + offset + yoffset, 0.0);  // right-up
+	pointers[index].pointer->position( posx - offset, posy + offset + yoffset, 0.0);  // left-up
+
+	// set the indices
+	pointers[index].pointer->index(0);
+	pointers[index].pointer->index(1);
+	pointers[index].pointer->index(2);
+	pointers[index].pointer->index(3);
+	pointers[index].pointer->index(0);
+
+	pointers[index].pointer->end();
+
+	// Use infinite AAB to always stay visible
+	AxisAlignedBox aabInf;
+	aabInf.setInfinite();
+	pointers[index].pointer->setBoundingBox(aabInf);
+
+	// Render just before overlays
+	pointers[index].pointer->setRenderQueueGroup(Ogre::RENDER_QUEUE_OVERLAY - 1);
+}
 
 /**
  * Called once per frame:
@@ -23,11 +90,15 @@ typedef struct {
  */
 static void DrawPoints(int num_points, double points[4][3]) {
 	for (int ii = 0; ii < num_points; ii++) {
-		//change point points[ii]...
+		// update the points
+		updatePoint(ii, points[ii][0], points[ii][1], points[ii][2]); 
 	} //all else are invisible
+
+	// set the others to be invisible
+	for (int ii = num_points - 1; ii < 4; ii++) {
+		pointers[ii].pointerNode->setVisible(false);
+	}
 }
-// initialize the 4 pointers
-static Pointer pointers[4];//, pointer2, pointer3, pointer4;
 
 // initializes one pointer
 static void init_point(int index, SceneManager *mSceneMgr) {
@@ -67,6 +138,10 @@ static void init_point(int index, SceneManager *mSceneMgr) {
 		posy = 0.5;
 	}
 
+	// set the positions
+	pointers[index].posx = posx;
+	pointers[index].posy = posy;
+
 	// the offset
 	float offset = 0.008;
 	float yoffset = 0.005;
@@ -88,7 +163,7 @@ static void init_point(int index, SceneManager *mSceneMgr) {
 
 	// Use infinite AAB to always stay visible
 	AxisAlignedBox aabInf;
-	aabInf.setInfinite()t;
+	aabInf.setInfinite();
 	pointers[index].pointer->setBoundingBox(aabInf);
 
 	// Render just before overlays
@@ -100,13 +175,16 @@ static void init_point(int index, SceneManager *mSceneMgr) {
 }
 
 // The function to initialize the pointers
-static void init_pointers(SceneManager *mSceneMgr) {
+static void init_pointers(SceneManager *sceneMgr) {
+	// set the scene manager
+	mSceneMgr = sceneMgr;
+
 	// create the first object
-	init_point(0, mSceneMgr);
+	init_point(0, sceneMgr);
 	// create the second object
-	init_point(1, mSceneMgr);
+	init_point(1, sceneMgr);
 	// create the third object
-	init_point(2, mSceneMgr);
+	init_point(2, sceneMgr);
 	// create the fourth object
-	init_point(3, mSceneMgr);
+	init_point(3, sceneMgr);
 }
