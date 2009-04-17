@@ -1,5 +1,8 @@
+#pragma once
+
 #include "Ogre.h"
-#include "gestures.h"
+#include "simple_model.h"
+#include "model_manager.h"
 
 class GestureFSM {
 //TODO : assert FSM is in a valid state before and after every method call...

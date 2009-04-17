@@ -1,9 +1,10 @@
 #pragma once
 
+#include "simple_model.h"
 #include "Ogre.h"
 #include <vector>
 #include <iostream>
-#include "gestures.h"
+
 using std::vector;
 
 #define PI 3.1415926
@@ -93,6 +94,12 @@ public:
 		Vector3 ignore;
 		quat.ToAngleAxis(degrees, ignore);
 		resetModel(selected, Radian(degrees));
+	}
+	void Translate2D(double distance[2]) {
+		//TODO : stub
+	}
+	void Rotate2D(double degrees) {
+		//TODO : stub
 	}
 protected:
 	void serialize(ostream& os) {
