@@ -4,6 +4,7 @@
 #include "ExampleFrameListener.h"
 #include "model_manager.h"
 #include "wiimote_client.h"
+#include "WiiMoteGesturer.h"
 
 #include "CEGUI/CEGUI.h"
 #include "OgreCEGUIRenderer.h"
@@ -30,6 +31,7 @@ protected:
 	RenderWindow *mWindow2;
 	WiiMoteClient *wiimote;  //tracker
 	WiiMoteClient *nunchuk;  //nunchuk (for lookaround)
+	WiiMoteGesturer *gesturer;
 	
 
     // Just override the mandatory create scene method
