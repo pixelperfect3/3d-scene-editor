@@ -18,13 +18,17 @@ protected:
 	VTrak3DClient* vtrak;
 	WiiMoteClient *nunchuk; // the nunchuk for navigation
 public:
-	HeadTrackerFrameListener(RenderWindow* win, Camera* cam, WiiMoteClient *nunchuk) : ExampleFrameListener(win, cam),
+	HeadTrackerFrameListener(RenderWindow* win, Camera* cam, WiiMoteClient *nunchuk, bool useVtrak = true) : ExampleFrameListener(win, cam),
 	zButtonDown(false), cButtonDown(false) {
-		vtrak = new VTrak3DClient();
-		if (vtrak->init("tracker", "192.168.1.39", 8900)) {   // see HandleDisplay for update loop
-			std::cout << "Connected to tracker!" << std::endl;
+		if (useVtrak) {
+			vtrak = new VTrak3DClient();
+			if (vtrak->init("tracker", "192.168.1.39", 8900)) {   // see HandleDisplay for update loop
+				std::cout << "Connected to tracker!" << std::endl;
+			} else {
+				std::cout << "Connection to tracker could not be made!" << std::endl;   
+			}
 		} else {
-			std::cout << "Connection to tracker could not be made!" << std::endl;   
+			vtrak = NULL;
 		}
 
 		// set the nunchuk
