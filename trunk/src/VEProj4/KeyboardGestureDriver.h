@@ -27,12 +27,11 @@ using namespace Ogre;
 #define NUM_MODELS (10)
 
 char *models[NUM_MODELS] = {
-	"tree_amarelo.mesh",     //nice
-	"tree_arvore.mesh",
-	"tree_bamboo.mesh",      //too green (tone it down or add texture)
+	"tree_amarelo.mesh",     //origin is off
+	"tree_arvore.mesh",      //needs non-unicode material/texture names.
+	"tree_bamboo.mesh",
 	"tree_cabbagepalm.mesh",
-	"tree_palm.mesh",         //very nice
-	//all the "ground" meshes look good.
+	"tree_palm.mesh",
 	"plant_monstera.mesh",
 	"plant_octopus.mesh",
 	"plant_red.mesh",
@@ -52,13 +51,18 @@ OIS::KeyCode keys_to_trees[NUM_MODELS] = {
 	OIS::KC_9,
 	OIS::KC_0
 };
-#define NUM_ACTIONS 6
-#define MOVE_LEFT  0
-#define MOVE_RIGHT 1
-#define MOVE_UP    2
-#define MOVE_DOWN  3
-#define TURN_LEFT  4
-#define TURN_RIGHT 5
+#define NUM_ACTIONS 10
+#define TRANSLATE_LEFT  0
+#define TRANSLATE_RIGHT 1
+#define TRANSLATE_UP    2
+#define TRANSLATE_BACK  3
+#define ROTATE_LEFT     4
+#define ROTATE_RIGHT    5
+#define TURN_LEFT       6
+#define TURN_RIGHT      7
+#define MOVE_FORWARD    8
+#define MOVE_BACKWARD   9
+
 
 class KeyboardGestureDriver : public HeadTrackerFrameListener,public OIS::KeyListener, public OIS::MouseListener, public MouseDriver {
 private:
@@ -103,16 +107,16 @@ public:
 			delta[ii] = 0;
 		}
 		if (fsm->is_translating()) {
-			if (actions[MOVE_UP]) { // Z
+			if (actions[TRANSLATE_UP]) { // Z
 				delta[2] += delta_delta * evt.timeSinceLastFrame;
 			}
-			if (actions[MOVE_LEFT]) { // X
+			if (actions[TRANSLATE_LEFT]) { // X
 				delta[0] += delta_delta * evt.timeSinceLastFrame;
 			}
-			if (actions[MOVE_DOWN]) { // -Z
+			if (actions[TRANSLATE_BACK]) { // -Z
 				delta[2] -= delta_delta * evt.timeSinceLastFrame;
 			}
-			if (actions[MOVE_RIGHT]) { // -X
+			if (actions[TRANSLATE_RIGHT]) { // -X
 				delta[0] -= delta_delta * evt.timeSinceLastFrame;
 			}
 			Quaternion orient(mCamera->getOrientation());
@@ -120,13 +124,27 @@ public:
 			model_manager->translate_update(delta_vector);
 		} else if (fsm->is_rotating()) {
 			angle = Radian(0);
-			if (actions[TURN_LEFT]) { // around Y
+			if (actions[ROTATE_LEFT]) { // around Y
 				angle = delta_angle * evt.timeSinceLastFrame;
 			}
-			if (actions[TURN_RIGHT]) { // around -Y
+			if (actions[ROTATE_RIGHT]) { // around -Y
 				angle = -delta_angle * evt.timeSinceLastFrame;
 			}
 			model_manager->rotate_update(angle);
+		}
+		if (actions[MOVE_FORWARD]) {
+			Vector3 delta_pos = mCamera->getOrientation() * Vector3(0, 0, -delta_delta * evt.timeSinceLastFrame);
+			mCamera->move(delta_pos);
+		} else if (actions[MOVE_BACKWARD]) {
+			Vector3 delta_pos = mCamera->getOrientation() * Vector3(0, 0, delta_delta * evt.timeSinceLastFrame);
+			mCamera->move(delta_pos);
+		}
+		if (actions[TURN_LEFT]) {
+			angle = Radian(delta_angle * evt.timeSinceLastFrame);
+			mCamera->yaw(angle);
+		} else if (actions[TURN_RIGHT]) {
+			angle = Radian(-delta_angle * evt.timeSinceLastFrame);
+			mCamera->yaw(angle);
 		}
 		return val;
 	}
@@ -161,23 +179,23 @@ public:
 		}
 		if (fsm->is_translating()) {
 			if (mKeyboard->isKeyDown(OIS::KC_W)) {
-				actions[MOVE_UP] = true;
+				actions[TRANSLATE_UP] = true;
 			}
 			if (mKeyboard->isKeyDown(OIS::KC_A)) {
-				actions[MOVE_LEFT] = true;
+				actions[TRANSLATE_LEFT] = true;
 			}
 			if (mKeyboard->isKeyDown(OIS::KC_S)) {
-				actions[MOVE_DOWN] = true;
+				actions[TRANSLATE_BACK] = true;
 			}
 			if (mKeyboard->isKeyDown(OIS::KC_D)) {
-				actions[MOVE_RIGHT] = true;
+				actions[TRANSLATE_RIGHT] = true;
 			}
 		} else if (fsm->is_rotating()) {
 			if (mKeyboard->isKeyDown(OIS::KC_A)) {
-				actions[TURN_LEFT] = true;
+				actions[ROTATE_LEFT] = true;
 			}
 			if (mKeyboard->isKeyDown(OIS::KC_D)) {
-				actions[TURN_RIGHT] = true;
+				actions[ROTATE_RIGHT] = true;
 			}
 		} else {
 			return HeadTrackerFrameListener::processUnbufferedKeyInput(evt);
@@ -292,7 +310,7 @@ public:
 		} else if (arg.key == OIS::KC_T) {
 			fsm->start_translating();
 		}
-		
+
 		update_actions(arg.key, true);
 
 		CEGUI::System::getSingleton().injectKeyDown( arg.key );
@@ -309,23 +327,24 @@ public:
 	}
 
 	void update_actions(OIS::KeyCode key, bool down) {
-		if (fsm->is_translating()) {
-			if (key == OIS::KC_W) {
-				actions[MOVE_UP] = down;
-			} else if (key == OIS::KC_A) {
-				actions[MOVE_LEFT] = down;
-			} else if (key == OIS::KC_S) {
-				actions[MOVE_DOWN] = down;
-			} else if (key == OIS::KC_D) {
-				actions[MOVE_RIGHT] = down;
-			}
-		} else if (fsm->is_rotating()) {
-			if (key == OIS::KC_A) {
-				actions[TURN_LEFT] = down;
-			}
-			if (key == OIS::KC_D) {
-				actions[TURN_RIGHT] = down;
-			}
+		if (key == OIS::KC_W) {
+			actions[TRANSLATE_UP]    = down;
+		} else if (key == OIS::KC_A) {
+			actions[TRANSLATE_LEFT]  = down;
+			actions[ROTATE_LEFT]     = down;
+		} else if (key == OIS::KC_S) {
+			actions[TRANSLATE_BACK]  = down;
+		} else if (key == OIS::KC_D) {
+			actions[TRANSLATE_RIGHT] = down;
+			actions[ROTATE_RIGHT]    = down;
+		} else if (key == OIS::KC_LEFT) {
+			actions[TURN_LEFT]       = down;
+		} else if (key == OIS::KC_RIGHT) {
+			actions[TURN_RIGHT]      = down;
+		} else if (key == OIS::KC_UP) {
+			actions[MOVE_FORWARD]    = down;
+		} else if (key == OIS::KC_DOWN) {
+			actions[MOVE_BACKWARD]   = down;
 		}
 	}
 };
