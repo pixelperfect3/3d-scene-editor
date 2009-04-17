@@ -186,4 +186,8 @@ static void init_pointers(SceneManager *sceneMgr) { //Called in PresenceApplicat
 	init_point(2, sceneMgr);
 	// create the fourth object
 	init_point(3, sceneMgr);
+
+	for (int ii = 0; ii < 4; ii++) {
+		updatePoint(ii, 0, 0, false);
+	}
 }
