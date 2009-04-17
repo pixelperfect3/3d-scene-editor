@@ -29,7 +29,7 @@ protected:
 	SceneNode* mainSceneNode;
 	RenderWindow *mWindow2;
 	WiiMoteClient *wiimote;  //tracker
-	WiiMoteClient *nunchuk; //nunchuk (for lookaround)
+	WiiMoteClient *nunchuk;  //nunchuk (for lookaround)
 	
 
     // Just override the mandatory create scene method
