@@ -118,7 +118,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\quat;..\include;&quot;$(OGRE_SRC)\Samples\Common\include&quot;;&quot;$(OGRE_SRC)\Dependencies\include&quot;;&quot;$(OGRE_SRC)\OgreMain\include&quot;;..\"
+				AdditionalIncludeDirectories="..\quat;&quot;$(OGRE_SRC)\Samples\Common\CEGUIRenderer\include&quot;;..\include;&quot;$(OGRE_SRC)\Samples\Common\include&quot;;&quot;$(OGRE_SRC)\Dependencies\include&quot;;&quot;$(OGRE_SRC)\OgreMain\include&quot;;..\"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"

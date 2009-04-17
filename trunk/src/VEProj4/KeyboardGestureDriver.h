@@ -202,6 +202,10 @@ public:
 	{
 		if( arg.key == OIS::KC_ESCAPE )
 			mShutdownRequested = true;
+		if( arg.key == OIS::KC_S){
+			std::cout << "Screen capture!\n";
+			screenCapture();
+		}
 		CEGUI::System::getSingleton().injectKeyDown( arg.key );
 		CEGUI::System::getSingleton().injectChar( arg.text );
 		return true;
