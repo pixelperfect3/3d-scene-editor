@@ -28,7 +28,7 @@ using namespace Ogre;
 
 char *models[NUM_MODELS] = {
 	"tree_amarelo.mesh",     //origin is off
-	"tree_arvore.mesh",      //needs non-unicode material/texture names.
+	"tree_magnolia.mesh",      //needs non-unicode material/texture names. - replaces "arvore"
 	"tree_bamboo.mesh",
 	"tree_cabbagepalm.mesh",
 	"tree_palm.mesh",
