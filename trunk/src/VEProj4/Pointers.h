@@ -95,7 +95,7 @@ static void updatePoint(int index, double posx, double posy, bool visibility) {
 static void DrawPoints(int num_points, double points[4][3]) {
 	for (int ii = 0; ii < 4; ii++) {
 		// update the points
-		updatePoint(ii, points[ii][0], points[ii][1], points[ii][2] > 0); 
+		updatePoint(ii, 2.0 * points[ii][0] - 1.0, 2.0 * points[ii][1] - 1.0, points[ii][2] > 0); 
 	} //all else are invisible
 }
 
