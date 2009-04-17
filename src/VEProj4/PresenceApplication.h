@@ -62,6 +62,26 @@ protected:
 		wmgr.getWindow("Menu")->setVisible(false);
 		return true;
 	}
+	bool handleScreenshot(const CEGUI::EventArgs& e){
+		CEGUI::WindowManager& wmgr = CEGUI::WindowManager::getSingleton();
+		//wmgr.getWindow("Models")->setVisible(false);
+		//wmgr.getWindow("Screenshot")->setVisible(false);
+		//wmgr.getWindow("Trash")->setVisible(false);
+		//wmgr.getWindow("Menu")->setVisible(false);
+		//CEGUI::MouseCursor::getSingleton().hide();
+		((ExampleFrameListener*) mFrameListener)->screenCapture();
+		//CEGUI::MouseCursor::getSingleton().show();
+		//wmgr.getWindow("Models")->setVisible(true);
+		//wmgr.getWindow("Screenshot")->setVisible(true);
+		//wmgr.getWindow("Trash")->setVisible(true);
+
+		return true;
+
+	}
+	bool handleTrash(const CEGUI::EventArgs& e){
+		CEGUI::WindowManager& wmgr = CEGUI::WindowManager::getSingleton();
+		return true;
+	}
 
 };
 
