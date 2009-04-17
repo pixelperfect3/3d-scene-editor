@@ -18,17 +18,20 @@ public:
     PresenceApplication(char*);
 	~PresenceApplication();
 
+
 private:
 	CEGUI::OgreCEGUIRenderer* mGUIRenderer;
 	CEGUI::System* mGUISystem;
 	CEGUI::Window* mEditorGuiSheet;
 	CEGUI::Window* mPreview; // StaticImage
+	
 
 protected:
 	ModelManager *model_manager;
 	SceneNode* mainSceneNode;
 	RenderWindow *mWindow2;
 	char* wiimote_name;
+	
 
     // Just override the mandatory create scene method
     void createScene(void);
@@ -46,10 +49,19 @@ protected:
     }
 
 	// GUI stuff
-	void setupEventHandlers(void)
-	{
+	void setupEventHandlers(void);
+
+	bool handleModels(const CEGUI::EventArgs& e){
 		CEGUI::WindowManager& wmgr = CEGUI::WindowManager::getSingleton();
 
+		wmgr.getWindow("Menu")->setVisible(true);
+		return true;
+	}
+	bool handleCancel(const CEGUI::EventArgs& e){
+		CEGUI::WindowManager& wmgr = CEGUI::WindowManager::getSingleton();
+
+		wmgr.getWindow("Menu")->setVisible(false);
+		return true;
 	}
 
 };
