@@ -4,10 +4,28 @@
 
 PresenceApplication::PresenceApplication(char* wiimote_name) {
 	this->wiimote_name = wiimote_name;
+
+	mGUIRenderer =0;
+	mGUISystem = 0;
+	mEditorGuiSheet = 0;
 }
 
 PresenceApplication::~PresenceApplication() {
 	delete model_manager;
+	if(mEditorGuiSheet)
+	{
+		CEGUI::WindowManager::getSingleton().destroyWindow(mEditorGuiSheet);
+	}
+	if(mGUISystem)
+	{
+		delete mGUISystem;
+		mGUISystem = 0;
+	}
+	if(mGUIRenderer)
+	{
+		delete mGUIRenderer;
+		mGUIRenderer = 0;
+	}
 }
 
 void PresenceApplication::createCamera(void)
@@ -73,12 +91,34 @@ void PresenceApplication::createScene(void)
 	mainSceneNode = static_cast<SceneNode*>(mSceneMgr->getRootSceneNode()->createChild("mainScene")); 
 	Entity* mainSceneEn = mSceneMgr->createEntity("home","home_with_lawn.mesh");
 	mainSceneNode->attachObject(mainSceneEn);
+
+	// setup GUI system
+	mGUIRenderer = new CEGUI::OgreCEGUIRenderer(mWindow, 
+		Ogre::RENDER_QUEUE_OVERLAY, false, 3000, mSceneMgr);
+
+	mGUISystem = new CEGUI::System(mGUIRenderer);
+
+	CEGUI::Logger::getSingleton().setLoggingLevel(CEGUI::Informative);
+
+	// load scheme and set up defaults
+	CEGUI::SchemeManager::getSingleton().loadScheme(
+		(CEGUI::utf8*)"TaharezLookSkin.scheme");
+	mGUISystem->setDefaultMouseCursor(
+		(CEGUI::utf8*)"TaharezLook", (CEGUI::utf8*)"MouseArrow");
+	mGUISystem->setDefaultFont((CEGUI::utf8*)"BlueHighway-12");
+
+	CEGUI::Window* sheet = 
+		CEGUI::WindowManager::getSingleton().loadWindowLayout(
+		(CEGUI::utf8*)"menu3.layout");
+	mGUISystem->setGUISheet(sheet);
+
+	setupEventHandlers();
 }
 
 void PresenceApplication::createFrameListener(void)
 {
 	//TODO : wiimote gesture driver goes here.
-	mFrameListener = new KeyboardGestureDriver(static_cast<ModelManager*>(model_manager), mWindow, mCamera);
+	mFrameListener = new KeyboardGestureDriver(static_cast<ModelManager*>(model_manager), mWindow, mCamera, mGUIRenderer);
     mRoot->addFrameListener(mFrameListener);
 	//mRoot->addFrameListener(&((PresenceFrameListener*)mFrameListener)->eventMgr->mTimer);
 }

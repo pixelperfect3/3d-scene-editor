@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<GUIScheme Name="RevoltLookSkin">
+	<Imageset Name="RevoltLook" Filename="RevoltLook.imageset" />
+	<LookNFeel Filename="RevoltLook.looknfeel" />
+	<WindowSet Filename="CEGUIFalagardBase" />
+	<FalagardMapping WindowType="RevoltLook/Button" TargetType="Falagard/Button" LookNFeel="RevoltLook/Button" />
+	<FalagardMapping WindowType="RevoltLook/Checkbox" TargetType="Falagard/Checkbox" LookNFeel="RevoltLook/Checkbox" />
+	<FalagardMapping WindowType="RevoltLook/ComboDropList" TargetType="Falagard/ComboDropList" LookNFeel="RevoltLook/ComboDropList" />
+	<FalagardMapping WindowType="RevoltLook/Combobox" TargetType="Falagard/Combobox" LookNFeel="RevoltLook/Combobox" />
+	<FalagardMapping WindowType="RevoltLook/Editbox" TargetType="Falagard/Editbox" LookNFeel="RevoltLook/Editbox" />
+	<FalagardMapping WindowType="RevoltLook/FrameWindow" TargetType="Falagard/FrameWindow" LookNFeel="RevoltLook/FrameWindow" />
+	<FalagardMapping WindowType="RevoltLook/HorizontalScrollbar" TargetType="Falagard/Scrollbar" LookNFeel="RevoltLook/HorizontalScrollbar" />
+	<FalagardMapping WindowType="RevoltLook/HorizontalScrollbarThumb" TargetType="Falagard/Thumb" LookNFeel="RevoltLook/HorizontalScrollbarThumb" />
+	<FalagardMapping WindowType="RevoltLook/IconButton" TargetType="Falagard/Button" LookNFeel="RevoltLook/IconButton" />
+	<FalagardMapping WindowType="RevoltLook/ListHeader" TargetType="Falagard/ListHeader" LookNFeel="RevoltLook/ListHeader" />
+	<FalagardMapping WindowType="RevoltLook/ListHeaderSegment" TargetType="Falagard/ListHeaderSegment" LookNFeel="RevoltLook/ListHeaderSegment" />
+	<FalagardMapping WindowType="RevoltLook/Listbox" TargetType="Falagard/Listbox" LookNFeel="RevoltLook/Listbox" />
+	<FalagardMapping WindowType="RevoltLook/Menubar" TargetType="Falagard/Menubar" LookNFeel="RevoltLook/PopupMenu" />
+	<FalagardMapping WindowType="RevoltLook/MenuItem" TargetType="Falagard/MenuItem" LookNFeel="RevoltLook/MenuItem" />
+	<FalagardMapping WindowType="RevoltLook/MultiColumnList" TargetType="Falagard/MultiColumnList" LookNFeel="RevoltLook/MultiColumnList" />
+	<FalagardMapping WindowType="RevoltLook/MultiLineEditbox" TargetType="Falagard/MultiLineEditbox" LookNFeel="RevoltLook/MultiLineEditbox" />
+	<FalagardMapping WindowType="RevoltLook/PopupMenu" TargetType="Falagard/PopupMenu" LookNFeel="RevoltLook/PopupMenu" />
+	<FalagardMapping WindowType="RevoltLook/ProgressBar" TargetType="Falagard/ProgressBar" LookNFeel="RevoltLook/ProgressBar" />
+	<FalagardMapping WindowType="RevoltLook/RadioButton" TargetType="Falagard/RadioButton" LookNFeel="RevoltLook/RadioButton" />
+	<FalagardMapping WindowType="RevoltLook/ScrollablePane" TargetType="Falagard/ScrollablePane" LookNFeel="RevoltLook/ScrollablePane" />
+	<FalagardMapping WindowType="RevoltLook/Slider" TargetType="Falagard/Slider" LookNFeel="RevoltLook/Slider" />
+	<FalagardMapping WindowType="RevoltLook/SliderThumb" TargetType="Falagard/Thumb" LookNFeel="RevoltLook/SliderThumb" />
+	<FalagardMapping WindowType="RevoltLook/Spinner" TargetType="Falagard/Spinner" LookNFeel="RevoltLook/Spinner" />
+	<FalagardMapping WindowType="RevoltLook/StaticImage" TargetType="Falagard/StaticImage" LookNFeel="RevoltLook/StaticImage" />
+	<FalagardMapping WindowType="RevoltLook/StaticText" TargetType="Falagard/StaticText" LookNFeel="RevoltLook/StaticText" />
+	<FalagardMapping WindowType="RevoltLook/CloseButton" TargetType="Falagard/SystemButton" LookNFeel="RevoltLook/CloseButton" />
+	<FalagardMapping WindowType="RevoltLook/TabButton" TargetType="Falagard/TabButton" LookNFeel="RevoltLook/TabButton" />
+	<FalagardMapping WindowType="RevoltLook/TabControl" TargetType="Falagard/TabControl" LookNFeel="RevoltLook/TabControl" />
+	<FalagardMapping WindowType="RevoltLook/TabPane" TargetType="Falagard/TabPane" LookNFeel="RevoltLook/TabPane" />
+	<FalagardMapping WindowType="RevoltLook/Titlebar" TargetType="Falagard/Titlebar" LookNFeel="RevoltLook/Titlebar" />
+	<FalagardMapping WindowType="RevoltLook/Tooltip" TargetType="Falagard/Tooltip" LookNFeel="RevoltLook/Tooltip" />
+	<FalagardMapping WindowType="RevoltLook/VScrollUpButton" TargetType="Falagard/Button" LookNFeel="RevoltLook/VScrollUpButton" />
+	<FalagardMapping WindowType="RevoltLook/VScrollDownButton" TargetType="Falagard/Button" LookNFeel="RevoltLook/VScrollDownButton" />	
+	<FalagardMapping WindowType="RevoltLook/VerticalScrollbar" TargetType="Falagard/Scrollbar" LookNFeel="RevoltLook/VerticalScrollbar" />
+	<FalagardMapping WindowType="RevoltLook/VerticalScrollbarThumb" TargetType="Falagard/Thumb" LookNFeel="RevoltLook/VerticalScrollbarThumb" />
+</GUIScheme>
