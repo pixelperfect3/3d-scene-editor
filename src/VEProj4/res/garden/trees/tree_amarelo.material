@@ -10,7 +10,7 @@ material 114451_cópia
          diffuse 1 1 1 1.0
          texture_unit
          {
-            texture amarelo.png
+            texture 114451_cópia.png
          }
       }
    }
