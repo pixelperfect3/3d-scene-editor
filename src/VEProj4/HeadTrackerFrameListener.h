@@ -14,7 +14,7 @@ class HeadTrackerFrameListener : public ExampleFrameListener {
 protected:
 	VTrak3DClient* vtrak;
 public:
-	HeadTrackerFrameListener(RenderWindow* win, Camera* cam) : ExampleFrameListener(win, cam) {
+	HeadTrackerFrameListener(RenderWindow* win, Camera* cam, WiiMoteClient *nunchuk) : ExampleFrameListener(win, cam) {
 		vtrak = new VTrak3DClient();
 		if (vtrak->init("tracker", "192.168.1.39", 8900)) {   // see HandleDisplay for update loop
 			std::cout << "Connected to tracker!" << std::endl;

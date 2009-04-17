@@ -150,7 +150,8 @@ void PresenceApplication::setupEventHandlers(){
 
 void PresenceApplication::createFrameListener(void)
 {
-	mFrameListener = new KeyboardGestureDriver(static_cast<ModelManager*>(model_manager), mWindow, mCamera, mGUIRenderer);
+	// EDITED BY SHAYAN: Also sending in the nunchuk
+	mFrameListener = new KeyboardGestureDriver(static_cast<ModelManager*>(model_manager), mWindow, mCamera, mGUIRenderer, nunchuk);
     mRoot->addFrameListener(mFrameListener);
 	//mRoot->addFrameListener(&((PresenceFrameListener*)mFrameListener)->eventMgr->mTimer);
 }
