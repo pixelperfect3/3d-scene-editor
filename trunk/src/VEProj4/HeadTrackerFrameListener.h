@@ -15,7 +15,7 @@ protected:
 	VTrak3DClient* vtrak;
 	WiiMoteClient *nunchuk; // the nunchuk for navigation
 public:
-	HeadTrackerFrameListener(RenderWindow* win, Camera* cam, WiiMoteClient *nunchukN) : ExampleFrameListener(win, cam) {
+	HeadTrackerFrameListener(RenderWindow* win, Camera* cam, WiiMoteClient *nunchuk) : ExampleFrameListener(win, cam) {
 		vtrak = new VTrak3DClient();
 		if (vtrak->init("tracker", "192.168.1.39", 8900)) {   // see HandleDisplay for update loop
 			std::cout << "Connected to tracker!" << std::endl;
@@ -24,7 +24,7 @@ public:
 		}
 
 		// set the nunchuk
-		nunchuk = nunchukN;
+		this->nunchuk = nunchuk;
 	}
 
 	~HeadTrackerFrameListener() {
@@ -39,7 +39,7 @@ public:
 
 	// returns the delta_angle from the nunchuk
 	double getDeltaAngle() {
-		double delta_angle = wiimote->joystick_pos[0];
+		double delta_angle = nunchuk->joystick_pos[0];
 		double drift = 0.02;
 		double max = 2.0;
 		if (-drift < delta_angle && delta_angle < drift) {
@@ -55,7 +55,7 @@ public:
 
 	// gets the delta position from the nunchuk
 	double getDeltaPosition() {
-		double delta_position = wiimote->joystick_pos[1];
+		double delta_position = nunchuk->joystick_pos[1];
 		double drift = 0.04;
 		double max = 2.0;
 		if (-drift < delta_position && delta_position < drift) {
@@ -74,9 +74,6 @@ public:
 			//TODO : "delta" head position, "delta" quaternion (use an initial reading to "center" the head).
 			//TODO : smooth position/orientation values.
 			//TODO : throw out orientation values that are almost "upside down", or otherwise "weird".
-
-		// update the wiimote
-		nunchuk->updateFromServer();
 
 		bool res = ExampleFrameListener::frameStarted(evt);
 
@@ -116,16 +113,19 @@ public:
 			//std::cout << "Vtrak not initialized.\n";
 		}
 
-		// Change the camera position based on the nunchuk input
-		float degrees_per_sec = 60;
-		float deltaY = getDeltaAngle() * degrees_per_sec * evt.timeSinceLastFrame;
-		Quaternion quatY(Radian(Degree(deltaY)), Vector3::UNIT_Y);
-		mCamera->rotate(quatY);
-		float units_per_sec = .25;
-		float deltaZ = getDeltaPosition() * units_per_sec * evt.timeSinceLastFrame;
-		mCamera->move(Vector3(0, 0, deltaZ));
-
-
+		// update the wiimote
+		if (nunchuk) {
+			nunchuk->updateFromServer();
+			// Change the camera position based on the nunchuk input
+			float degrees_per_sec = 60;
+			float deltaY = getDeltaAngle() * degrees_per_sec * evt.timeSinceLastFrame;
+			Quaternion quatY(Radian(Degree(deltaY)), Vector3::NEGATIVE_UNIT_Y);
+			mCamera->rotate(quatY);
+			float units_per_sec = 3.5;
+			float deltaZ = getDeltaPosition() * units_per_sec * evt.timeSinceLastFrame;
+			Vector3 delta_pos = mCamera->getOrientation() * Vector3(0, 0, -deltaZ);
+			mCamera->move(delta_pos);
+		}
 
 		return res;
 	}
