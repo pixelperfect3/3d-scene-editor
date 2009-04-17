@@ -255,12 +255,13 @@ public:
 	}
 	void injectMouseButtonPressed(int buttonID) {
 		switch (buttonID) {
-			case 1:
-				std::cout << "Left-Click!!!\n";
-				CEGUI::System::getSingleton().injectMouseButtonDown(CEGUI::MouseButton::LeftButton);
-				CEGUI::System::getSingleton().injectMouseButtonUp(CEGUI::MouseButton::LeftButton);
+			case 1:	{		// From the nunchuk Z-button
+					std::cout << "Left-Click!!!\n";
+					CEGUI::System::getSingleton().injectMouseButtonDown(CEGUI::MouseButton::LeftButton);
+					CEGUI::System::getSingleton().injectMouseButtonUp(CEGUI::MouseButton::LeftButton);
+				}
 				break;
-			case 2:
+			case 2:			// From the nunchuk C-button
 				std::cout << "Right-Click!!!\n";
 				CEGUI::System::getSingleton().injectMouseButtonDown(CEGUI::MouseButton::RightButton);
 				CEGUI::System::getSingleton().injectMouseButtonUp(CEGUI::MouseButton::RightButton);
@@ -272,6 +273,29 @@ public:
 	//----------------------------------------------------------------//
 	bool mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 	{
+		// Try to do a raycast from the mouse. TODO: Should be changed to the red pointer instead?
+		Ogre::Ray ray = mCamera->getCameraToViewportRay( Ogre::Real( arg.state.X.abs ) / arg.state.width, Ogre::Real( arg.state.Y.abs ) / arg.state.height ); // 1024 and 768 are just temporary values!!
+
+		// go through all the intersected objects, and only highlight the bounding box of the first object
+		RaySceneQuery* raySceneQuery = mCamera->getSceneManager()->createRayQuery(ray);
+		RaySceneQueryResult::iterator it;
+		RaySceneQueryResult& qryResult=raySceneQuery->execute();
+
+		// iterate through the objects and only select the first one
+		for( it = qryResult.begin();it!=qryResult.end();it++) {
+			//it->worldFragment->fragmentType
+			if(it->movable){
+				if (Ogre::StringUtil::startsWith(it->movable->getName(), "tree") || Ogre::StringUtil::startsWith(it->movable->getName(), "plant")) { // tree or plant
+					//it->movable->setVisible(false);
+					//const char* s = it->movable->getName().c_str();
+					// show bounding box - TEMPORARY
+					it->movable->getParentSceneNode()->showBoundingBox(true);
+					break; // break out of the loop
+				}
+			}
+		} // end of loop
+
+		
 		CEGUI::System::getSingleton().injectMouseButtonDown(convertOISMouseButtonToCegui(id));
 		return true;
 	}
