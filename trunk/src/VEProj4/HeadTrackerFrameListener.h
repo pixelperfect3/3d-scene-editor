@@ -13,14 +13,18 @@ double headCenter[3] = { 0, 0, 0 };
 class HeadTrackerFrameListener : public ExampleFrameListener {
 protected:
 	VTrak3DClient* vtrak;
+	WiiMoteClient *nunchuk;
 public:
-	HeadTrackerFrameListener(RenderWindow* win, Camera* cam, WiiMoteClient *nunchuk) : ExampleFrameListener(win, cam) {
+	HeadTrackerFrameListener(RenderWindow* win, Camera* cam, WiiMoteClient *nunchukN) : ExampleFrameListener(win, cam) {
 		vtrak = new VTrak3DClient();
 		if (vtrak->init("tracker", "192.168.1.39", 8900)) {   // see HandleDisplay for update loop
 			std::cout << "Connected to tracker!" << std::endl;
 		} else {
 			std::cout << "Connection to tracker could not be made!" << std::endl;   
 		}
+
+		// set the nunchuk
+		nunchuk = nunchukN;
 	}
 
 	~HeadTrackerFrameListener() {
