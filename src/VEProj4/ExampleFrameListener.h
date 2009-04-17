@@ -86,7 +86,7 @@ protected:
 
 public:
 	// Constructor takes a RenderWindow because it uses that to determine input context
-	ExampleFrameListener(RenderWindow* win, Camera* cam,bool bufferedKeys = false, bool bufferedMouse = false,
+	ExampleFrameListener(RenderWindow* win, Camera* cam,bool bufferedKeys = true, bool bufferedMouse = true,
 			     bool bufferedJoy = false ) :
 		mCamera(cam), mTranslateVector(Vector3::ZERO), mCurrentSpeed(0), mWindow(win), mStatsOn(true), mNumScreenShots(0),
 		mMoveScale(0.0f), mRotScale(0.0f), mTimeUntilNextToggle(0), mFiltering(TFO_BILINEAR),
@@ -233,11 +233,7 @@ public:
 
 		if(mKeyboard->isKeyDown(OIS::KC_SYSRQ) && mTimeUntilNextToggle <= 0)
 		{
-			std::ostringstream ss;
-			ss << "screenshot_" << ++mNumScreenShots << ".png";
-			mWindow->writeContentsToFile(ss.str());
-			mTimeUntilNextToggle = 0.5;
-			mDebugText = "Saved: " + ss.str();
+			screenCapture();
 		}
 
 		if(mKeyboard->isKeyDown(OIS::KC_M) && mTimeUntilNextToggle <=0)
@@ -267,6 +263,13 @@ public:
 
 		// Return true to continue rendering
 		return true;
+	}
+	void screenCapture(void){
+		std::ostringstream ss;
+		ss << "screenshot_" << ++mNumScreenShots << ".png";
+		mWindow->writeContentsToFile(ss.str());
+		mTimeUntilNextToggle = 0.5;
+		mDebugText = "Saved: " + ss.str();
 	}
 
 	virtual bool processUnbufferedMouseInput(const FrameEvent& evt)
