@@ -7,7 +7,7 @@
 bool recenter_view = true;
 
 //TODO : add camera panning/orbiting
-Vector3 cameraOrigin(0, 2.5, 0);
+Vector3 cameraOrigin(0, 2.2, 0);
 double headCenter[3] = { 0, 0, 0 };
 
 class HeadTrackerFrameListener : public ExampleFrameListener {
@@ -108,14 +108,6 @@ public:
 				}
 				Ogre::Vector3 delta_vector(-delta_pos[0], delta_pos[1], -delta_pos[2]);
 				mCamera->setPosition(cameraOrigin + delta_vector);
-
-				/* Set Orientation - Don't know whether this should happen. */
-				//Ogre::Quaternion q(orient[0],-orient[1],orient[2],-orient[3]);
-				//Quaternion q2(Radian(Degree(90)), Ogre::Vector3::UNIT_Y);
-				//q = q2*q;
-
-				//std::cout << "Q { " << q[0] << ", " << q[1] << ", " << q[2] << ", " << q[3] << " }\n";
-				//mCamera->setOrientation(q);
 			} else {
 				//std::cout << "Not updating head-tracker data.\n";
 			}

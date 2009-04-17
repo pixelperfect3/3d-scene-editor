@@ -107,11 +107,18 @@ public:
 		return true;
 	}
 protected:
+	double Unitize(double val, double maxUnits, double percentFOV) {
+		double new_val = val / maxUnits;
+		new_val = max(percentFOV, new_val);
+		new_val = min(1.0 - percentFOV, new_val);
+		new_val = (new_val - percentFOV) / (1.0 - 2.0 * percentFOV);
+		return new_val;
+	}
 	double UnitizeX(double x) {
-		return x / (double) VRPN_WIIMOTE_MAX_IR_X;
+		return Unitize(x, (double) VRPN_WIIMOTE_MAX_IR_X, 0.25);
 	}
 	double UnitizeY(double y) {
-		return y / (double) VRPN_WIIMOTE_MAX_IR_Y;
+		return Unitize(y, (double) VRPN_WIIMOTE_MAX_IR_Y, 0.25);
 	}
 
 	double Distance(double a[3], double b[3]) {
