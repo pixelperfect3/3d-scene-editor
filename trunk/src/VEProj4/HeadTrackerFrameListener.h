@@ -13,7 +13,7 @@ double headCenter[3] = { 0, 0, 0 };
 class HeadTrackerFrameListener : public ExampleFrameListener {
 protected:
 	VTrak3DClient* vtrak;
-	WiiMoteClient *nunchuk;
+	WiiMoteClient *nunchuk; // the nunchuk for navigation
 public:
 	HeadTrackerFrameListener(RenderWindow* win, Camera* cam, WiiMoteClient *nunchukN) : ExampleFrameListener(win, cam) {
 		vtrak = new VTrak3DClient();
@@ -37,10 +37,46 @@ public:
 		return ExampleFrameListener::frameRenderingQueued(evt); // Call default
 	}
 
+	// returns the delta_angle from the nunchuk
+	double getDeltaAngle() {
+		double delta_angle = wiimote->joystick_pos[0];
+		double drift = 0.02;
+		double max = 2.0;
+		if (-drift < delta_angle && delta_angle < drift) {
+			delta_angle = 0.0;
+		} else if (-max < delta_angle && delta_angle < max) {
+			//OK
+		} else { //indeterminate number
+			//std::cout << "BAD angle: " << delta_angle << "\n";
+			delta_angle = 0.0;
+		}
+		return delta_angle;
+	}
+
+	// gets the delta position from the nunchuk
+	double getDeltaPosition() {
+		double delta_position = wiimote->joystick_pos[1];
+		double drift = 0.04;
+		double max = 2.0;
+		if (-drift < delta_position && delta_position < drift) {
+			delta_position = 0.0;
+		} else if (-max < delta_position && delta_position < max) {
+			//OK
+		} else { //indeterminate number
+			//std::cout << "BAD position: " << delta_position << "\n";
+			delta_position = 0.0;
+		}
+		return delta_position;
+	}
+
+	// The redraw frame function
 	bool frameStarted(const FrameEvent &evt) {
 			//TODO : "delta" head position, "delta" quaternion (use an initial reading to "center" the head).
 			//TODO : smooth position/orientation values.
 			//TODO : throw out orientation values that are almost "upside down", or otherwise "weird".
+
+		// update the wiimote
+		nunchuk->updateFromServer();
 
 		bool res = ExampleFrameListener::frameStarted(evt);
 
@@ -79,6 +115,18 @@ public:
 		} else {
 			//std::cout << "Vtrak not initialized.\n";
 		}
+
+		// Change the camera position based on the nunchuk input
+		float degrees_per_sec = 60;
+		float deltaY = getDeltaAngle() * degrees_per_sec * evt.timeSinceLastFrame;
+		Quaternion quatY(Radian(Degree(deltaY)), Vector3::UNIT_Y);
+		mCamera->rotate(quatY);
+		float units_per_sec = .25;
+		float deltaZ = getDeltaPosition() * units_per_sec * evt.timeSinceLastFrame;
+		mCamera->move(Vector3(0, 0, deltaZ));
+
+
+
 		return res;
 	}
 
