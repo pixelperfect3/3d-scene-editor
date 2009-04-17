@@ -8,12 +8,20 @@ PresenceApplication::PresenceApplication(char* wiimote1_name, char* wiimote2_nam
 		nunchuk = new WiiMoteClient(wiimote2_name);
 		std::cout << "Using Wiimotes \"" << wiimote1_name << "\" (for tracking) and \"" << wiimote2_name << "\" (for nunchuk).\n";
 	} else if (wiimote1_name) {
-		wiimote = new WiiMoteClient(wiimote1_name);
-		std::cout << "Using Wiimote \"" << wiimote1_name << "\" (for tracking).\n";
+		if (true) {
+			wiimote = new WiiMoteClient(wiimote1_name);
+			nunchuk = NULL;
+			std::cout << "Using Wiimote \"" << wiimote1_name << "\" (for tracking).\n";
+		} else {
+			nunchuk = new WiiMoteClient(wiimote1_name);
+			wiimote = NULL;
+			std::cout << "Using Wiimote \"" << wiimote1_name << "\" (for nunchuk).\n";
+		}
 	} else {
+		wiimote = NULL;
+		nunchuk = NULL;
 		std::cout << "Not using Wiimotes.\n";
 	}
-
 	mGUIRenderer =0;
 	mGUISystem = 0;
 	mEditorGuiSheet = 0;
@@ -22,6 +30,7 @@ PresenceApplication::PresenceApplication(char* wiimote1_name, char* wiimote2_nam
 PresenceApplication::~PresenceApplication() {
 	delete model_manager;
 	if (wiimote) {
+		delete gesturer;
 		delete wiimote;
 	}
 	if (nunchuk) {
@@ -132,6 +141,8 @@ void PresenceApplication::createScene(void)
 	wmgr.getWindow("Menu")->setVisible(false); // menu is invisible
 
 	setupEventHandlers();
+	
+	init_pointers(mSceneMgr);
 }
 
 void PresenceApplication::setupEventHandlers(){
@@ -150,8 +161,11 @@ void PresenceApplication::setupEventHandlers(){
 
 void PresenceApplication::createFrameListener(void)
 {
-	// EDITED BY SHAYAN: Also sending in the nunchuk
-	mFrameListener = new KeyboardGestureDriver(static_cast<ModelManager*>(model_manager), mWindow, mCamera, mGUIRenderer, nunchuk);
+	KeyboardGestureDriver *driver = new KeyboardGestureDriver(model_manager, mWindow, mCamera, mGUIRenderer, nunchuk);
+	mFrameListener = driver;
     mRoot->addFrameListener(mFrameListener);
-	//mRoot->addFrameListener(&((PresenceFrameListener*)mFrameListener)->eventMgr->mTimer);
+	if (wiimote) {
+		gesturer = new WiiMoteGesturer(wiimote, driver, model_manager);
+		mRoot->addFrameListener(gesturer);
+	}
 }

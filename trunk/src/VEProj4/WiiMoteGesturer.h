@@ -14,30 +14,7 @@
 //Defined elsewhere (later):
 static void DrawPoints(int num_points, double points[4][3]); //Pointers.h
 
-double UnitizeX(double x) {
-	return 2.0 * x / (double) VRPN_WIIMOTE_MAX_IR_X - 1.0;
-}
-double UnitizeY(double y) {
-	return 2.0 * y / (double) VRPN_WIIMOTE_MAX_IR_Y - 1.0;
-}
-
-double Distance(double a[3], double b[3]) {
-	double deltaX = b[0] - a[0];
-	double deltaY = b[1] - a[1];
-	return sqrt(deltaX * deltaX + deltaY * deltaY);
-}
-void Distance(double a[3], double b[3], double dest[2]) {
-	for (int ii = 0; ii < 2; ii++) {
-		dest[ii] = b[ii] - a[ii];
-	}
-}
-void Midpoint(double a[3], double b[3], double dest[2]) {
-	for (int ii = 0; ii < 2; ii++) {
-		dest[ii] = (b[ii] + a[ii]) / 2;
-	}
-}
-
-class WiiMoteGesturer {
+class WiiMoteGesturer : public FrameListener {
 private:
 	int previous_points;
 	double midpoint[2];
@@ -51,8 +28,9 @@ protected:
 public:
 	WiiMoteGesturer(WiiMoteClient *wiimote, MouseDriver *mouseDriver, ModelManager *manager) :
 	previous_points(0) {
+		assert(wiimote);
 		this->wiimote = wiimote;
-		this->mouseDriver;
+		this->mouseDriver = mouseDriver;
 		this->modelManager = manager;
 	}
 	virtual ~WiiMoteGesturer() {
@@ -61,7 +39,7 @@ public:
 		this->modelManager = NULL;
 	}
 
-	void nextFrame(const FrameEvent &evt) {
+	virtual bool frameStarted(const FrameEvent &evt) {
 		wiimote->updateFromServer(); //may incur frame lag.
 		double points[4][3] = { {0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1} };
 
@@ -126,5 +104,29 @@ public:
 		}
 		DrawPoints(active_points, points);
 		previous_points = active_points;
+		return true;
+	}
+protected:
+	double UnitizeX(double x) {
+		return 2.0 * x / (double) VRPN_WIIMOTE_MAX_IR_X - 1.0;
+	}
+	double UnitizeY(double y) {
+		return 2.0 * y / (double) VRPN_WIIMOTE_MAX_IR_Y - 1.0;
+	}
+
+	double Distance(double a[3], double b[3]) {
+		double deltaX = b[0] - a[0];
+		double deltaY = b[1] - a[1];
+		return sqrt(deltaX * deltaX + deltaY * deltaY);
+	}
+	void Distance(double a[3], double b[3], double dest[2]) {
+		for (int ii = 0; ii < 2; ii++) {
+			dest[ii] = b[ii] - a[ii];
+		}
+	}
+	void Midpoint(double a[3], double b[3], double dest[2]) {
+		for (int ii = 0; ii < 2; ii++) {
+			dest[ii] = (b[ii] + a[ii]) / 2;
+		}
 	}
 };

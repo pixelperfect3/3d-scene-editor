@@ -174,7 +174,7 @@ static void init_point(int index, SceneManager *mSceneMgr) {
 }
 
 // The function to initialize the pointers
-static void init_pointers(SceneManager *sceneMgr) {
+static void init_pointers(SceneManager *sceneMgr) { //Called in PresenceApplication::createScene
 	// set the scene manager
 	mSceneMgr = sceneMgr;
 
