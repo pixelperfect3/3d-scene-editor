@@ -1,21 +1,19 @@
 #pragma once
 
-#include "gestures.h"
 #include "ExampleApplication.h"
 #include "ExampleFrameListener.h"
 #include "model_manager.h"
+#include "wiimote_client.h"
 
 #include "CEGUI/CEGUI.h"
 #include "OgreCEGUIRenderer.h"
 #include "OgreCEGUIResourceProvider.h"
 #include "OgreCEGUITexture.h"
 
-//#include "ModelEmitter.h"
-
 class PresenceApplication : public ExampleApplication
 {
 public:
-    PresenceApplication(char*);
+    PresenceApplication(char*, char*);
 	~PresenceApplication();
 
 
@@ -30,7 +28,8 @@ protected:
 	ModelManager *model_manager;
 	SceneNode* mainSceneNode;
 	RenderWindow *mWindow2;
-	char* wiimote_name;
+	WiiMoteClient *wiimote;  //tracker
+	WiiMoteClient *nunchuk; //nunchuk (for lookaround)
 	
 
     // Just override the mandatory create scene method

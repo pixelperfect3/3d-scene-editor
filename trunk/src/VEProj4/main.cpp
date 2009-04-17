@@ -88,9 +88,8 @@ int main(int argc, char **argv)
 		wiimote2 = W2A(argv[2]);
 	}
 	
-
     // Create application object
-    PresenceApplication app = PresenceApplication(wiimote1);
+    PresenceApplication app = PresenceApplication(wiimote1, wiimote2);
 
     try {
         app.go();

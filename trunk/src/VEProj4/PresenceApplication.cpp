@@ -2,8 +2,17 @@
 #include "KeyboardGestureDriver.h"
 #include "ogreconsole.h"
 
-PresenceApplication::PresenceApplication(char* wiimote_name) {
-	this->wiimote_name = wiimote_name;
+PresenceApplication::PresenceApplication(char* wiimote1_name, char* wiimote2_name) {
+	if (wiimote2_name) {
+		wiimote = new WiiMoteClient(wiimote1_name);
+		nunchuk = new WiiMoteClient(wiimote2_name);
+		std::cout << "Using Wiimotes \"" << wiimote1_name << "\" (for tracking) and \"" << wiimote2_name << "\" (for nunchuk).\n";
+	} else if (wiimote1_name) {
+		wiimote = new WiiMoteClient(wiimote1_name);
+		std::cout << "Using Wiimote \"" << wiimote1_name << "\" (for tracking).\n";
+	} else {
+		std::cout << "Not using Wiimotes.\n";
+	}
 
 	mGUIRenderer =0;
 	mGUISystem = 0;
@@ -12,6 +21,12 @@ PresenceApplication::PresenceApplication(char* wiimote_name) {
 
 PresenceApplication::~PresenceApplication() {
 	delete model_manager;
+	if (wiimote) {
+		delete wiimote;
+	}
+	if (nunchuk) {
+		delete nunchuk;
+	}
 	if(mEditorGuiSheet)
 	{
 		CEGUI::WindowManager::getSingleton().destroyWindow(mEditorGuiSheet);
@@ -131,7 +146,6 @@ void PresenceApplication::setupEventHandlers(){
 
 void PresenceApplication::createFrameListener(void)
 {
-	//TODO : wiimote gesture driver goes here.
 	mFrameListener = new KeyboardGestureDriver(static_cast<ModelManager*>(model_manager), mWindow, mCamera, mGUIRenderer);
     mRoot->addFrameListener(mFrameListener);
 	//mRoot->addFrameListener(&((PresenceFrameListener*)mFrameListener)->eventMgr->mTimer);
