@@ -11,11 +11,15 @@ Vector3 cameraOrigin(0, 2.5, 0);
 double headCenter[3] = { 0, 0, 0 };
 
 class HeadTrackerFrameListener : public ExampleFrameListener {
+private:
+	bool zButtonDown;
+	bool cButtonDown;
 protected:
 	VTrak3DClient* vtrak;
 	WiiMoteClient *nunchuk; // the nunchuk for navigation
 public:
-	HeadTrackerFrameListener(RenderWindow* win, Camera* cam, WiiMoteClient *nunchuk) : ExampleFrameListener(win, cam) {
+	HeadTrackerFrameListener(RenderWindow* win, Camera* cam, WiiMoteClient *nunchuk) : ExampleFrameListener(win, cam),
+	zButtonDown(false), cButtonDown(false) {
 		vtrak = new VTrak3DClient();
 		if (vtrak->init("tracker", "192.168.1.39", 8900)) {   // see HandleDisplay for update loop
 			std::cout << "Connected to tracker!" << std::endl;
@@ -117,11 +121,9 @@ public:
 
 		// update the wiimote
 		if (nunchuk) {
-			bool zButtonBefore = nunchuk->buttons[WIIMOTE_CLIENT_BUTTON_NUNCHUK_Z];
-			bool cButtonBefore = nunchuk->buttons[WIIMOTE_CLIENT_BUTTON_NUNCHUK_C];
 			nunchuk->updateFromServer();
-			bool zButtonAfter = nunchuk->buttons[WIIMOTE_CLIENT_BUTTON_NUNCHUK_Z];
-			bool cButtonAfter = nunchuk->buttons[WIIMOTE_CLIENT_BUTTON_NUNCHUK_C];
+			bool zButtonPressed = nunchuk->buttons[WIIMOTE_CLIENT_BUTTON_NUNCHUK_Z];
+			bool cButtonPressed = nunchuk->buttons[WIIMOTE_CLIENT_BUTTON_NUNCHUK_C];
 
 			// Change the camera position based on the nunchuk input
 			float degrees_per_sec = 60;
@@ -133,12 +135,14 @@ public:
 			Vector3 delta_pos = mCamera->getOrientation() * Vector3(0, 0, -deltaZ);
 			mCamera->move(delta_pos);
 			//TODO : inject nunchuk button presses.
-			if (!zButtonBefore && zButtonAfter) {
+			if (!zButtonDown && zButtonPressed) {
 				injectMouseButtonPressed(1);
 			}
-			if (!cButtonBefore && cButtonAfter) {
+			if (!cButtonDown && cButtonPressed) {
 				injectMouseButtonPressed(2);
 			}
+			zButtonDown = zButtonPressed;
+			cButtonDown = cButtonPressed;
 		}
 
 		return res;

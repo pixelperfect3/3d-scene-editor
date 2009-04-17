@@ -204,12 +204,14 @@ public:
 	void injectMouseButtonPressed(int buttonID) {
 		switch (buttonID) {
 			case 1:
+				std::cout << "Left-Click!!!\n";
 				CEGUI::System::getSingleton().injectMouseButtonDown(CEGUI::MouseButton::LeftButton);
-				CEGUI::System::getSingleton().injectMouseButtonDown(CEGUI::MouseButton::LeftButton);
+				CEGUI::System::getSingleton().injectMouseButtonUp(CEGUI::MouseButton::LeftButton);
 				break;
 			case 2:
+				std::cout << "Right-Click!!!\n";
 				CEGUI::System::getSingleton().injectMouseButtonDown(CEGUI::MouseButton::RightButton);
-				CEGUI::System::getSingleton().injectMouseButtonDown(CEGUI::MouseButton::RightButton);
+				CEGUI::System::getSingleton().injectMouseButtonUp(CEGUI::MouseButton::RightButton);
 				break;
 		}
 		
