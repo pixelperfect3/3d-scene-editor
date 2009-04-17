@@ -259,7 +259,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\wiimote_gesture_driver.h"
+				RelativePath=".\WiiMoteGesturer.h"
 				>
 			</File>
 		</Filter>
