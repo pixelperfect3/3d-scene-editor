@@ -7,6 +7,7 @@
 #include <vrpn/vrpn_Connection.h>
 #include <vrpn/vrpn_Analog_Output.h>
 
+//indices into buttons array
 #define WIIMOTE_CLIENT_BUTTON_2 0
 #define WIIMOTE_CLIENT_BUTTON_1 1
 #define WIIMOTE_CLIENT_BUTTON_A 2
@@ -30,7 +31,8 @@ public:
 	void handle_analog_changes(const vrpn_ANALOGCB info);
 	void handle_button_changes(const vrpn_BUTTONCB info);
 	bool enable_rumble(bool rumble);
-	bool set_leds(int leds);
+	bool set_leds(const int leds);
+	bool set_mode(const int mode, bool value); //one of _MODE_IR or _MODE_MOTION_SENSE
 	/* (Remote) Wiimote data */
 #define WIIMOTE_CLIENT_NUM_BUTTONS (64)
 	unsigned wiimote_index;                   //which wiimote this is
@@ -39,8 +41,13 @@ public:
 	double wiimote_accel[3];                  //accel in X, Y, and Z axes.
 	double nunchuk_accel[3];                  //accel in X, Y, and Z axes.
 	double joystick_pos[2];  //nunchuck position in X&Y axes, values (mostly) between -1 and 1.
+	int ir_x[4];    // [0, 1023] or -1 if not seen
+	int ir_y[4];    // [0, 767]  or -1 if not seen
+	int ir_size[4]; // [0, 15]   or -1 if not seen
 
 protected:
+	bool update_channel(const int channel, const bool value);
+	static vrpn_float64 get_channel_value(const bool value);
 	vrpn_Analog_Remote *analog_listener; //listens for changes to thumbsticks/accel data.
 	vrpn_Button_Remote *button_listener; //listens for changes to buttons.
 	vrpn_Analog_Output_Remote *output_listener; //sends rumble, LED, etc. updates to wiimote.

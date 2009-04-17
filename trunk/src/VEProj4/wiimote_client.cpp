@@ -13,15 +13,25 @@ void VRPN_CALLBACK button_change_callback(void *userdata, const vrpn_BUTTONCB in
 	((WiiMoteClient *)userdata)->handle_button_changes(info);
 };
 
+bool WiiMoteClient::update_channel(const vrpn_int32 channel, const bool value) {
+	vrpn_float64 channel_val = (value ? 1.0 : 0.0);
+	return output_listener->request_change_channel_value(channel, channel_val);
+}
 bool WiiMoteClient::enable_rumble(bool rumble) {
-	vrpn_int32 channel = VRPN_WIIMOTE_CHANNEL_RUMBLE;
-	vrpn_float64 rumble_val = (rumble ? 0.0 : 1.0);
-	return output_listener->request_change_channel_value(channel, rumble_val);
+	return update_channel(VRPN_WIIMOTE_CHANNEL_RUMBLE, rumble);
+}
+bool WiiMoteClient::set_mode(const int mode, bool value) {
+	switch (mode) {
+	case VRPN_WIIMOTE_CHANNEL_MODE_IR:
+	case VRPN_WIIMOTE_CHANNEL_MODE_MOTION_SENSE:
+		return update_channel(mode, value);
+	default:
+		return false;
+	}
 }
 
 bool WiiMoteClient::set_leds(int leds) {
 	vrpn_int32 channel = 0;
-	vrpn_float64 val = 1.0;
 	switch (leds) {
 		case 1:
 			channel = VRPN_WIIMOTE_CHANNEL_LED_1;
@@ -35,9 +45,11 @@ bool WiiMoteClient::set_leds(int leds) {
 		case 4:
 			channel = VRPN_WIIMOTE_CHANNEL_LED_4;
 			break;
+		default:
+			return false;
 	}
 	std::cout << "LEDS: " << leds << " (channel=" << channel << ")\n";
-	return output_listener->request_change_channel_value(channel, val);
+	return update_channel(channel, true);
 }
 
 WiiMoteClient::WiiMoteClient(const char *name, unsigned which, vrpn_Connection *c) {
@@ -53,6 +65,11 @@ WiiMoteClient::WiiMoteClient(const char *name, unsigned which, vrpn_Connection *
 	}
 	for (int ii = 0; ii < 2; ii++) {
 		this->joystick_pos[ii] = 0;
+	}
+	for (int ii = 0; ii < 4; ii++) {
+		this->ir_x[ii]    = -1;
+		this->ir_y[ii]    = -1;
+		this->ir_size[ii] = -1;
 	}
 	for (int ii = 0; ii < WIIMOTE_CLIENT_NUM_BUTTONS; ii++) {
 		this->buttons[ii] = 0;
@@ -71,6 +88,9 @@ void WiiMoteClient::updateFromServer() {
 }
 
 void WiiMoteClient::disconnect() {
+	analog_listener->unregister_change_handler((void *)this, analog_change_callback);
+	button_listener->unregister_change_handler((void *)this, button_change_callback);
+
 	if (analog_listener) {
 		delete analog_listener;
 	}
@@ -112,6 +132,20 @@ void WiiMoteClient::handle_analog_changes(const vrpn_ANALOGCB info) {
 	wiimote_accel[0] = info.channel[1]; //TODO : replace constants with WIIMOTE_CLIENT_CHANNEL_xxx
 	wiimote_accel[1] = info.channel[2];
 	wiimote_accel[2] = info.channel[3];
+
+	//IR data: (X, Y, size)
+	ir_x[0]    = info.channel[4];
+	ir_y[0]    = info.channel[5];
+	ir_size[0] = info.channel[6];
+	ir_x[1]    = info.channel[7];
+	ir_y[1]    = info.channel[8];
+	ir_size[1] = info.channel[9];
+	ir_x[2]    = info.channel[10];
+	ir_y[2]    = info.channel[11];
+	ir_size[2] = info.channel[12];
+	ir_x[3]    = info.channel[13];
+	ir_y[3]    = info.channel[14];	
+	ir_size[3] = info.channel[15];
 
 	//Nunchuk accelerometer data:
 	nunchuk_accel[0] = info.channel[16];
