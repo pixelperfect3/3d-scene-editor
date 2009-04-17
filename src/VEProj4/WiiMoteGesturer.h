@@ -108,10 +108,10 @@ public:
 	}
 protected:
 	double UnitizeX(double x) {
-		return 2.0 * x / (double) VRPN_WIIMOTE_MAX_IR_X - 1.0;
+		return x / (double) VRPN_WIIMOTE_MAX_IR_X;
 	}
 	double UnitizeY(double y) {
-		return 2.0 * y / (double) VRPN_WIIMOTE_MAX_IR_Y - 1.0;
+		return y / (double) VRPN_WIIMOTE_MAX_IR_Y;
 	}
 
 	double Distance(double a[3], double b[3]) {

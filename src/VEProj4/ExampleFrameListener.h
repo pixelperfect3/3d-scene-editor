@@ -270,6 +270,7 @@ public:
 		mWindow->writeContentsToFile(ss.str());
 		mTimeUntilNextToggle = 0.5;
 		mDebugText = "Saved: " + ss.str();
+		std::cout << "Screen capture!\n";
 	}
 
 	virtual bool processUnbufferedMouseInput(const FrameEvent& evt)

@@ -32,6 +32,8 @@ public:
 			delete vtrak;
 		}
 	}
+	
+	virtual void injectMouseButtonPressed(int button) = 0; //Inject nunchuk button presses
 
 	bool frameRenderingQueued(const FrameEvent& evt) {
 		return ExampleFrameListener::frameRenderingQueued(evt); // Call default
@@ -115,7 +117,12 @@ public:
 
 		// update the wiimote
 		if (nunchuk) {
+			bool zButtonBefore = nunchuk->buttons[WIIMOTE_CLIENT_BUTTON_NUNCHUK_Z];
+			bool cButtonBefore = nunchuk->buttons[WIIMOTE_CLIENT_BUTTON_NUNCHUK_C];
 			nunchuk->updateFromServer();
+			bool zButtonAfter = nunchuk->buttons[WIIMOTE_CLIENT_BUTTON_NUNCHUK_Z];
+			bool cButtonAfter = nunchuk->buttons[WIIMOTE_CLIENT_BUTTON_NUNCHUK_C];
+
 			// Change the camera position based on the nunchuk input
 			float degrees_per_sec = 60;
 			float deltaY = getDeltaAngle() * degrees_per_sec * evt.timeSinceLastFrame;
@@ -125,6 +132,13 @@ public:
 			float deltaZ = getDeltaPosition() * units_per_sec * evt.timeSinceLastFrame;
 			Vector3 delta_pos = mCamera->getOrientation() * Vector3(0, 0, -deltaZ);
 			mCamera->move(delta_pos);
+			//TODO : inject nunchuk button presses.
+			if (!zButtonBefore && zButtonAfter) {
+				injectMouseButtonPressed(1);
+			}
+			if (!cButtonBefore && cButtonAfter) {
+				injectMouseButtonPressed(2);
+			}
 		}
 
 		return res;

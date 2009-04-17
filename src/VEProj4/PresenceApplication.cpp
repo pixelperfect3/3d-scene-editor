@@ -13,8 +13,8 @@ PresenceApplication::PresenceApplication(char* wiimote1_name, char* wiimote2_nam
 			nunchuk = NULL;
 			std::cout << "Using Wiimote \"" << wiimote1_name << "\" (for tracking).\n";
 		} else {
-			nunchuk = new WiiMoteClient(wiimote1_name);
 			wiimote = NULL;
+			nunchuk = new WiiMoteClient(wiimote1_name);
 			std::cout << "Using Wiimote \"" << wiimote1_name << "\" (for nunchuk).\n";
 		}
 	} else {
@@ -29,12 +29,12 @@ PresenceApplication::PresenceApplication(char* wiimote1_name, char* wiimote2_nam
 
 PresenceApplication::~PresenceApplication() {
 	delete model_manager;
+	if (nunchuk && nunchuk != wiimote) {
+		delete nunchuk;
+	}
 	if (wiimote) {
 		delete gesturer;
 		delete wiimote;
-	}
-	if (nunchuk) {
-		delete nunchuk;
 	}
 	if(mEditorGuiSheet)
 	{

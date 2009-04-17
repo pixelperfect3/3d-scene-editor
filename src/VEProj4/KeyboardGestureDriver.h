@@ -175,17 +175,44 @@ public:
 			return ExampleFrameListener::frameEnded(evt);
 	}
 	void ToggleMouseCursor(bool useMouse) {
-		//TODO : stub
+		if (useMouse) {
+			std::cout << "Showing mouse.\n";
+			CEGUI::MouseCursor::getSingleton().show();
+		} else {
+			std::cout << "Hiding mouse.\n";
+			CEGUI::MouseCursor::getSingleton().hide();
+		}
 	}
 	void MouseMoved(double mouse[3], double old_mouse[3], double distance[2]) {
-		//TODO : stub
+		const OIS::MouseState &ms = mMouse->getMouseState();
+		int x = old_mouse[0] * ms.width;
+		int y = ms.height - old_mouse[1] * ms.height;
+		int relX = distance[0] * ms.width;
+		int relY = -distance[1] * ms.height;
+		std::cout << "Mouse: { " << x << ", " << y << " }, relative={ " << relX << ", " << relY << " }\n";
+		CEGUI::MouseCursor::getSingleton().setPosition(CEGUI::Point(x, y));
+		CEGUI::System::getSingleton().injectMouseMove(relX, relY); //These are relative movements in pixels.
 	}
 
 	//----------------------------------------------------------------//
 	bool mouseMoved( const OIS::MouseEvent &arg )
 	{
+		std::cout << "Mouse: { " << arg.state.X.abs << ", " << arg.state.Y.abs << " }, relative={ " << arg.state.X.rel << ", " << arg.state.Y.rel << " }\n";
 		CEGUI::System::getSingleton().injectMouseMove( arg.state.X.rel, arg.state.Y.rel );
 		return true;
+	}
+	void injectMouseButtonPressed(int buttonID) {
+		switch (buttonID) {
+			case 1:
+				CEGUI::System::getSingleton().injectMouseButtonDown(CEGUI::MouseButton::LeftButton);
+				CEGUI::System::getSingleton().injectMouseButtonDown(CEGUI::MouseButton::LeftButton);
+				break;
+			case 2:
+				CEGUI::System::getSingleton().injectMouseButtonDown(CEGUI::MouseButton::RightButton);
+				CEGUI::System::getSingleton().injectMouseButtonDown(CEGUI::MouseButton::RightButton);
+				break;
+		}
+		
 	}
 
 	//----------------------------------------------------------------//
@@ -208,7 +235,6 @@ public:
 		if( arg.key == OIS::KC_ESCAPE )
 			mShutdownRequested = true;
 		if( arg.key == OIS::KC_S){
-			std::cout << "Screen capture!\n";
 			screenCapture();
 		}
 		CEGUI::System::getSingleton().injectKeyDown( arg.key );
