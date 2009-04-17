@@ -124,7 +124,7 @@ void PresenceApplication::createScene(void)
 
 	CEGUI::Window* sheet = 
 		CEGUI::WindowManager::getSingleton().loadWindowLayout(
-		(CEGUI::utf8*)"menu.layout");
+		(CEGUI::utf8*)"menu1.layout");
 	mGUISystem->setGUISheet(sheet);
 
 	CEGUI::WindowManager& wmgr = CEGUI::WindowManager::getSingleton();
@@ -142,6 +142,10 @@ void PresenceApplication::setupEventHandlers(){
 	wmgr.getWindow((CEGUI::utf8*)"Cancel")->subscribeEvent(
 		CEGUI::PushButton::EventClicked,
 		CEGUI::Event::Subscriber(&PresenceApplication::handleCancel, this));
+	wmgr.getWindow((CEGUI::utf8*)"Screenshot")->subscribeEvent(
+		CEGUI::PushButton::EventClicked,CEGUI::Event::Subscriber(&PresenceApplication::handleScreenshot, this));
+	wmgr.getWindow((CEGUI::utf8*)"Trash")->subscribeEvent(
+		CEGUI::PushButton::EventClicked,CEGUI::Event::Subscriber(&PresenceApplication::handleTrash, this));
 }
 
 void PresenceApplication::createFrameListener(void)
