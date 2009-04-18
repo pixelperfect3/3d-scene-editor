@@ -77,7 +77,7 @@ public:
 				Midpoint(points[0], points[1], tmp);
 				Distance(tmp, midpoint, distance);
 				if (!newGesture) {
-					modelManager->Translate2D(distance);
+					modelManager->Translate2D(distance, Vector2(midpoint[0], midpoint[1]));
 				}
 				for (int ii = 0; ii < 2; ii++) {
 					midpoint[ii] = tmp[ii];
