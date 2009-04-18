@@ -35,8 +35,19 @@ public:
 		}
 	}
 	void select_node(SceneNode *node) {
-
-		//TODO : stub
+		std::cout << "select_node\n";
+		if (selected) {
+			done_with_selection();
+		}
+		SimpleModel * model = manager->getModelByNode(node);
+		if (model) {
+			std::cout << "Selecting SimpleModel for node " << node->getName() << "\n";
+			selected = true;
+			selection = model;
+			manager->translate_started(selection);
+		} else {
+			std::cout << "No SimpleModel found for node " << node->getName() << "\n";
+		}
 	}
 	void start_rotating() {
 		if (selected && !rotating) {
