@@ -54,7 +54,8 @@ public:
 	}
 	void remove(SimpleModel *model) {
 		model->parent->setVisible(false);
-		//TODO : delete model from nodeList, remove node from scene.
+		mgr->destroySceneNode(model->parent);
+		model->parent = NULL;
 	}
 	SimpleModel *getModelByNode(SceneNode *node) {
 		SimpleModel *model = NULL;
