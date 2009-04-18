@@ -98,8 +98,6 @@ public:
 			actions[ii] = false;
 		}
 		fsm = new GestureFSM(manager);
-
-		// set the scenenode to null
 		selectedNode = NULL;
 	}
 	~KeyboardGestureDriver() {
@@ -156,13 +154,18 @@ public:
 
 	virtual void update_gestures() {}
 
+	void createModel(char *meshName) {
+		//TODO : place new models to the fore/left of the camera.
+		fsm->create_model(meshName, defaultPosition);
+	}
+
 	virtual bool processUnbufferedKeyInput(const FrameEvent& evt) {
 		if (mKeyboard->isKeyDown(OIS::KC_ESCAPE) || mKeyboard->isKeyDown(OIS::KC_Q)) //quit
 			return false;
 
 		for (int ii = 0; ii < NUM_MODELS; ii++) { //create model, start translating (menu-driven)
 			if (mKeyboard->isKeyDown(keys_to_trees[ii])) {
-				fsm->create_model(models[ii], defaultPosition);
+				createModel(models[ii]);
 			}
 		}
 		if (mKeyboard->isKeyDown(OIS::KC_DELETE)) {
@@ -334,7 +337,7 @@ public:
 
 		for (int ii = 0; ii < NUM_MODELS; ii++) { //create model, start translating (menu-driven)
 			if (arg.key == keys_to_trees[ii]) {
-				fsm->create_model(models[ii], defaultPosition);
+				createModel(models[ii]);
 			}
 		}
 		if (arg.key == OIS::KC_DELETE) {
