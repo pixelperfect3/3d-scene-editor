@@ -2,16 +2,12 @@
 Create (quick) gesture tutorials program (2D animations?)
 ~~~Allowing potted plants and accents to be placed on porch.~~~
 ~~~Undo Options~~~
-
-Translate+Rotate models (in 3d) - Ethan.
-
-Images for Sid's menu items - Shayan.
-
 Project website - ???
-
 Sid: 1) menu, 2) bounding-box
 
 == Done ==
+Images for Sid's menu items - Shayan.
+Translate+Rotate models (in 3d) - Ethan.
 Mouse selection - Shayan.
 Accurate "bounding-box" for house (don't translate plants through house) - Ethan.
 Recenter models around origin (Amarelo tree is off-center) - Shayan.
