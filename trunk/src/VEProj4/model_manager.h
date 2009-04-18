@@ -20,8 +20,9 @@ protected:
 	SimpleModel *selected;
 	Vector3 axis;
     Camera* camera;
+	Plane xzPlane;
 public:
-	ModelManager(SceneManager *sMgr, Camera *camera) {
+	ModelManager(SceneManager *sMgr, Camera *camera) : xzPlane(Vector3::UNIT_Y, 0) {
 		assert(sMgr);
 		this->mgr = sMgr;
 		selected = NULL;
@@ -29,8 +30,18 @@ public:
 		axis = Vector3(0, 1, 0);
 		initBoundingBlocks();
 		this->camera = camera;
+		Ogre::MeshManager::getSingleton().createPlane("ground",
+		   ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, 
+		   xzPlane,
+		   1500,1500,
+		   20,20,
+		   true,
+		   1,
+		   1500,1500,
+		   Vector3::UNIT_Z);
 	}
 	~ModelManager() {
+		camera = NULL;
 		vector<SimpleModel*>::iterator it;
 		for (it = nodeList.begin(); it != nodeList.end(); it++){
 			SimpleModel* m = (SimpleModel*)*it;
@@ -90,10 +101,7 @@ public:
 		assert(selected);
 		Quaternion orient(camera->getOrientation());
 		delta = orient * -delta;
-		selected->parent->translate(delta);
-		if (collisionDect(selected)) {
-			selected->parent->translate(-delta);
-		}
+		translate_impl(delta);
 	}
 	void translate_cancelled() {
 		assert(selected);
@@ -129,10 +137,25 @@ public:
 		quat.ToAngleAxis(degrees, ignore);
 		resetModel(selected, Radian(degrees));
 	}
-	void Translate2D(double distance[2]) {
-		//TODO : translate in XZ plane
+	void xzIntersect(Vector2 mouse) {
+		//HACK : for some reason, the ray is "upside down" and intersects the sky, not the ground plane.
+		Ray mouseRay = camera->getCameraToViewportRay(mouse.x, 1.0 - mouse.y);
+		std::pair<bool, Real> result = mouseRay.intersects(xzPlane);
+		if (result.first) {
+			//Because it's a ray from the camera, it will always be in the camera's FOV :)
+			Vector3 point = mouseRay.getPoint(result.second);
+
+			//std::cout << "Mouse: { " << mouse.x << ", " << 1.0 - mouse.y << " }, Intersection at { " << point.x << ", " << point.y << ", " << point.z << " }\n";
+			//TODO : check for intersection with house (if it's behind or in one of the house blocks).
+			//TODO : check to make sure that it does intersect with the house's parcel/lot.
+			selected->parent->setPosition(point);
+		} else {
+			std::cout << "No intersection.\n";
+		}
+	}
+	void Translate2D(double distance[2], Vector2 mouse) {
 		if (selected) {
-			translate_update(Vector3(distance[0], 0, -distance[1]));
+			xzIntersect(mouse);
 		}
 	}
 	void Rotate2D(double degrees) {
@@ -197,5 +220,11 @@ protected:
 			}
 		}
 		return false;
+	}
+	void translate_impl(Vector3 delta) {
+		selected->parent->translate(delta);
+		if (collisionDect(selected)) {
+			selected->parent->translate(-delta);
+		}
 	}
 };
