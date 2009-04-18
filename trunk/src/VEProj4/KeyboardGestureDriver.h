@@ -314,12 +314,12 @@ public:
 		mouseSelection(x, y);
 	}
 	void injectMouseButtonPressed(int buttonID) {
-		checkMouseSelection();
 		switch (buttonID) {
 		case 1: // From the nunchuk Z-button
 			std::cout << "Left-Click!!!\n";
 			CEGUI::System::getSingleton().injectMouseButtonDown(CEGUI::MouseButton::LeftButton);
 			CEGUI::System::getSingleton().injectMouseButtonUp(CEGUI::MouseButton::LeftButton);
+			checkMouseSelection();
 			break;
 		case 2: // From the nunchuk C-button
 			std::cout << "Right-Click!!!\n";
