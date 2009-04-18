@@ -99,6 +99,7 @@ void PresenceApplication::createScene(void)
 
 	mSceneMgr->setSkyBox(true, "Examples/Skybox" );
 	
+	
 	mainSceneNode = static_cast<SceneNode*>(mSceneMgr->getRootSceneNode()->createChild("mainScene")); 
 	Entity* mainSceneEn = mSceneMgr->createEntity("home","home_with_lawn.mesh");
 	mainSceneNode->attachObject(mainSceneEn);
@@ -110,36 +111,6 @@ void PresenceApplication::createScene(void)
 	mGUISystem = new CEGUI::System(mGUIRenderer);
 
 	CEGUI::Logger::getSingleton().setLoggingLevel(CEGUI::Informative);
-
-	// Setup Render To Texture for preview window
-	TexturePtr rttTex = TextureManager::getSingleton().createManual("RttTex", 
-		ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, TEX_TYPE_2D, 
-		512, 512, 1, 0, PF_R8G8B8, TU_RENDERTARGET);
-	{
-		Camera* rttCam = mSceneMgr->createCamera("RttCam");
-		SceneNode* camNode = 
-			mSceneMgr->getRootSceneNode()->createChildSceneNode("rttCamNode");
-		camNode->attachObject(rttCam);
-		rttCam->setPosition(0,10,270);
-		//rttCam->setVisible(true);
-
-		Viewport *v = rttTex->getBuffer()->getRenderTarget()->addViewport( rttCam );
-		v->setOverlaysEnabled(false);
-		v->setClearEveryFrame( true );
-		v->setBackgroundColour( ColourValue::Black );
-	}
-
-	// Retrieve CEGUI texture for the RTT
-	CEGUI::Texture* rttTexture = mGUIRenderer->createTexture((CEGUI::utf8*)"RttTex");
-
-	CEGUI::Imageset* rttImageSet = 
-		CEGUI::ImagesetManager::getSingleton().createImageset(
-		(CEGUI::utf8*)"RttImageset", rttTexture);
-
-	rttImageSet->defineImage((CEGUI::utf8*)"RttImage", 
-		CEGUI::Point(0.0f, 0.0f),
-		CEGUI::Size(rttTexture->getWidth(), rttTexture->getHeight()),
-		CEGUI::Point(0.0f,0.0f));
 
 	// load scheme and set up defaults
 	CEGUI::SchemeManager::getSingleton().loadScheme(
@@ -154,10 +125,8 @@ void PresenceApplication::createScene(void)
 	mGUISystem->setGUISheet(sheet);
 
 	CEGUI::WindowManager& wmgr = CEGUI::WindowManager::getSingleton();
-
-	wmgr.getWindow("Menu")->setVisible(false); // menu is invisible
-
 	setupEventHandlers();
+	loadMenuItems(63);
 	
 	init_pointers(mSceneMgr);
 }
@@ -165,16 +134,97 @@ void PresenceApplication::createScene(void)
 void PresenceApplication::setupEventHandlers(){
 	CEGUI::WindowManager& wmgr = CEGUI::WindowManager::getSingleton();
 
-	wmgr.getWindow((CEGUI::utf8*)"Models")->subscribeEvent(
-		CEGUI::PushButton::EventClicked,CEGUI::Event::Subscriber(&PresenceApplication::handleModels, this));
+	CEGUI::Window* window = CEGUI::WindowManager::getSingleton().getWindow((CEGUI::utf8*)"Root");
+
+	wmgr.getWindow("Menu")->setVisible(false); // menu is invisible
+	wmgr.getWindow("Menu")->setAlpha(.8);
+
 	wmgr.getWindow((CEGUI::utf8*)"Cancel")->subscribeEvent(
 		CEGUI::PushButton::EventClicked,
 		CEGUI::Event::Subscriber(&PresenceApplication::handleCancel, this));
-	wmgr.getWindow((CEGUI::utf8*)"Screenshot")->subscribeEvent(
+
+	CEGUI::Window* modelButton = wmgr.getWindow("Models");
+	modelButton->setAlpha(.7);
+	modelButton->subscribeEvent(
+		CEGUI::PushButton::EventClicked,CEGUI::Event::Subscriber(&PresenceApplication::handleModels, this));
+
+	CEGUI::Window* cameraButton =CEGUI::WindowManager::getSingleton().createWindow((CEGUI::utf8*)"TaharezLook/ImageButton", (CEGUI::utf8*)"CameraButton");
+	cameraButton->setAlpha(.7);
+	CEGUI::Imageset* imageSet = CEGUI::ImagesetManager::getSingleton().getImageset((CEGUI::utf8*)"CameraBut");
+	cameraButton->setProperty("NormalImage", CEGUI::PropertyHelper::imageToString(
+		&imageSet->getImage((CEGUI::utf8*)"cameraNormal")));
+	cameraButton->setProperty("PushedImage", CEGUI::PropertyHelper::imageToString(
+		&imageSet->getImage((CEGUI::utf8*)"cameraPushed")));
+	cameraButton->setProperty("HoverImage", CEGUI::PropertyHelper::imageToString(
+		&imageSet->getImage((CEGUI::utf8*)"cameraHover")));
+	window->addChildWindow(cameraButton);
+	cameraButton->setSize(CEGUI::UVector2( CEGUI::UDim(0.1f, 0), CEGUI::UDim(0.13f, 0)));
+	cameraButton->setPosition(CEGUI::UVector2(CEGUI::UDim(0.128125f, 0), CEGUI::UDim(0.02125f, 0)));
+	cameraButton->subscribeEvent(
 		CEGUI::PushButton::EventClicked,CEGUI::Event::Subscriber(&PresenceApplication::handleScreenshot, this));
-	wmgr.getWindow((CEGUI::utf8*)"Trash")->subscribeEvent(
+
+	CEGUI::Window* trashButton =CEGUI::WindowManager::getSingleton().createWindow((CEGUI::utf8*)"TaharezLook/ImageButton", (CEGUI::utf8*)"Trash");
+	trashButton->setAlpha(.7);
+	CEGUI::Imageset* imageSet2 = CEGUI::ImagesetManager::getSingleton().getImageset((CEGUI::utf8*)"TrashCan");
+	trashButton->setProperty("NormalImage", CEGUI::PropertyHelper::imageToString(
+		&imageSet2->getImage((CEGUI::utf8*)"TrashCanNormal")));
+	trashButton->setProperty("PushedImage", CEGUI::PropertyHelper::imageToString(
+		&imageSet2->getImage((CEGUI::utf8*)"TrashCanPushed")));
+	trashButton->setProperty("HoverImage", CEGUI::PropertyHelper::imageToString(
+		&imageSet2->getImage((CEGUI::utf8*)"TrashCanHover")));
+	window->addChildWindow(trashButton);
+	trashButton->setSize(CEGUI::UVector2( CEGUI::UDim(0.1f, 0), CEGUI::UDim(0.13f, 0)));
+	trashButton->setPosition(CEGUI::UVector2(CEGUI::UDim(0.864062f, 0), CEGUI::UDim(0.021250f, 0)));
+	trashButton->subscribeEvent(
 		CEGUI::PushButton::EventClicked,CEGUI::Event::Subscriber(&PresenceApplication::handleTrash, this));
+
 }
+
+void PresenceApplication::loadMenuItems(int numberOfObjects){
+	CEGUI::Window* editorWindow = CEGUI::WindowManager::getSingleton().getWindow((CEGUI::utf8*)"Menu");
+
+	CEGUI::Window* window = 0;
+
+	Real posX = 0.05; //Math::RangeRandom(0.0, 0.0); 
+	Real posY = 0.05; //Math::RangeRandom(0.0, 0.0);
+
+	for(int i=0; i<numberOfObjects; i++){
+		window = createStaticImageObject();
+		editorWindow->addChildWindow(window);
+		window->setPosition(CEGUI::UVector2(CEGUI::UDim(posX, 0), CEGUI::UDim(posY, 0)));
+		if(posX > .8 && posY <.8) {
+			posX = .05;
+			posY += .12;
+		}
+		else posX += 0.1;
+
+	}
+}
+
+CEGUI::Window* PresenceApplication::createStaticImageObject(void)
+{
+	static unsigned int siCounter = 0;
+	String guiObjectName = "Objects" + StringConverter::toString(siCounter);
+
+	CEGUI::Imageset* imageSet = 
+		CEGUI::ImagesetManager::getSingleton().getImageset(
+		(CEGUI::utf8*)"ObjectBut");
+
+	CEGUI::Window* si = CEGUI::WindowManager::getSingleton().createWindow((CEGUI::utf8*)"TaharezLook/ImageButton",
+		(CEGUI::utf8*)guiObjectName.c_str());
+	si->setSize(CEGUI::UVector2( CEGUI::UDim(0.1f, 0), CEGUI::UDim(0.13f, 0)));
+	si->setProperty("NormalImage", CEGUI::PropertyHelper::imageToString(
+		&imageSet->getImage((CEGUI::utf8*)"treeDefault")));
+	si->setProperty("HoverImage", CEGUI::PropertyHelper::imageToString(
+		&imageSet->getImage((CEGUI::utf8*)"treeHover")));
+	si->subscribeEvent(
+		CEGUI::PushButton::EventClicked,CEGUI::Event::Subscriber(&PresenceApplication::handleMenuObjects, this));
+
+	siCounter++;
+
+	return si;
+}
+
 
 void PresenceApplication::createFrameListener(void)
 {

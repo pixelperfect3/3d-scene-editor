@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Imageset Name="ObjectBut" Imagefile="tree.png" AutoScaled="true" >
+    <Image Name="treeHover" XPos="256" YPos="0" Width="256" Height="256" />
+    <Image Name="treeDefault" XPos="0" YPos="0" Width="256" Height="256" />
+</Imageset>

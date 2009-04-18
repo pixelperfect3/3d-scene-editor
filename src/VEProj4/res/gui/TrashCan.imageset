@@ -1,0 +1,6 @@
+<?xml version="1.0" ?>
+<Imageset Name="TrashCan" Imagefile="trashset.png" NativeHorzRes="256" NativeVertRes="256" AutoScaled="true">
+	<Image Name="TrashCanNormal" XPos="2" YPos="2" Width="256" Height="256" />
+	<Image Name="TrashCanHover" XPos="256" YPos="2" Width="256" Height="256" />
+	<Image Name="TrashCanPushed" XPos="2" YPos="256" Width="256" Height="256" />
+</Imageset>

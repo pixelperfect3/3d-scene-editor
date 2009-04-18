@@ -24,15 +24,5 @@
                 <Property Name="UnifiedAreaRect" Value="{{0.815858,0},{0.900001,0},{0.973625,0},{0.976191,0}}" />
             </Window>
         </Window>
-        <Window Type="TaharezLook/Button" Name="Screenshot" >
-            <Property Name="Text" Value="Screenshot" />
-            <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
-            <Property Name="UnifiedAreaRect" Value="{{0.128125,0},{0.02125,0},{0.25,0},{0.1,0}}" />
-        </Window>
-        <Window Type="TaharezLook/Button" Name="Trash" >
-            <Property Name="Text" Value="Trash it!" />
-            <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
-            <Property Name="UnifiedAreaRect" Value="{{0.864062,0},{0.02125,0},{0.985937,0},{0.1,0}}" />
-        </Window>
     </Window>
 </GUILayout>
