@@ -64,9 +64,6 @@ public:
 		node->setPosition(pos);
 		return node;
 	}
-	void select_node(SceneNode *node) {
-		//TODO : stub
-	}
 	void translate_started(SimpleModel *o) {
 		selected = o;
 	}
