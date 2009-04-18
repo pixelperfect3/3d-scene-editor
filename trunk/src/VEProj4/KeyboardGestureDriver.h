@@ -79,9 +79,6 @@ protected:
 	Vector3 defaultPosition;
 	GestureFSM *fsm;
 	ModelManager *model_manager;
-
-	// The last selected SceneNode
-	SceneNode* selectedNode;
 public:
 	// Constructor takes a RenderWindow because it uses that to determine input context
 	KeyboardGestureDriver(ModelManager *manager, RenderWindow* win, Camera* cam, CEGUI::Renderer* renderer, WiiMoteClient *nunchuk) :
@@ -100,7 +97,6 @@ public:
 			actions[ii] = false;
 		}
 		fsm = new GestureFSM(manager);
-		selectedNode = NULL;
 	}
 	~KeyboardGestureDriver() {
 		delete fsm;
@@ -273,37 +269,20 @@ public:
 		// Try to do a raycast from the mouse. TODO: Should be changed to the red pointer instead?
 		Ogre::Ray ray = mCamera->getCameraToViewportRay(x, y);
 
-		// set selectedNode to nothing
-		if (selectedNode != NULL) {
-			selectedNode->showBoundingBox(false);
-			selectedNode = NULL;
-		}
-
 		// go through all the intersected objects, and only highlight the bounding box of the first object
 		RaySceneQuery* raySceneQuery = mCamera->getSceneManager()->createRayQuery(ray);
 		RaySceneQueryResult::iterator it;
 		RaySceneQueryResult& qryResult=raySceneQuery->execute();
-		//std::cout << "# results=" << qryResult.size() << "\n";
 		// iterate through the objects and only select the first one
 		for( it = qryResult.begin();it!=qryResult.end();it++) {
-			//it->worldFragment->fragmentType
-			//	std::cout << "Found a node " << it->movable->getName() << "\n";
 			if (Ogre::StringUtil::startsWith(it->movable->getName(), "tree") || Ogre::StringUtil::startsWith(it->movable->getName(), "plant")) { // tree or plant
-				//it->movable->setVisible(false);
-				//const char* s = it->movable->getName().c_str();
-				// show bounding box - TEMPORARY
 				it->movable->getParentSceneNode()->showBoundingBox(true);
-
-				// set the selected node. make sure the previous one is not selected
-				if (selectedNode != NULL) {
-					selectedNode->showBoundingBox(false);
-				}
-				selectedNode = it->movable->getParentSceneNode();
+				SceneNode *selectedNode = it->movable->getParentSceneNode();
 				fsm->select_node(selectedNode);
 				std::cout << "Found a node " << it->movable->getName() << "\n";
-				break; // break out of the loop
+				break;
 			}
-		} // end of loop
+		}
 	}
 	void checkMouseSelection() {
 		CEGUI::Vector2 mouse = CEGUI::MouseCursor::getSingleton().getPosition();
