@@ -1,10 +1,20 @@
 == TODOs ==
 Create (quick) gesture tutorials program (2D animations?)
-Accurate "bounding-box" for house (don't translate plants through house).
-Allowing potted plants and accents to be placed on porch.
+~~~Allowing potted plants and accents to be placed on porch.~~~
 ~~~Undo Options~~~
 
+Translate+Rotate models (in 3d) - Ethan.
+
+Images for Sid's menu items - Shayan.
+
+Project website - ???
+
+Sid: 1) menu, 2) bounding-box
+
 == Done ==
+Mouse selection - Shayan.
+Accurate "bounding-box" for house (don't translate plants through house) - Ethan.
+Recenter models around origin (Amarelo tree is off-center) - Shayan.
 Skybox - Ethan
 Wiimote Gesture-recognition: select, translate, rotate - Ethan.
 Head-tracking - Ethan
@@ -15,5 +25,3 @@ Orbiting/zooming (with nunchuk, for starters) - Shayan
 Ogre-Gesture implementation (what does Ogre do to change stuff?) - Ethan, Sid, Shayan.
 Overlay "mouse pointers" - Shayan
 
-
-Sid: 1) menu, 2) bounding-box
