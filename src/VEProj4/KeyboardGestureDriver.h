@@ -246,7 +246,7 @@ public:
 		int y = ms.height - old_mouse[1] * ms.height;
 		int relX = distance[0] * ms.width;
 		int relY = -distance[1] * ms.height;
-		std::cout << "Mouse: { " << x << ", " << y << " }, relative={ " << relX << ", " << relY << " }\n";
+		//std::cout << "Mouse: { " << x << ", " << y << " }, relative={ " << relX << ", " << relY << " }\n";
 		CEGUI::MouseCursor::getSingleton().setPosition(CEGUI::Point(x, y));
 		CEGUI::System::getSingleton().injectMouseMove(relX, relY); //These are relative movements in pixels.
 	}
@@ -294,14 +294,14 @@ public:
 		switch (buttonID) {
 		case 1: // From the nunchuk Z-button
 			std::cout << "Left-Click!!!\n";
-			CEGUI::System::getSingleton().injectMouseButtonDown(CEGUI::MouseButton::LeftButton);
-			CEGUI::System::getSingleton().injectMouseButtonUp(CEGUI::MouseButton::LeftButton);
+			CEGUI::System::getSingleton().injectMouseButtonDown(CEGUI::LeftButton);
+			CEGUI::System::getSingleton().injectMouseButtonUp(CEGUI::LeftButton);
 			checkMouseSelection();
 			break;
 		case 2: // From the nunchuk C-button
 			std::cout << "Right-Click!!!\n";
-			CEGUI::System::getSingleton().injectMouseButtonDown(CEGUI::MouseButton::RightButton);
-			CEGUI::System::getSingleton().injectMouseButtonUp(CEGUI::MouseButton::RightButton);
+			CEGUI::System::getSingleton().injectMouseButtonDown(CEGUI::RightButton);
+			CEGUI::System::getSingleton().injectMouseButtonUp(CEGUI::RightButton);
 			break;
 		}
 	}
