@@ -74,6 +74,7 @@ private:
 
 	CEGUI::Renderer* mGUIRenderer;
 	bool mShutdownRequested;
+	bool init;
 protected:
 	Vector3 defaultPosition;
 	GestureFSM *fsm;
@@ -86,7 +87,8 @@ public:
 	KeyboardGestureDriver(ModelManager *manager, RenderWindow* win, Camera* cam, CEGUI::Renderer* renderer, WiiMoteClient *nunchuk) :
 			HeadTrackerFrameListener(win, cam, nunchuk), mGUIRenderer(renderer), mShutdownRequested(false),
 			defaultPosition(-4, 0, 11), angle(0),
-			delta_delta(5), delta_angle(Degree(45)) {
+			delta_delta(5), delta_angle(Degree(45)),
+			init(true) {
 		mMouse->setEventCallback(this);
 		mKeyboard->setEventCallback(this);
 		showDebugOverlay(false);
@@ -257,6 +259,10 @@ public:
 	//----------------------------------------------------------------//
 	bool mouseMoved( const OIS::MouseEvent &arg )
 	{
+		if (init) { //Stupid HACK... but it works. See: http://www.ogre3d.org/forums/viewtopic.php?t=30125
+			CEGUI::MouseCursor::getSingleton().setPosition(CEGUI::Point(arg.state.X.abs, arg.state.Y.abs));
+			init = false;
+		}
 		std::cout << "Mouse: { " << arg.state.X.abs << ", " << arg.state.Y.abs << " }, relative={ " << arg.state.X.rel << ", " << arg.state.Y.rel << " }\n";
 		CEGUI::System::getSingleton().injectMouseMove( arg.state.X.rel, arg.state.Y.rel );
 		return true;
@@ -281,39 +287,44 @@ public:
 	//----------------------------------------------------------------//
 	bool mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 	{
+		double x = Ogre::Real( arg.state.X.abs ) / arg.state.width;
+		double y = Ogre::Real( arg.state.Y.abs ) / arg.state.height;
+		std::cout << "MousePressed: { " << x << ", " << y << " }\n";
+
 		// Try to do a raycast from the mouse. TODO: Should be changed to the red pointer instead?
-		Ogre::Ray ray = mCamera->getCameraToViewportRay( Ogre::Real( arg.state.X.abs ) / arg.state.width, Ogre::Real( arg.state.Y.abs ) / arg.state.height ); // 1024 and 768 are just temporary values!!
+		Ogre::Ray ray = mCamera->getCameraToViewportRay(x, y);
+
+		// set selectedNode to nothing
+		if (selectedNode != NULL) {
+			selectedNode->showBoundingBox(false);
+			selectedNode = NULL;
+		}
 
 		// go through all the intersected objects, and only highlight the bounding box of the first object
 		RaySceneQuery* raySceneQuery = mCamera->getSceneManager()->createRayQuery(ray);
 		RaySceneQueryResult::iterator it;
 		RaySceneQueryResult& qryResult=raySceneQuery->execute();
-
+		//std::cout << "# results=" << qryResult.size() << "\n";
 		// iterate through the objects and only select the first one
 		for( it = qryResult.begin();it!=qryResult.end();it++) {
 			//it->worldFragment->fragmentType
-			if(it->movable){
-				if (Ogre::StringUtil::startsWith(it->movable->getName(), "tree") || Ogre::StringUtil::startsWith(it->movable->getName(), "plant")) { // tree or plant
-					//it->movable->setVisible(false);
-					//const char* s = it->movable->getName().c_str();
-					// show bounding box - TEMPORARY
-					it->movable->getParentSceneNode()->showBoundingBox(true);
+			//	std::cout << "Found a node " << it->movable->getName() << "\n";
+			if (Ogre::StringUtil::startsWith(it->movable->getName(), "tree") || Ogre::StringUtil::startsWith(it->movable->getName(), "plant")) { // tree or plant
+				//it->movable->setVisible(false);
+				//const char* s = it->movable->getName().c_str();
+				// show bounding box - TEMPORARY
+				it->movable->getParentSceneNode()->showBoundingBox(true);
 
-					// set the selected node. make sure the previous one is not selected
-					if (selectedNode != NULL) 
-						selectedNode->showBoundingBox(false);
-					selectedNode = it->movable->getParentSceneNode();
-					break; // break out of the loop
+				// set the selected node. make sure the previous one is not selected
+				if (selectedNode != NULL) {
+					selectedNode->showBoundingBox(false);
 				}
+				selectedNode = it->movable->getParentSceneNode();
+				model_manager->select_node(selectedNode);
+				std::cout << "Found a node " << it->movable->getName() << "\n";
+				break; // break out of the loop
 			}
-
-			// selected nothing, so de-select the current one
-			if (selectedNode != NULL)
-				selectedNode->showBoundingBox(false);
-			// set selectedNode to nothing
-			selectedNode = NULL;
 		} // end of loop
-
 		
 		CEGUI::System::getSingleton().injectMouseButtonDown(convertOISMouseButtonToCegui(id));
 		return true;
