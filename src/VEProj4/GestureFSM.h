@@ -29,6 +29,7 @@ public:
 		if (!selected) {
 			selection = manager->placeModel(meshName, pos);
 			selected = true;
+			selection->parent->showBoundingBox(true);
 			//go ahead and start translating.
 			translating = true;
 			manager->translate_started(selection);
@@ -44,6 +45,7 @@ public:
 			std::cout << "Selecting SimpleModel for node " << node->getName() << "\n";
 			selected = true;
 			selection = model;
+			selection->parent->showBoundingBox(true);
 			manager->translate_started(selection);
 		} else {
 			std::cout << "No SimpleModel found for node " << node->getName() << "\n";
@@ -92,6 +94,9 @@ public:
 	}
 	void done_with_selection() {
 		done_with_move();
+		if (selected) {
+			selection->parent->showBoundingBox(false);
+		}
 		selection = NULL;
 		selected = false;
 	}
