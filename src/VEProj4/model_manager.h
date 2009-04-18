@@ -64,6 +64,9 @@ public:
 		node->setPosition(pos);
 		return node;
 	}
+	void select_node(SceneNode *node) {
+		//TODO : stub
+	}
 	void translate_started(SimpleModel *o) {
 		selected = o;
 	}
@@ -147,7 +150,7 @@ protected:
 		blockList.push_back(m);
 	}
 	void initBoundingBlocks() {
-		for(int ii = 1; ii < NUM_BLOCKS; ii++){
+		for(int ii = 1; ii < NUM_BLOCKS + 1; ii++){
 			String num = StringConverter::toString(ii);
 			createBlock(ii);
 		}
