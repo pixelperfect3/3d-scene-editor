@@ -1,6 +1,5 @@
 == TODOs ==
 Create (quick) gesture tutorials program (2D animations?)
-Recenter models around origin (Amarelo tree is off-center) - Shayan.
 Accurate "bounding-box" for house (don't translate plants through house).
 Allowing potted plants and accents to be placed on porch.
 ~~~Undo Options~~~
