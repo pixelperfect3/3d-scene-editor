@@ -8,12 +8,14 @@
 using std::vector;
 
 #define PI 3.1415926
+#define NUM_BLOCKS 5
 
 class ModelManager {
 private:
 	int model_num;
 protected:
 	vector<SimpleModel*> nodeList;
+	vector<SimpleModel*> blockList;
 	SceneManager* mgr;
 	SimpleModel *selected;
 	Vector3 axis;
@@ -24,12 +26,17 @@ public:
 		selected = NULL;
 		model_num = 0;
 		axis = Vector3(0, 1, 0);
+		initBoundingBlocks();
 	}
 	~ModelManager() {
-		for(vector<SimpleModel*>::iterator it = nodeList.begin();it!=nodeList.end();it++){
+		vector<SimpleModel*>::iterator it;
+		for (it = nodeList.begin(); it != nodeList.end(); it++){
 			SimpleModel* m = (SimpleModel*)*it;
-			if(m)
-				delete m;
+			if (m) delete m;
+		}
+		for (it = blockList.begin(); it != blockList.end(); it++){
+			SimpleModel* m = (SimpleModel*)*it;
+			if (m) delete m;
 		}
 	}
 	SimpleModel *placeModel(String meshName, Vector3 pos) { //TODO : add orientation
@@ -63,6 +70,9 @@ public:
 	void translate_update(Vector3 delta) {
 		assert(selected);
 		selected->parent->translate(delta);
+		if (collisionDect(selected)) {
+			selected->parent->translate(-delta);
+		}
 	}
 	void translate_cancelled() {
 		assert(selected);
@@ -80,6 +90,9 @@ public:
 	void rotate_update(Radian delta) {
 		assert(selected);
 		selected->parent->rotate(axis, delta);
+		if (collisionDect(selected)) {
+			selected->parent->rotate(axis, -delta);
+		}
 	}
 	void rotate_cancelled() {
 		assert(selected);
@@ -120,5 +133,45 @@ protected:
 			nodeList.push_back(model);
 		}
 		this->model_num = num_models;
+	}
+	void createBlock(int block_num) {
+		String meshName = "block" + StringConverter::toString(block_num) + ".mesh";
+		SceneNode *node = createSceneNode("block" + StringConverter::toString(block_num), meshName, Vector3(0, 0, 0));
+		SimpleModel* m = new SimpleModel();
+		m->parent = node;
+		m->meshName = meshName;
+		m->model_num = block_num;
+		resetModel(m, Vector3(0, 0, 0));
+		resetModel(m, Radian(0));
+		m->parent->setVisible(false);
+		blockList.push_back(m);
+	}
+	void initBoundingBlocks() {
+		for(int ii = 1; ii < NUM_BLOCKS; ii++){
+			String num = StringConverter::toString(ii);
+			createBlock(ii);
+		}
+	}
+	
+	bool collisionDect(SimpleModel *model) {
+		SceneNode* node = model->parent;
+		Entity* nodeEn = (Entity*)node->getAttachedObject(0);
+		AxisAlignedBox box = nodeEn->getBoundingBox();
+		box.transform(Matrix4::getTrans(node->getPosition()));
+
+		vector<SimpleModel*>::iterator it;
+		for (it = blockList.begin(); it != blockList.end(); it++){
+			SimpleModel *m = *it;
+			SceneNode* blockNode = m->parent;
+			Entity* blockEn = (Entity*)blockNode->getAttachedObject(0);
+			AxisAlignedBox blockBox = blockEn->getBoundingBox();
+			blockBox.transform(Matrix4::getTrans(blockNode->getPosition()));
+
+			if (blockBox.intersects(box)) {
+				std::cout << "Collide!\n";
+				return true;
+			}
+		}
+		return false;
 	}
 };
