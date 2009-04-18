@@ -63,7 +63,6 @@ OIS::KeyCode keys_to_trees[NUM_MODELS] = {
 #define MOVE_FORWARD    8
 #define MOVE_BACKWARD   9
 
-
 class KeyboardGestureDriver : public HeadTrackerFrameListener,public OIS::KeyListener, public OIS::MouseListener, public MouseDriver {
 private:
 	//A finite-state-machine for placing low-poly models into the scene. :)
@@ -79,6 +78,9 @@ protected:
 	Vector3 defaultPosition;
 	GestureFSM *fsm;
 	ModelManager *model_manager;
+
+	// The last selected SceneNode
+	SceneNode* selectedNode;
 public:
 	// Constructor takes a RenderWindow because it uses that to determine input context
 	KeyboardGestureDriver(ModelManager *manager, RenderWindow* win, Camera* cam, CEGUI::Renderer* renderer, WiiMoteClient *nunchuk) :
@@ -96,6 +98,9 @@ public:
 			actions[ii] = false;
 		}
 		fsm = new GestureFSM(manager);
+
+		// set the scenenode to null
+		selectedNode = NULL;
 	}
 	~KeyboardGestureDriver() {
 		delete fsm;
@@ -290,9 +295,20 @@ public:
 					//const char* s = it->movable->getName().c_str();
 					// show bounding box - TEMPORARY
 					it->movable->getParentSceneNode()->showBoundingBox(true);
+
+					// set the selected node. make sure the previous one is not selected
+					if (selectedNode != NULL) 
+						selectedNode->showBoundingBox(false);
+					selectedNode = it->movable->getParentSceneNode();
 					break; // break out of the loop
 				}
 			}
+
+			// selected nothing, so de-select the current one
+			if (selectedNode != NULL)
+				selectedNode->showBoundingBox(false);
+			// set selectedNode to nothing
+			selectedNode = NULL;
 		} // end of loop
 
 		
