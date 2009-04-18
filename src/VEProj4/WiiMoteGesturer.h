@@ -56,7 +56,7 @@ public:
 		//std::cout << "Active points: " << active_points << "\n";
 		bool newGesture = active_points != previous_points;
 		if (newGesture) {
-			mouseDriver->ToggleMouseCursor(active_points == 1);
+			mouseDriver->ToggleMouseCursor(active_points <= 1);
 		}
 		switch (active_points) {
 			case 1:

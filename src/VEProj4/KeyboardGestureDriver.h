@@ -158,6 +158,7 @@ public:
 
 	void createModel(char *meshName) {
 		//TODO : place new models to the fore/left of the camera.
+		// I'd attach an (invisible) object to the camera, then "getPosition" whenever we need to place a new model".
 		fsm->create_model(meshName, defaultPosition);
 	}
 
@@ -267,30 +268,8 @@ public:
 		CEGUI::System::getSingleton().injectMouseMove( arg.state.X.rel, arg.state.Y.rel );
 		return true;
 	}
-	void injectMouseButtonPressed(int buttonID) {
-		switch (buttonID) {
-			case 1:	{		// From the nunchuk Z-button
-					std::cout << "Left-Click!!!\n";
-					CEGUI::System::getSingleton().injectMouseButtonDown(CEGUI::MouseButton::LeftButton);
-					CEGUI::System::getSingleton().injectMouseButtonUp(CEGUI::MouseButton::LeftButton);
-				}
-				break;
-			case 2:			// From the nunchuk C-button
-				std::cout << "Right-Click!!!\n";
-				CEGUI::System::getSingleton().injectMouseButtonDown(CEGUI::MouseButton::RightButton);
-				CEGUI::System::getSingleton().injectMouseButtonUp(CEGUI::MouseButton::RightButton);
-				break;
-		}
-		
-	}
-
-	//----------------------------------------------------------------//
-	bool mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
-	{
-		double x = Ogre::Real( arg.state.X.abs ) / arg.state.width;
-		double y = Ogre::Real( arg.state.Y.abs ) / arg.state.height;
-		std::cout << "MousePressed: { " << x << ", " << y << " }\n";
-
+	/** x and y are values in the range [0, 1] */
+	void mouseSelection(double x, double y) {
 		// Try to do a raycast from the mouse. TODO: Should be changed to the red pointer instead?
 		Ogre::Ray ray = mCamera->getCameraToViewportRay(x, y);
 
@@ -320,13 +299,39 @@ public:
 					selectedNode->showBoundingBox(false);
 				}
 				selectedNode = it->movable->getParentSceneNode();
-				model_manager->select_node(selectedNode);
+				fsm->select_node(selectedNode);
 				std::cout << "Found a node " << it->movable->getName() << "\n";
 				break; // break out of the loop
 			}
 		} // end of loop
-		
+	}
+	void checkMouseSelection() {
+		CEGUI::Vector2 mouse = CEGUI::MouseCursor::getSingleton().getPosition();
+		const OIS::MouseState &ms = mMouse->getMouseState();
+		double x = Ogre::Real( mouse.d_x ) / ms.width;
+		double y = Ogre::Real( mouse.d_y ) / ms.height;
+		std::cout << "MousePressed: { " << x << ", " << y << " }\n";
+		mouseSelection(x, y);
+	}
+	void injectMouseButtonPressed(int buttonID) {
+		checkMouseSelection();
+		switch (buttonID) {
+		case 1: // From the nunchuk Z-button
+			std::cout << "Left-Click!!!\n";
+			CEGUI::System::getSingleton().injectMouseButtonDown(CEGUI::MouseButton::LeftButton);
+			CEGUI::System::getSingleton().injectMouseButtonUp(CEGUI::MouseButton::LeftButton);
+			break;
+		case 2: // From the nunchuk C-button
+			std::cout << "Right-Click!!!\n";
+			CEGUI::System::getSingleton().injectMouseButtonDown(CEGUI::MouseButton::RightButton);
+			CEGUI::System::getSingleton().injectMouseButtonUp(CEGUI::MouseButton::RightButton);
+			break;
+		}
+	}
+	//----------------------------------------------------------------//
+	bool mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id ) {
 		CEGUI::System::getSingleton().injectMouseButtonDown(convertOISMouseButtonToCegui(id));
+		checkMouseSelection();
 		return true;
 	}
 

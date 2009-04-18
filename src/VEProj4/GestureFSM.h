@@ -34,6 +34,10 @@ public:
 			manager->translate_started(selection);
 		}
 	}
+	void select_node(SceneNode *node) {
+
+		//TODO : stub
+	}
 	void start_rotating() {
 		if (selected && !rotating) {
 			if (translating) {

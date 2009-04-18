@@ -5,8 +5,6 @@
 #include "VTrak3DClient.h"
 
 bool recenter_view = true;
-
-//TODO : add camera panning/orbiting
 Vector3 cameraOrigin(0, 2.2, 0);
 double headCenter[3] = { 0, 0, 0 };
 
@@ -18,7 +16,7 @@ protected:
 	VTrak3DClient* vtrak;
 	WiiMoteClient *nunchuk; // the nunchuk for navigation
 public:
-	HeadTrackerFrameListener(RenderWindow* win, Camera* cam, WiiMoteClient *nunchuk, bool useVtrak = true) : ExampleFrameListener(win, cam),
+	HeadTrackerFrameListener(RenderWindow* win, Camera* cam, WiiMoteClient *nunchuk, bool useVtrak = false) : ExampleFrameListener(win, cam),
 	zButtonDown(false), cButtonDown(false) {
 		if (useVtrak) {
 			vtrak = new VTrak3DClient();
@@ -130,7 +128,7 @@ public:
 			float deltaZ = getDeltaPosition() * units_per_sec * evt.timeSinceLastFrame;
 			Vector3 delta_pos = mCamera->getOrientation() * Vector3(0, 0, -deltaZ);
 			mCamera->move(delta_pos);
-			//TODO : inject nunchuk button presses.
+
 			if (!zButtonDown && zButtonPressed) {
 				injectMouseButtonPressed(1);
 			}
