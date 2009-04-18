@@ -71,7 +71,7 @@ public:
 					}
 				}
 				break;
-			case 3:
+			case 2:
 				double distance[2];
 				double tmp[2];
 				Midpoint(points[0], points[1], tmp);
@@ -83,7 +83,7 @@ public:
 					midpoint[ii] = tmp[ii];
 				}
 				break;
-			case 2:
+			case 3:
 				{
 					Vector2 center(points[0][0], points[0][1]);
 					Vector2 tangent(points[1][0], points[1][0]);

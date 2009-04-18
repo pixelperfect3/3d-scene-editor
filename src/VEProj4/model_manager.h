@@ -19,24 +19,30 @@ protected:
 	SceneManager* mgr;
 	SimpleModel *selected;
 	Vector3 axis;
+    Camera* camera;
 public:
-	ModelManager(SceneManager *sMgr) {
+	ModelManager(SceneManager *sMgr, Camera *camera) {
 		assert(sMgr);
 		this->mgr = sMgr;
 		selected = NULL;
 		model_num = 0;
 		axis = Vector3(0, 1, 0);
 		initBoundingBlocks();
+		this->camera = camera;
 	}
 	~ModelManager() {
 		vector<SimpleModel*>::iterator it;
 		for (it = nodeList.begin(); it != nodeList.end(); it++){
 			SimpleModel* m = (SimpleModel*)*it;
-			if (m) delete m;
+			if (m) {
+				delete m;  //TODO : Memory Errors
+			}
 		}
 		for (it = blockList.begin(); it != blockList.end(); it++){
 			SimpleModel* m = (SimpleModel*)*it;
-			if (m) delete m;
+			if (m) {
+				delete m;
+			}
 		}
 	}
 	SimpleModel *placeModel(String meshName, Vector3 pos) { //TODO : add orientation
@@ -82,6 +88,8 @@ public:
 	}
 	void translate_update(Vector3 delta) {
 		assert(selected);
+		Quaternion orient(camera->getOrientation());
+		delta = orient * -delta;
 		selected->parent->translate(delta);
 		if (collisionDect(selected)) {
 			selected->parent->translate(-delta);
@@ -122,7 +130,10 @@ public:
 		resetModel(selected, Radian(degrees));
 	}
 	void Translate2D(double distance[2]) {
-		//TODO : stub
+		//TODO : translate in XZ plane
+		if (selected) {
+			translate_update(Vector3(distance[0], 0, -distance[1]));
+		}
 	}
 	void Rotate2D(double degrees) {
 		//TODO : stub

@@ -226,8 +226,8 @@ CEGUI::Window* PresenceApplication::createStaticImageObject(void)
 }
 
 
-void PresenceApplication::createFrameListener(void)
-{
+void PresenceApplication::createFrameListener(void) {
+	model_manager = new ModelManager(mSceneMgr, mCamera);
 	KeyboardGestureDriver *driver = new KeyboardGestureDriver(model_manager, mWindow, mCamera, mGUIRenderer, nunchuk);
 	mFrameListener = driver;
     mRoot->addFrameListener(mFrameListener);

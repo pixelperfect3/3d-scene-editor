@@ -120,8 +120,6 @@ public:
 			if (actions[TRANSLATE_RIGHT]) { // -X
 				delta[0] -= delta_delta * evt.timeSinceLastFrame;
 			}
-			Quaternion orient(mCamera->getOrientation());
-			delta_vector = orient * -delta_vector;
 			model_manager->translate_update(delta_vector);
 		} else if (fsm->is_rotating()) {
 			angle = Radian(0);

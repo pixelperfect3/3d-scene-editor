@@ -40,13 +40,11 @@ protected:
     // Create new frame listener
     void createFrameListener(void);
 
-	 void createCamera(void);
+	void createCamera(void);
 
-	void chooseSceneManager(void)
-    {
+	void chooseSceneManager(void) {
         // Create the SceneManager, in this case a generic one
 		mSceneMgr = mRoot->createSceneManager("OctreeSceneManager");
-		model_manager = new ModelManager(mSceneMgr);
     }
 
 	// GUI stuff
