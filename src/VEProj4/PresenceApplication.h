@@ -3,6 +3,7 @@
 #include "ExampleApplication.h"
 #include "ExampleFrameListener.h"
 #include "model_manager.h"
+#include "GestureFSM.h"
 #include "wiimote_client.h"
 #include "WiiMoteGesturer.h"
 
@@ -11,14 +12,15 @@
 #include "OgreCEGUIResourceProvider.h"
 #include "OgreCEGUITexture.h"
 
+#define NUM_OBJMODELS (15)
+
 class PresenceApplication : public ExampleApplication
 {
 public:
     PresenceApplication(char*, char*);
 	~PresenceApplication();
 
-	int whichObjectWasPressed;
-	
+	char* buttonobjModels[NUM_OBJMODELS];	
 
 private:
 	CEGUI::OgreCEGUIRenderer* mGUIRenderer;
@@ -32,6 +34,7 @@ private:
 
 protected:
 	
+	GestureFSM *fsm;
 	ModelManager *model_manager;
 	SceneNode* mainSceneNode;
 	RenderWindow *mWindow2;
@@ -96,6 +99,7 @@ protected:
 	}
 	bool handleTrash(const CEGUI::EventArgs& e){
 		CEGUI::WindowManager& wmgr = CEGUI::WindowManager::getSingleton();
+		fsm->delete_selection();
 		return true;
 	}
 
@@ -144,14 +148,15 @@ protected:
 		wmgr.getWindow("Undo")->setVisible(true);
 
 		CEGUI::WindowEventArgs& we = ((CEGUI::WindowEventArgs&)e);
-		CEGUI::String test = we.window->getName();
+		CEGUI::String buttonName = we.window->getName();
+		std::cout<<buttonName<<std::endl;
 
-		CEGUI::Window* popup =CEGUI::WindowManager::getSingleton().createWindow((CEGUI::utf8*)"TaharezLook/StaticText",(CEGUI::utf8*)"popup");
-		popup->setAlpha(.7);
-		popup->setSize(CEGUI::UVector2(CEGUI::UDim(0.65f,0), CEGUI::UDim(0.1f,0)));
-		popup->setPosition(CEGUI::UVector2(CEGUI::UDim(.08125f, 0), CEGUI::UDim(.2125f, 0)));
-		popup->setText(test);
-		CEGUI::WindowManager::getSingleton().getWindow((CEGUI::utf8*)"Root")->addChildWindow(popup);
+		for(int i=1;i<=NUM_OBJMODELS;i++){
+			String guiObjectName = "MenuButton" + StringConverter::toString(i);
+			if((CEGUI::utf8*)guiObjectName.c_str() == buttonName){
+				fsm->create_model(buttonobjModels[i-1],Vector3(-4,0,11));
+			}
+		}
 
 		return true;
 	}

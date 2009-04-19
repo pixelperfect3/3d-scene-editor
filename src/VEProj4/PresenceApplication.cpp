@@ -25,10 +25,31 @@ PresenceApplication::PresenceApplication(char* wiimote1_name, char* wiimote2_nam
 	mGUIRenderer =0;
 	mGUISystem = 0;
 	mEditorGuiSheet = 0;
+
+	char* temp[NUM_OBJMODELS] = {
+		"tree_amarelo.mesh",
+		"tree_magnolia.mesh",
+		"tree_bamboo.mesh",
+		"tree_cabbagepalm.mesh",
+		"tree_palm.mesh",
+		"plant_sagopalm.mesh",
+		"plant_yucca.mesh",
+		"plant_red.mesh",
+		"plant_octopus.mesh",
+		"plant_monstera.mesh",
+		"chair_wood.mesh",
+		"chair_set_rustic.mesh",
+		"chair_lounge.mesh",
+		"chair_cushion.mesh",
+		"chair_set_plastic.mesh"
+	};
+	for(int i=0;i<NUM_OBJMODELS;i++)
+		buttonobjModels[i] = temp[i];
 }
 
 PresenceApplication::~PresenceApplication() {
 	delete model_manager;
+	delete fsm;
 	if (nunchuk && nunchuk != wiimote) {
 		delete nunchuk;
 	}
@@ -127,7 +148,7 @@ void PresenceApplication::createScene(void)
 	CEGUI::WindowManager& wmgr = CEGUI::WindowManager::getSingleton();
 
 	setupEventHandlers();
-	loadMenuItems(15);
+	loadMenuItems(NUM_OBJMODELS);
 
 	setupEnterExitEvents(wmgr.getWindow("Menu"));
 
@@ -143,7 +164,7 @@ void PresenceApplication::createScene(void)
 	mDescriptionMap[(CEGUI::utf8*)"MenuButton2"] = 
 		(CEGUI::utf8*)" Bamboo Tree";
 	mDescriptionMap[(CEGUI::utf8*)"MenuButton3"] = 
-		(CEGUI::utf8*)" Cabbage Tree";
+		(CEGUI::utf8*)" Cabbage Palm Tree";
 	mDescriptionMap[(CEGUI::utf8*)"MenuButton4"] = 
 		(CEGUI::utf8*)" Magnolia Tree";
 	mDescriptionMap[(CEGUI::utf8*)"MenuButton5"] = 
@@ -285,7 +306,8 @@ void PresenceApplication::loadMenuItems(int numberOfObjects){
 
 void PresenceApplication::createFrameListener(void) {
 	model_manager = new ModelManager(mSceneMgr, mCamera);
-	KeyboardGestureDriver *driver = new KeyboardGestureDriver(model_manager, mWindow, mCamera, mGUIRenderer, nunchuk);
+	fsm = new GestureFSM(model_manager);
+	KeyboardGestureDriver *driver = new KeyboardGestureDriver(fsm,model_manager, mWindow, mCamera, mGUIRenderer, nunchuk);
 	mFrameListener = driver;
     mRoot->addFrameListener(mFrameListener);
 	if (wiimote) {
