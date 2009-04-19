@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Imageset Name="MenuObjects" Imagefile="Objects.png" AutoScaled="true" >
+    <Image Name="NewImage1" XPos="0" YPos="0" Width="256" Height="256" />
+    <Image Name="NewImage2" XPos="256" YPos="0" Width="256" Height="256" />
+    <Image Name="NewImage3" XPos="0" YPos="256" Width="256" Height="256" />
+    <Image Name="NewImage4" XPos="256" YPos="256" Width="256" Height="256" />
+    <Image Name="NewImage5" XPos="0" YPos="512" Width="256" Height="256" />
+    <Image Name="NewImage6" XPos="256" YPos="512" Width="256" Height="256" />
+    <Image Name="NewImage7" XPos="0" YPos="768" Width="256" Height="256" />
+    <Image Name="NewImage8" XPos="256" YPos="768" Width="256" Height="256" />
+    <Image Name="NewImage9" XPos="0" YPos="1024" Width="256" Height="256" />
+    <Image Name="NewImage10" XPos="256" YPos="1024" Width="256" Height="256" />
+    <Image Name="NewImage11" XPos="0" YPos="1280" Width="256" Height="256" />
+    <Image Name="NewImage12" XPos="256" YPos="1280" Width="256" Height="256" />
+    <Image Name="NewImage13" XPos="0" YPos="1536" Width="256" Height="256" />
+    <Image Name="NewImage14" XPos="256" YPos="1536" Width="256" Height="256" />
+    <Image Name="NewImage15" XPos="0" YPos="1792" Width="256" Height="256" />
+    <Image Name="NewImage16" XPos="256" YPos="1792" Width="256" Height="256" />
+    <Image Name="NewImage17" XPos="0" YPos="2048" Width="256" Height="256" />
+    <Image Name="NewImage18" XPos="256" YPos="2048" Width="256" Height="256" />
+    <Image Name="NewImage19" XPos="0" YPos="2304" Width="256" Height="256" />
+    <Image Name="NewImage20" XPos="256" YPos="2304" Width="256" Height="256" />
+    <Image Name="NewImage21" XPos="0" YPos="2560" Width="256" Height="256" />
+    <Image Name="NewImage22" XPos="256" YPos="2560" Width="256" Height="256" />
+    <Image Name="NewImage23" XPos="0" YPos="2816" Width="256" Height="256" />
+    <Image Name="NewImage24" XPos="256" YPos="2816" Width="256" Height="256" />
+    <Image Name="NewImage25" XPos="0" YPos="3072" Width="256" Height="256" />
+    <Image Name="NewImage26" XPos="256" YPos="3072" Width="256" Height="256" />
+    <Image Name="NewImage27" XPos="0" YPos="3328" Width="256" Height="256" />
+    <Image Name="NewImage28" XPos="256" YPos="3328" Width="256" Height="256" />
+    <Image Name="NewImage29" XPos="0" YPos="3584" Width="256" Height="256" />
+    <Image Name="NewImage30" XPos="256" YPos="3584" Width="256" Height="256" />
+    <Image Name="NewImage31" XPos="0" YPos="0" Width="256" Height="256" />
+    <Image Name="NewImage32" XPos="0" YPos="0" Width="256" Height="256" />
+</Imageset>
