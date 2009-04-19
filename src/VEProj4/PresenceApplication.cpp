@@ -202,7 +202,7 @@ void PresenceApplication::setupEventHandlers(){
 		&imageSet->getImage((CEGUI::utf8*)"cameraHover")));
 	window->addChildWindow(cameraButton);
 	cameraButton->setSize(CEGUI::UVector2( CEGUI::UDim(0.1f, 0), CEGUI::UDim(0.13f, 0)));
-	cameraButton->setPosition(CEGUI::UVector2(CEGUI::UDim(0.128125f, 0), CEGUI::UDim(0.02125f, 0)));
+	cameraButton->setPosition(CEGUI::UVector2(CEGUI::UDim(0.198125f, 0), CEGUI::UDim(0.02125f, 0)));
 	cameraButton->subscribeEvent(
 		CEGUI::PushButton::EventClicked,CEGUI::Event::Subscriber(&PresenceApplication::handleScreenshot, this));
 
@@ -220,6 +220,21 @@ void PresenceApplication::setupEventHandlers(){
 	trashButton->setPosition(CEGUI::UVector2(CEGUI::UDim(0.864062f, 0), CEGUI::UDim(0.021250f, 0)));
 	trashButton->subscribeEvent(
 		CEGUI::PushButton::EventClicked,CEGUI::Event::Subscriber(&PresenceApplication::handleTrash, this));
+
+	CEGUI::Window* undoButton =CEGUI::WindowManager::getSingleton().createWindow((CEGUI::utf8*)"TaharezLook/ImageButton", (CEGUI::utf8*)"Undo");
+	undoButton->setAlpha(.7);
+	CEGUI::Imageset* imageSet3 = CEGUI::ImagesetManager::getSingleton().getImageset((CEGUI::utf8*)"UndoSet");
+	undoButton->setProperty("NormalImage", CEGUI::PropertyHelper::imageToString(
+		&imageSet3->getImage((CEGUI::utf8*)"UndoNormal")));
+	undoButton->setProperty("PushedImage", CEGUI::PropertyHelper::imageToString(
+		&imageSet3->getImage((CEGUI::utf8*)"UndoPushed")));
+	undoButton->setProperty("HoverImage", CEGUI::PropertyHelper::imageToString(
+		&imageSet3->getImage((CEGUI::utf8*)"UndoHover")));
+	window->addChildWindow(undoButton);
+	undoButton->setSize(CEGUI::UVector2( CEGUI::UDim(0.1f, 0), CEGUI::UDim(0.13f, 0)));
+	undoButton->setPosition(CEGUI::UVector2(CEGUI::UDim(0.71062f, 0), CEGUI::UDim(0.021250f, 0)));
+	undoButton->subscribeEvent(
+		CEGUI::PushButton::EventClicked,CEGUI::Event::Subscriber(&PresenceApplication::handleUndo, this));
 
 }
 
