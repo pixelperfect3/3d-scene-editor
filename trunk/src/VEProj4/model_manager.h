@@ -43,18 +43,8 @@ public:
 	~ModelManager() {
 		camera = NULL;
 		vector<SimpleModel*>::iterator it;
-		for (it = nodeList.begin(); it != nodeList.end(); it++){
-			SimpleModel* m = (SimpleModel*)*it;
-			if (m) {
-				delete m;  //TODO : Memory Errors
-			}
-		}
-		for (it = blockList.begin(); it != blockList.end(); it++){
-			SimpleModel* m = (SimpleModel*)*it;
-			if (m) {
-				delete m;
-			}
-		}
+		nodeList.clear();
+		blockList.clear();
 	}
 	SimpleModel *placeModel(String meshName, Vector3 pos) { //TODO : add orientation
 		SceneNode *node = createSceneNode(meshName + StringConverter::toString(model_num), meshName, pos);
@@ -148,7 +138,11 @@ public:
 			//std::cout << "Mouse: { " << mouse.x << ", " << 1.0 - mouse.y << " }, Intersection at { " << point.x << ", " << point.y << ", " << point.z << " }\n";
 			//TODO : check for intersection with house (if it's behind or in one of the house blocks).
 			//TODO : check to make sure that it does intersect with the house's parcel/lot.
+			Vector3 old_position = selected->parent->getPosition();
 			selected->parent->setPosition(point);
+			if (collisionDect(selected)) {
+				selected->parent->setPosition(old_position);
+			}
 		} else {
 			std::cout << "No intersection.\n";
 		}
@@ -157,9 +151,6 @@ public:
 		if (selected) {
 			xzIntersect(mouse);
 		}
-	}
-	void Rotate2D(double degrees) {
-		//TODO : stub
 	}
 protected:
 	void serialize(ostream& os) {
@@ -204,7 +195,9 @@ protected:
 		SceneNode* node = model->parent;
 		Entity* nodeEn = (Entity*)node->getAttachedObject(0);
 		AxisAlignedBox box = nodeEn->getBoundingBox();
-		box.transform(Matrix4::getTrans(node->getPosition()));
+		Matrix4 transform;
+		transform.makeTransform(node->getPosition(), Vector3(1, 1, 1), node->getOrientation());
+		box.transform(transform);
 
 		vector<SimpleModel*>::iterator it;
 		for (it = blockList.begin(); it != blockList.end(); it++){

@@ -19,15 +19,14 @@ private:
 	int previous_points;
 	double midpoint[2];
 	double old_mouse[3];
-	double prev_center[2];
-	Vector2 prev_tangent;
+	Radian prev_angle;
 protected:
 	WiiMoteClient *wiimote;
 	MouseDriver *mouseDriver;
 	ModelManager *modelManager;
 public:
 	WiiMoteGesturer(WiiMoteClient *wiimote, MouseDriver *mouseDriver, ModelManager *manager) :
-	previous_points(0) {
+	previous_points(0), prev_angle(0) {
 		assert(wiimote);
 		this->wiimote = wiimote;
 		this->mouseDriver = mouseDriver;
@@ -82,24 +81,26 @@ public:
 				for (int ii = 0; ii < 2; ii++) {
 					midpoint[ii] = tmp[ii];
 				}
-				break;
-			case 3:
+			//case 3:
 				{
-					Vector2 center(points[0][0], points[0][1]);
-					Vector2 tangent(points[1][0], points[1][0]);
+					bool leftToRight = points[0][0] < points[1][0];
+					int leftIndex = leftToRight ? 0 : 1;
+					int rightIndex = leftToRight ? 1 : 0;
+					Vector2 left = Vector2(points[leftIndex][0], points[leftIndex][1]);
+					Vector2 right = Vector2(points[rightIndex][0], points[rightIndex][1]);
+					if (left.x == right.x) {
+						std::cout << "Arc-tan not defined.\n";
+						break;
+					}
+					Radian angle = Radian(atan((right.y - left.y) / (right.x - left.x)));
 					if (!newGesture) {
-						double dot = 0.0;
-						double delta = acos(dot) * 180.0 / PI;
-						std::cout << "Delta angle: " << delta << " (dot=" << dot << ")\n";
-						modelManager->Rotate2D(delta);
+						modelManager->rotate_update(prev_angle - angle);
+						std::cout << "Angle: " << angle.valueDegrees() << ", delta angle: " << (prev_angle - angle).valueDegrees() << ".\n";
+					} else {
+						std::cout << "New angle: " << angle.valueDegrees() << "\n";
 					}
-					for (int ii = 0; ii < 2; ii++) {
-						prev_tangent = tangent;
-					}
+					prev_angle = angle;
 				}
-				break;
-			case 4:
-				//TODO : stub
 				break;
 		}
 		DrawPoints(active_points, points);
