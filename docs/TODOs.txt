@@ -4,6 +4,16 @@ Create (quick) gesture tutorials program (2D animations?)
 ~~~Undo Options~~~
 Project website - ???
 Sid: 1) menu, 2) bounding-box
+Rotate camera when dragging an object "past" the edge of the screen.
+
+
+== Bugs ==
+Mouse click doesn't de-select (but it does turn off bounding box).
+VRPN doesn't like 2 WiiMotes.
+Don't let models hide behind house.
+Don't let models outside of the lot.
+2 IR points with nothing selected => Crash!!!
+Right-clicking => Crash!!!
 
 == Done ==
 Images for Sid's menu items - Shayan.

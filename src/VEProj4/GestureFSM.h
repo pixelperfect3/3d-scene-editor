@@ -32,7 +32,7 @@ public:
 			selection->parent->showBoundingBox(true);
 			//go ahead and start translating.
 			translating = true;
-			manager->translate_started(selection);
+			manager->select(selection);
 		}
 	}
 	void select_node(SceneNode *node) {
@@ -46,7 +46,7 @@ public:
 			selected = true;
 			selection = model;
 			selection->parent->showBoundingBox(true);
-			manager->translate_started(selection);
+			manager->select(selection);
 		} else {
 			std::cout << "No SimpleModel found for node " << node->getName() << "\n";
 		}
@@ -58,7 +58,7 @@ public:
 				translating = false;
 			}
 			rotating = true;
-			manager->rotate_started(selection);
+			manager->select(selection);
 		}
 	}
 	void start_translating() {
@@ -68,7 +68,7 @@ public:
 				rotating = false;
 			}
 			translating = true;
-			manager->translate_started(selection);
+			manager->select(selection);
 		}
 	}
 	void delete_selection() {
@@ -99,6 +99,7 @@ public:
 		}
 		selection = NULL;
 		selected = false;
+		manager->deselect();
 	}
 	void cancel_move() {
 		if (selected) {

@@ -84,8 +84,11 @@ public:
 		node->setPosition(pos);
 		return node;
 	}
-	void translate_started(SimpleModel *o) {
+	void select(SimpleModel *o) {
 		selected = o;
+	}
+	void deselect() {
+		selected = NULL;
 	}
 	void translate_update(Vector3 delta) {
 		assert(selected);
@@ -101,10 +104,6 @@ public:
 	void translate_finished() {
 		assert(selected);
 		resetModel(selected, selected->parent->getPosition());
-	}
-	
-	void rotate_started(SimpleModel *o) {
-		selected = o;
 	}
 	void rotate_update(Radian delta) {
 		assert(selected);
