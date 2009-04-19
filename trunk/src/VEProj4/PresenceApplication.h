@@ -64,6 +64,7 @@ protected:
 		wmgr.getWindow("Models")->setVisible(false);
 		wmgr.getWindow("CameraButton")->setVisible(false);
 		wmgr.getWindow("Trash")->setVisible(false);
+		wmgr.getWindow("Undo")->setVisible(false);
 
 		return true;
 	}
@@ -73,6 +74,7 @@ protected:
 		wmgr.getWindow("Models")->setVisible(true);
 		wmgr.getWindow("CameraButton")->setVisible(true);
 		wmgr.getWindow("Trash")->setVisible(true);
+		wmgr.getWindow("Undo")->setVisible(true);
 		return true;
 	}
 	bool handleScreenshot(const CEGUI::EventArgs& e){
@@ -139,6 +141,7 @@ protected:
 		wmgr.getWindow("Models")->setVisible(true);
 		wmgr.getWindow("CameraButton")->setVisible(true);
 		wmgr.getWindow("Trash")->setVisible(true);
+		wmgr.getWindow("Undo")->setVisible(true);
 
 		CEGUI::WindowEventArgs& we = ((CEGUI::WindowEventArgs&)e);
 		CEGUI::String test = we.window->getName();
@@ -153,7 +156,9 @@ protected:
 		return true;
 	}
 
-	
+	bool handleUndo(const CEGUI::EventArgs& e){
+		return true;
+	}	
 	
 
 };
