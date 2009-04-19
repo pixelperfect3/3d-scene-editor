@@ -233,10 +233,10 @@ public:
 	}
 	void ToggleMouseCursor(bool useMouse) {
 		if (useMouse) {
-			std::cout << "Showing mouse.\n";
+			//std::cout << "Showing mouse.\n";
 			CEGUI::MouseCursor::getSingleton().show();
 		} else {
-			std::cout << "Hiding mouse.\n";
+			//std::cout << "Hiding mouse.\n";
 			CEGUI::MouseCursor::getSingleton().hide();
 		}
 	}
@@ -258,7 +258,7 @@ public:
 			CEGUI::MouseCursor::getSingleton().setPosition(CEGUI::Point(arg.state.X.abs, arg.state.Y.abs));
 			init = false;
 		}
-		std::cout << "Mouse: { " << arg.state.X.abs << ", " << arg.state.Y.abs << " }, relative={ " << arg.state.X.rel << ", " << arg.state.Y.rel << " }\n";
+		//std::cout << "Mouse: { " << arg.state.X.abs << ", " << arg.state.Y.abs << " }, relative={ " << arg.state.X.rel << ", " << arg.state.Y.rel << " }\n";
 		CEGUI::System::getSingleton().injectMouseMove( arg.state.X.rel, arg.state.Y.rel );
 		return true;
 	}
@@ -266,6 +266,8 @@ public:
 	void mouseSelection(double x, double y) {
 		// Try to do a raycast from the mouse. TODO: Should be changed to the red pointer instead?
 		Ogre::Ray ray = mCamera->getCameraToViewportRay(x, y);
+
+		bool found = false;
 
 		// go through all the intersected objects, and only highlight the bounding box of the first object
 		RaySceneQuery* raySceneQuery = mCamera->getSceneManager()->createRayQuery(ray);
@@ -278,8 +280,12 @@ public:
 				SceneNode *selectedNode = it->movable->getParentSceneNode();
 				fsm->select_node(selectedNode);
 				std::cout << "Found a node " << it->movable->getName() << "\n";
+				found = true;
 				break;
 			}
+		}
+		if (!found) {
+			fsm->done_with_selection();
 		}
 	}
 	void checkMouseSelection() {
