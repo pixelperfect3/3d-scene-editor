@@ -125,9 +125,51 @@ void PresenceApplication::createScene(void)
 	mGUISystem->setGUISheet(sheet);
 
 	CEGUI::WindowManager& wmgr = CEGUI::WindowManager::getSingleton();
+
 	setupEventHandlers();
-	loadMenuItems(63);
-	
+	loadMenuItems(15);
+
+	setupEnterExitEvents(wmgr.getWindow("Menu"));
+
+	mTip = CEGUI::WindowManager::getSingleton().createWindow((CEGUI::utf8*)"TaharezLook/StaticText", (CEGUI::utf8*)"ToolTips");
+	mTip->setSize(CEGUI::UVector2(CEGUI::UDim(0.65f,0), CEGUI::UDim(0.08f,0)));
+	mTip->setPosition(CEGUI::UVector2(CEGUI::UDim(.08125f, 0), CEGUI::UDim(.9000f, 0)));
+	wmgr.getWindow("Menu")->addChildWindow(mTip);
+
+	mDescriptionMap[(CEGUI::utf8*)"Cancel"] = 
+		(CEGUI::utf8*)" Close Model Selector";
+	mDescriptionMap[(CEGUI::utf8*)"MenuButton1"] = 
+		(CEGUI::utf8*)" Amarillo Tree";
+	mDescriptionMap[(CEGUI::utf8*)"MenuButton2"] = 
+		(CEGUI::utf8*)" Bamboo Tree";
+	mDescriptionMap[(CEGUI::utf8*)"MenuButton3"] = 
+		(CEGUI::utf8*)" Cabbage Tree";
+	mDescriptionMap[(CEGUI::utf8*)"MenuButton4"] = 
+		(CEGUI::utf8*)" Magnolia Tree";
+	mDescriptionMap[(CEGUI::utf8*)"MenuButton5"] = 
+		(CEGUI::utf8*)" Palm Tree";
+	mDescriptionMap[(CEGUI::utf8*)"MenuButton6"] = 
+		(CEGUI::utf8*)" Sago Palm Tree";
+	mDescriptionMap[(CEGUI::utf8*)"MenuButton7"] = 
+		(CEGUI::utf8*)" Yucca Plant";
+	mDescriptionMap[(CEGUI::utf8*)"MenuButton8"] = 
+		(CEGUI::utf8*)" Red Plant";
+	mDescriptionMap[(CEGUI::utf8*)"MenuButton9"] = 
+		(CEGUI::utf8*)" Octopus Plant";
+	mDescriptionMap[(CEGUI::utf8*)"MenuButton10"] = 
+		(CEGUI::utf8*)" Monstera Plant";
+	mDescriptionMap[(CEGUI::utf8*)"MenuButton11"] = 
+		(CEGUI::utf8*)" Wood Chair";
+	mDescriptionMap[(CEGUI::utf8*)"MenuButton12"] = 
+		(CEGUI::utf8*)" Rusti Chair Set";
+	mDescriptionMap[(CEGUI::utf8*)"MenuButton13"] = 
+		(CEGUI::utf8*)" Lounge Chair";
+	mDescriptionMap[(CEGUI::utf8*)"MenuButton14"] = 
+		(CEGUI::utf8*)" Cushion Chair";
+	mDescriptionMap[(CEGUI::utf8*)"MenuButton15"] = 
+		(CEGUI::utf8*)" Plastic Chair Set";
+
+
 	init_pointers(mSceneMgr);
 }
 
@@ -135,10 +177,11 @@ void PresenceApplication::setupEventHandlers(){
 	CEGUI::WindowManager& wmgr = CEGUI::WindowManager::getSingleton();
 
 	CEGUI::Window* window = CEGUI::WindowManager::getSingleton().getWindow((CEGUI::utf8*)"Root");
+	
 
 	wmgr.getWindow("Menu")->setVisible(false); // menu is invisible
-	wmgr.getWindow("Menu")->setAlpha(.8);
-
+	//wmgr.getWindow("Menu")->setAlpha(.8);
+	
 	wmgr.getWindow((CEGUI::utf8*)"Cancel")->subscribeEvent(
 		CEGUI::PushButton::EventClicked,
 		CEGUI::Event::Subscriber(&PresenceApplication::handleCancel, this));
@@ -185,13 +228,36 @@ void PresenceApplication::loadMenuItems(int numberOfObjects){
 
 	CEGUI::Window* window = 0;
 
-	Real posX = 0.05; //Math::RangeRandom(0.0, 0.0); 
+	Real posX = 0.05; //Math::RangeRandom(0.0, 0.0);
 	Real posY = 0.05; //Math::RangeRandom(0.0, 0.0);
+	unsigned int siCounter = 1;
+	unsigned int objectCounter = 1;
+
+	CEGUI::Imageset* imageSet = 
+		CEGUI::ImagesetManager::getSingleton().getImageset(
+		(CEGUI::utf8*)"MenuObjects");
 
 	for(int i=0; i<numberOfObjects; i++){
-		window = createStaticImageObject();
-		editorWindow->addChildWindow(window);
-		window->setPosition(CEGUI::UVector2(CEGUI::UDim(posX, 0), CEGUI::UDim(posY, 0)));
+		String guiObjectName = "MenuButton" + StringConverter::toString(siCounter);
+		String MenuObjectNorm = "NewImage" + StringConverter::toString(objectCounter);
+		String MenuObjectHover = "NewImage" + StringConverter::toString(++objectCounter);
+
+		CEGUI::Window* si = CEGUI::WindowManager::getSingleton().createWindow((CEGUI::utf8*)"TaharezLook/ImageButton",
+			(CEGUI::utf8*)guiObjectName.c_str());
+		si->setSize(CEGUI::UVector2( CEGUI::UDim(0.1f, 0), CEGUI::UDim(0.13f, 0)));
+		si->setProperty("NormalImage", CEGUI::PropertyHelper::imageToString(
+			&imageSet->getImage((CEGUI::utf8*)MenuObjectNorm.c_str())));
+		
+		si->setProperty("HoverImage", CEGUI::PropertyHelper::imageToString(
+			&imageSet->getImage((CEGUI::utf8*)MenuObjectHover.c_str())));
+		si->subscribeEvent(
+			CEGUI::PushButton::EventClicked,CEGUI::Event::Subscriber(&PresenceApplication::handleMenuObjects, this));
+
+		siCounter++;
+		objectCounter++;
+
+		editorWindow->addChildWindow(si);
+		si->setPosition(CEGUI::UVector2(CEGUI::UDim(posX, 0), CEGUI::UDim(posY, 0)));
 		if(posX > .8 && posY <.8) {
 			posX = .05;
 			posY += .12;
@@ -199,30 +265,6 @@ void PresenceApplication::loadMenuItems(int numberOfObjects){
 		else posX += 0.1;
 
 	}
-}
-
-CEGUI::Window* PresenceApplication::createStaticImageObject(void)
-{
-	static unsigned int siCounter = 0;
-	String guiObjectName = "Objects" + StringConverter::toString(siCounter);
-
-	CEGUI::Imageset* imageSet = 
-		CEGUI::ImagesetManager::getSingleton().getImageset(
-		(CEGUI::utf8*)"ObjectBut");
-
-	CEGUI::Window* si = CEGUI::WindowManager::getSingleton().createWindow((CEGUI::utf8*)"TaharezLook/ImageButton",
-		(CEGUI::utf8*)guiObjectName.c_str());
-	si->setSize(CEGUI::UVector2( CEGUI::UDim(0.1f, 0), CEGUI::UDim(0.13f, 0)));
-	si->setProperty("NormalImage", CEGUI::PropertyHelper::imageToString(
-		&imageSet->getImage((CEGUI::utf8*)"treeDefault")));
-	si->setProperty("HoverImage", CEGUI::PropertyHelper::imageToString(
-		&imageSet->getImage((CEGUI::utf8*)"treeHover")));
-	si->subscribeEvent(
-		CEGUI::PushButton::EventClicked,CEGUI::Event::Subscriber(&PresenceApplication::handleMenuObjects, this));
-
-	siCounter++;
-
-	return si;
 }
 
 

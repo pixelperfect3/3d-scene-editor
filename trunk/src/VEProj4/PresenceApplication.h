@@ -17,15 +17,21 @@ public:
     PresenceApplication(char*, char*);
 	~PresenceApplication();
 
+	int whichObjectWasPressed;
+	
 
 private:
 	CEGUI::OgreCEGUIRenderer* mGUIRenderer;
 	CEGUI::System* mGUISystem;
 	CEGUI::Window* mEditorGuiSheet;
 	CEGUI::Window* mPreview; // StaticImage
+	CEGUI::Window* mTip;
+	typedef std::map<CEGUI::String, CEGUI::String> DescriptionMap;
+	DescriptionMap mDescriptionMap;
 	
 
 protected:
+	
 	ModelManager *model_manager;
 	SceneNode* mainSceneNode;
 	RenderWindow *mWindow2;
@@ -50,7 +56,6 @@ protected:
 	// GUI stuff
 	void setupEventHandlers(void);
 	void loadMenuItems(int numberOfObjects);
-	CEGUI::Window* createStaticImageObject(void);
 
 	bool handleModels(const CEGUI::EventArgs& e){
 		CEGUI::WindowManager& wmgr = CEGUI::WindowManager::getSingleton();
@@ -68,7 +73,6 @@ protected:
 		wmgr.getWindow("Models")->setVisible(true);
 		wmgr.getWindow("CameraButton")->setVisible(true);
 		wmgr.getWindow("Trash")->setVisible(true);
-		wmgr.getWindow("popup")->setVisible(false);
 		return true;
 	}
 	bool handleScreenshot(const CEGUI::EventArgs& e){
@@ -83,6 +87,7 @@ protected:
 		//wmgr.getWindow("Models")->setVisible(true);
 		//wmgr.getWindow("Screenshot")->setVisible(true);
 		//wmgr.getWindow("Trash")->setVisible(true);
+		
 
 		return true;
 
@@ -92,6 +97,42 @@ protected:
 		return true;
 	}
 
+	bool handleMouseEnters(const CEGUI::EventArgs& e)
+	{
+		CEGUI::WindowEventArgs& we = ((CEGUI::WindowEventArgs&)e);
+		DescriptionMap::iterator i = mDescriptionMap.find(we.window->getName());
+		if (i != mDescriptionMap.end())
+		{
+			mTip->setText(i->second);
+		}
+		else
+		{
+			mTip->setText((CEGUI::utf8*)"");
+		}
+
+		return true;
+	}
+	bool handleMouseLeaves(const CEGUI::EventArgs& e)
+	{
+		mTip->setText((CEGUI::utf8*)"");
+		return true;
+	}
+	void setupEnterExitEvents(CEGUI::Window* win)
+	{
+		win->subscribeEvent(
+			CEGUI::Window::EventMouseEnters, 
+			CEGUI::Event::Subscriber(&PresenceApplication::handleMouseEnters, this));
+		win->subscribeEvent(
+			CEGUI::Window::EventMouseLeaves, 
+			CEGUI::Event::Subscriber(&PresenceApplication::handleMouseLeaves, this));
+		for (unsigned int i = 0; i < win->getChildCount(); ++i)
+		{
+			CEGUI::Window* child = win->getChildAtIdx(i);
+			setupEnterExitEvents(child);
+		}
+
+	}
+
 	bool handleMenuObjects(const CEGUI::EventArgs& e){
 		CEGUI::WindowManager& wmgr = CEGUI::WindowManager::getSingleton();
 		wmgr.getWindow("Menu")->setVisible(false);
@@ -99,11 +140,14 @@ protected:
 		wmgr.getWindow("CameraButton")->setVisible(true);
 		wmgr.getWindow("Trash")->setVisible(true);
 
-		CEGUI::Window* popup =CEGUI::WindowManager::getSingleton().createWindow((CEGUI::utf8*)"TaharezLook/StaticText", (CEGUI::utf8*)"popup");
+		CEGUI::WindowEventArgs& we = ((CEGUI::WindowEventArgs&)e);
+		CEGUI::String test = we.window->getName();
+
+		CEGUI::Window* popup =CEGUI::WindowManager::getSingleton().createWindow((CEGUI::utf8*)"TaharezLook/StaticText",(CEGUI::utf8*)"popup");
 		popup->setAlpha(.7);
 		popup->setSize(CEGUI::UVector2(CEGUI::UDim(0.65f,0), CEGUI::UDim(0.1f,0)));
 		popup->setPosition(CEGUI::UVector2(CEGUI::UDim(.08125f, 0), CEGUI::UDim(.2125f, 0)));
-		popup->setText((CEGUI::utf8*)"yay! but i still dont know which object was pressed :-( \n press Models and Cancel to kill me");
+		popup->setText(test);
 		CEGUI::WindowManager::getSingleton().getWindow((CEGUI::utf8*)"Root")->addChildWindow(popup);
 
 		return true;

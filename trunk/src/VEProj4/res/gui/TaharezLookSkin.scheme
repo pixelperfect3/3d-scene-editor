@@ -4,6 +4,7 @@
 	<Imageset Name="TrashCan" Filename="TrashCan.imageset" />
 	<Imageset Name="CameraBut" Filename="CameraBut.imageset" />
 	<Imageset Name="ObjectBut" Filename="ObjectBut.imageset" />
+	<Imageset Name="MenuObjects" Filename="MenuObjects.imageset" />
     <Font Name="BlueHighway-12" Filename="bluehighway-12.font" />
     <Font Name="BlueHighway-10" Filename="bluehighway-10.font" />
     <Font Name="BlueHighway-8" Filename="bluehighway-8.font" />
