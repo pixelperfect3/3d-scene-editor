@@ -308,6 +308,7 @@ public:
 			std::cout << "Right-Click!!!\n";
 			CEGUI::System::getSingleton().injectMouseButtonDown(CEGUI::RightButton);
 			CEGUI::System::getSingleton().injectMouseButtonUp(CEGUI::RightButton);
+			fsm->done_with_selection(); //TODO : cancel???
 			break;
 		}
 	}
