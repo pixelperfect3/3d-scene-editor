@@ -265,6 +265,11 @@ public:
 		CEGUI::System::getSingleton().injectMouseMove( arg.state.X.rel, arg.state.Y.rel );
 		return true;
 	}
+	bool isModelObject(MovableObject *m) {
+		return Ogre::StringUtil::startsWith(m->getName(), "tree") ||
+		       Ogre::StringUtil::startsWith(m->getName(), "plant") ||
+		       Ogre::StringUtil::startsWith(m->getName(), "chair");
+	}
 	/** x and y are values in the range [0, 1] */
 	void mouseSelection(double x, double y) {
 		// Try to do a raycast from the mouse. TODO: Should be changed to the red pointer instead?
@@ -278,7 +283,7 @@ public:
 		RaySceneQueryResult& qryResult=raySceneQuery->execute();
 		// iterate through the objects and only select the first one
 		for( it = qryResult.begin();it!=qryResult.end();it++) {
-			if (Ogre::StringUtil::startsWith(it->movable->getName(), "tree") || Ogre::StringUtil::startsWith(it->movable->getName(), "plant")) { // tree or plant
+			if (isModelObject(it->movable)) {
 				SceneNode *selectedNode = it->movable->getParentSceneNode();
 				fsm->select_node(selectedNode);
 				std::cout << "Found a node " << it->movable->getName() << "\n";

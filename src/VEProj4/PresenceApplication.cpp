@@ -51,6 +51,7 @@ PresenceApplication::~PresenceApplication() {
 		delete nunchuk;
 	}
 	if (wiimote) {
+		mRoot->removeFrameListener(gesturer);
 		delete gesturer;
 		delete wiimote;
 	}

@@ -1,21 +1,27 @@
 == TODOs ==
 Create (quick) gesture tutorials program (2D animations?)
-~~~Allowing potted plants and accents to be placed on porch.~~~
-~~~Undo Options~~~
 Project website - ???
-Sid: 1) menu, 2) bounding-box
-Rotate camera when dragging an object "past" the edge of the screen.
+Rotate camera when dragging an object "past" the edge of the screen?
 
 
 == Bugs ==
-Mouse click doesn't de-select (but it does turn off bounding box).
-VRPN doesn't like 2 WiiMotes.
-Don't let models hide behind house.
 Don't let models outside of the lot.
-2 IR points with nothing selected => Crash!!!
-Right-clicking => Crash!!!
+Menu icons in wrong position - Sid
+Delete button.
+
+
+== Won't fix ==
+~~~Allowing potted plants and accents to be placed on porch.~~~
+~~~Undo Options~~~
+
 
 == Done ==
+Mouse click doesn't de-select (but it does turn off bounding box) - Ethan.
+Menu + icons - Sid
+Crash when pressing nunchuk c-button - Ethan.
+Crash - 2 IR points with nothing selected - Ethan.
+Don't let models hide behind house - Ethan.
+Default mode for IR tracker isn't IR-tracking - Ethan.
 Images for Sid's menu items - Shayan.
 Translate+Rotate models (in 3d) - Ethan.
 Mouse selection - Shayan.

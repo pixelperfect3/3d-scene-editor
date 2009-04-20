@@ -99,7 +99,7 @@ protected:
 	}
 	bool handleTrash(const CEGUI::EventArgs& e){
 		CEGUI::WindowManager& wmgr = CEGUI::WindowManager::getSingleton();
-		fsm->delete_selection();
+		fsm->delete_selection(); //TODO : pressing trash-can de-selects the object before it can be deleted.
 		return true;
 	}
 
