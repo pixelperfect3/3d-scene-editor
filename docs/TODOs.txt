@@ -6,16 +6,16 @@ Rotate camera when dragging an object "past" the edge of the screen?
 
 == Bugs ==
 Menu icons in wrong position - Sid
-Delete button.
 
 
 == Won't fix ==
-~~~Allowing potted plants and accents to be placed on porch.~~~
-~~~Undo Options~~~
+Allow potted plants and accents to be placed on porch.
+Undo Options.
 
 
 == Done ==
-Drop objects in front of the camera.
+Delete button - Ethan.
+Drop objects in front of the camera - Ethan.
 Don't let models outside of the lot - Ethan.
 Mouse click doesn't de-select (but it does turn off bounding box) - Ethan.
 Menu + icons - Sid

@@ -25,14 +25,15 @@ public:
 		selection = NULL;
 	}
 	void create_model(String meshName) {
-		if (!selected) {
-			selection = manager->placeModel(meshName);
-			selected = true;
-			selection->parent->showBoundingBox(true);
-			//go ahead and start translating.
-			translating = true;
-			manager->select(selection);
+		if (selected) {
+			done_with_selection();
 		}
+		selection = manager->placeModel(meshName);
+		selected = true;
+		selection->parent->showBoundingBox(true);
+		//go ahead and start translating.
+		translating = true;
+		manager->select(selection);
 	}
 	void select_node(SceneNode *node) {
 		std::cout << "select_node\n";
