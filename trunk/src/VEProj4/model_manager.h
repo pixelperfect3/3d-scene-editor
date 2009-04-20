@@ -21,6 +21,7 @@ protected:
 	Vector3 axis;
     Camera* camera;
 	Plane xzPlane;
+	SceneNode *boundsNode;
 public:
 	ModelManager(SceneManager *sMgr, Camera *camera) : xzPlane(Vector3::UNIT_Y, 0) {
 		assert(sMgr);
@@ -39,6 +40,8 @@ public:
 		   1,
 		   1500,1500,
 		   Vector3::UNIT_Z);
+		boundsNode = createSceneNode("bounds", "lawn_extents.mesh", Vector3(0, 0, 0));
+		boundsNode->setVisible(false);
 	}
 	~ModelManager() {
 		camera = NULL;
@@ -110,7 +113,7 @@ public:
 	void rotate_update(Radian delta) {
 		if (selected) {
 			selected->parent->rotate(axis, delta);
-			if (collisionDect(selected)) {
+			if (!isValidChange(selected)) {
 				selected->parent->rotate(axis, -delta);
 			}
 		}
@@ -158,7 +161,7 @@ public:
 				//TODO : check to make sure that it *does* intersect with the house's parcel/lot.
 				Vector3 old_position = selected->parent->getPosition();
 				selected->parent->setPosition(point);
-				if (collisionDect(selected)) {
+				if (!isValidChange(selected)) {
 					selected->parent->setPosition(old_position);
 				}
 			}
@@ -210,7 +213,7 @@ protected:
 		}
 	}
 	
-	bool collisionDect(SimpleModel *model) {
+	bool isValidChange(SimpleModel *model) {
 		SceneNode* node = model->parent;
 		Entity* nodeEn = (Entity*)node->getAttachedObject(0);
 		AxisAlignedBox box = nodeEn->getBoundingBox();
@@ -218,6 +221,20 @@ protected:
 		transform.makeTransform(node->getPosition(), Vector3(1, 1, 1), node->getOrientation());
 		box.transform(transform);
 
+		if (collisionDect(box) || !intersectsLawnExtents(box)) {
+			return false;
+		}
+		return true;
+	}
+
+	bool intersectsLawnExtents(AxisAlignedBox box) {
+		Entity* lawnBoundsEn = (Entity*) boundsNode->getAttachedObject(0);
+		AxisAlignedBox boundingBox = lawnBoundsEn->getBoundingBox();
+		boundingBox.transform(Matrix4::getTrans(boundsNode->getPosition()));
+		return boundingBox.intersects(box);
+	}
+
+	bool collisionDect(AxisAlignedBox box) {
 		vector<SimpleModel*>::iterator it;
 		for (it = blockList.begin(); it != blockList.end(); it++){
 			SimpleModel *m = *it;
@@ -235,7 +252,7 @@ protected:
 	}
 	void translate_impl(Vector3 delta) {
 		selected->parent->translate(delta);
-		if (collisionDect(selected)) {
+		if (!isValidChange(selected)) {
 			selected->parent->translate(-delta);
 		}
 	}

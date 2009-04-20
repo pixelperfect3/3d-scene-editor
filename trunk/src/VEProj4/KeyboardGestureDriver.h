@@ -277,12 +277,12 @@ public:
 
 		bool found = false;
 
-		// go through all the intersected objects, and only highlight the bounding box of the first object
+		// Find all the intersected models.
 		RaySceneQuery* raySceneQuery = mCamera->getSceneManager()->createRayQuery(ray);
 		RaySceneQueryResult::iterator it;
 		RaySceneQueryResult& qryResult=raySceneQuery->execute();
-		// iterate through the objects and only select the first one
-		for( it = qryResult.begin();it!=qryResult.end();it++) {
+		// iterate through the objects and only select the first one that is a movable model.
+		for (it = qryResult.begin(); it != qryResult.end(); it++) {
 			if (isModelObject(it->movable)) {
 				SceneNode *selectedNode = it->movable->getParentSceneNode();
 				fsm->select_node(selectedNode);
@@ -315,7 +315,7 @@ public:
 			std::cout << "Right-Click!!!\n";
 			CEGUI::System::getSingleton().injectMouseButtonDown(CEGUI::RightButton);
 			CEGUI::System::getSingleton().injectMouseButtonUp(CEGUI::RightButton);
-			fsm->done_with_selection(); //TODO : cancel???
+			fsm->done_with_selection();
 			break;
 		}
 	}
