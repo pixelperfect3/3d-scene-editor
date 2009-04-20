@@ -1,0 +1,134 @@
+material Tile_Orange_Burnt
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Tile_Orange_Burnt.jpg
+         }
+      }
+   }
+}
+
+material Vegetation_Bark_Ponderosa
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Vegetation_Bark_Ponderosa.jpg
+         }
+      }
+   }
+}
+
+material Tile_Mosaic_Browns
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Tile_Mosaic_Browns.jpg
+         }
+      }
+   }
+}
+
+material Water_Sparkling
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Water_Sparkling.jpg
+         }
+      }
+   }
+}
+
+material leaves
+{
+   technique
+   {
+      pass
+      {
+         scene_blend alpha_blend
+         depth_check on
+         depth_write off
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture leaves.png
+         }
+      }
+   }
+}
+
+material Water_Pool_Light
+{
+   technique
+   {
+      pass
+      {
+         scene_blend alpha_blend
+         depth_check on
+         depth_write off
+         diffuse 1 1 1 0.6
+         texture_unit
+         {
+            texture Water_Pool.jpg
+         }
+      }
+   }
+}
+
+material Water_Deep
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Water_Deep.jpg
+         }
+      }
+   }
+}
+
+material SketchupDefault
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1.0 1.0 1.0
+         ambient 1.0 1.0 1.0
+      }
+   }
+}
+
+material SketchupDefault_Back
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.670588235294118 0.690196078431373 0.8
+         ambient 0.670588235294118 0.690196078431373 0.8
+      }
+   }
+}

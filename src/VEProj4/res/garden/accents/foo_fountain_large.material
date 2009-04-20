@@ -1,0 +1,83 @@
+material Stone_Marble
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Stone_Marble.jpg
+         }
+      }
+   }
+}
+
+material Stone_Brushed_Khaki
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Stone_Brushed_Khaki.jpg
+         }
+      }
+   }
+}
+
+material Stone_Pavers_Flagstone_Gray
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Stone_Pavers_Flagstone_Gray.jpg
+         }
+      }
+   }
+}
+
+material Water_Sparkling
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Water_Sparkling.jpg
+         }
+      }
+   }
+}
+
+material SketchupDefault
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1.0 1.0 1.0
+         ambient 1.0 1.0 1.0
+      }
+   }
+}
+
+material SketchupDefault_Back
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.643137254901961 0.698039215686274 0.733333333333333
+         ambient 0.643137254901961 0.698039215686274 0.733333333333333
+      }
+   }
+}
