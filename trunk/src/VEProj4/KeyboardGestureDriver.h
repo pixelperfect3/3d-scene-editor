@@ -289,7 +289,7 @@ public:
 			}
 		}
 		if (!found) {
-			fsm->done_with_selection();
+			//fsm->done_with_selection(); //HACK : This breaks the "delete" button.
 		}
 	}
 	void checkMouseSelection() {
