@@ -5,6 +5,7 @@
 PresenceApplication::PresenceApplication(char* ir_tracker_name, char* nunchuk_name) {
 	if (ir_tracker_name) {
 		wiimote = new WiiMoteClient(ir_tracker_name);
+		wiimote->set_mode(VRPN_WIIMOTE_CHANNEL_MODE_IR, true);
 		std::cout << "Using Wiimote \"" << ir_tracker_name << "\" (for IR tracking).\n";
 	} else {
 		wiimote = NULL;
