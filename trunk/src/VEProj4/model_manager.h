@@ -57,7 +57,7 @@ public:
 		m->meshName = meshName;
 		m->model_num = model_num;
 		resetModel(m, pos);
-		resetModel(m, Radian(Degree(Math.RangeRandom(0, 359))));
+		resetModel(m, Radian(Degree(Math::RangeRandom(0, 359))));
 
 		nodeList.push_back(m);
 		model_num++;
