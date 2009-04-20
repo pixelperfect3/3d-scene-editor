@@ -50,11 +50,14 @@ public:
 		nodeList.clear();
 		blockList.clear();
 	}
-	Vector3 getDefaultPosition() {
-		return Vector3(-4,0,11);
+	Vector3 getCameraOrientedPosition() {
+		Vector3 pos = Vector3(2, 0, -11); //in front, slightly right of camera
+		Vector3 cameraPos = camera->getPosition();
+		pos = camera->getOrientation() * pos;
+		return Vector3(cameraPos.x, 0, cameraPos.z) + pos; //ignore camera position's Y-coordinate
 	}
 	SimpleModel *placeModel(String meshName) {
-		return placeModel(meshName, getDefaultPosition());
+		return placeModel(meshName, getCameraOrientedPosition());
 	}
 	SimpleModel *placeModel(String meshName, Vector3 pos) {
 		SceneNode *node = createSceneNode(meshName + StringConverter::toString(model_num), meshName, pos);

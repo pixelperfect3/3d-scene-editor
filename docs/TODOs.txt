@@ -2,7 +2,6 @@
 Create (quick) gesture tutorials program (2D animations?)
 Project website - ???
 Rotate camera when dragging an object "past" the edge of the screen?
-Drop objects in front of the camera.
 
 
 == Bugs ==
@@ -16,6 +15,7 @@ Delete button.
 
 
 == Done ==
+Drop objects in front of the camera.
 Don't let models outside of the lot - Ethan.
 Mouse click doesn't de-select (but it does turn off bounding box) - Ethan.
 Menu + icons - Sid
