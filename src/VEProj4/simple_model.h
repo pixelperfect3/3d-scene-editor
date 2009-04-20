@@ -23,6 +23,7 @@ static void resetModel(SimpleModel *m, Ogre::Vector3 new_start) {
 static void resetModel(SimpleModel *m, Ogre::Radian orientation) {
 	assert(m);
 	m->orientation = orientation;
+	m->parent->setOrientation(Ogre::Quaternion(orientation, Ogre::Vector3::UNIT_Y));
 }
 
 istream& operator>>(istream& is, SimpleModel m);
