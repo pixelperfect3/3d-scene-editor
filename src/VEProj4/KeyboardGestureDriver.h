@@ -63,9 +63,9 @@ OIS::KeyCode keys_to_trees[NUM_MODELS] = {
 #define MOVE_FORWARD    8
 #define MOVE_BACKWARD   9
 
+//A Finite-state-machine for handling selection, translation, rotation states (and all the ones in between).
 class KeyboardGestureDriver : public HeadTrackerFrameListener,public OIS::KeyListener, public OIS::MouseListener, public MouseDriver {
 private:
-	//A finite-state-machine for placing low-poly models into the scene. :)
 	double delta[3];
 	double delta_delta;
 	Radian angle;
@@ -279,7 +279,6 @@ public:
 		// iterate through the objects and only select the first one
 		for( it = qryResult.begin();it!=qryResult.end();it++) {
 			if (Ogre::StringUtil::startsWith(it->movable->getName(), "tree") || Ogre::StringUtil::startsWith(it->movable->getName(), "plant")) { // tree or plant
-				it->movable->getParentSceneNode()->showBoundingBox(true);
 				SceneNode *selectedNode = it->movable->getParentSceneNode();
 				fsm->select_node(selectedNode);
 				std::cout << "Found a node " << it->movable->getName() << "\n";
