@@ -50,14 +50,14 @@ public:
 		nodeList.clear();
 		blockList.clear();
 	}
-	SimpleModel *placeModel(String meshName, Vector3 pos) { //TODO : add orientation
+	SimpleModel *placeModel(String meshName, Vector3 pos) {
 		SceneNode *node = createSceneNode(meshName + StringConverter::toString(model_num), meshName, pos);
 		SimpleModel* m = new SimpleModel();
 		m->parent = node;
 		m->meshName = meshName;
 		m->model_num = model_num;
 		resetModel(m, pos);
-		resetModel(m, Radian(0)); //TODO : use a random rotation to make it look less "canned".
+		resetModel(m, Radian(Degree(Math.RangeRandom(0, 359))));
 
 		nodeList.push_back(m);
 		model_num++;
@@ -158,7 +158,6 @@ public:
 				}
 			}
 			if (!obstructed) {
-				//TODO : check to make sure that it *does* intersect with the house's parcel/lot.
 				Vector3 old_position = selected->parent->getPosition();
 				selected->parent->setPosition(point);
 				if (!isValidChange(selected)) {
