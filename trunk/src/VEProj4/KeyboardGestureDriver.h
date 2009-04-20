@@ -82,7 +82,7 @@ protected:
 public:
 	
 	// Constructor takes a RenderWindow because it uses that to determine input context
-	KeyboardGestureDriver(GestureFSM *gestrueFSM, ModelManager *manager, RenderWindow* win, Camera* cam,
+	KeyboardGestureDriver(GestureFSM *fsm, ModelManager *manager, RenderWindow* win, Camera* cam,
 		CEGUI::Renderer* renderer, WiiMoteClient *nunchuk) :
 			HeadTrackerFrameListener(win, cam, nunchuk), mGUIRenderer(renderer), mShutdownRequested(false),
 			defaultPosition(-4, 0, 11), angle(0),
@@ -98,10 +98,11 @@ public:
 		for (int ii = 0; ii < NUM_ACTIONS; ii++) {
 			actions[ii] = false;
 		}
-		fsm = gestrueFSM;
+		this->fsm = fsm;
 	}
 	~KeyboardGestureDriver() {
-		delete fsm;
+		fsm = NULL;
+		model_manager = NULL;
 	}
 	bool frameStarted(const FrameEvent &evt) {
 		bool val = HeadTrackerFrameListener::frameStarted(evt);

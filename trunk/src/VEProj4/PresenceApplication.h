@@ -38,7 +38,7 @@ protected:
 	ModelManager *model_manager;
 	SceneNode* mainSceneNode;
 	RenderWindow *mWindow2;
-	WiiMoteClient *wiimote;  //tracker
+	WiiMoteClient *wiimote;  //IR tracker
 	WiiMoteClient *nunchuk;  //nunchuk (for lookaround)
 	WiiMoteGesturer *gesturer;
 	
