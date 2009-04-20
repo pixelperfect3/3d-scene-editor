@@ -1,0 +1,179 @@
+material 0003_DeepPink
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1.0 0.0784313725490196 0.576470588235294 1.0
+         ambient 1.0 0.0784313725490196 0.576470588235294 1.0
+      }
+   }
+}
+
+material 0020_Red
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1.0 0.0 0.0 1.0
+         ambient 1.0 0.0 0.0 1.0
+      }
+   }
+}
+
+material 0124_Purple
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.501960784313725 0.0 0.501960784313725 1.0
+         ambient 0.501960784313725 0.0 0.501960784313725 1.0
+      }
+   }
+}
+
+material 0133_Gray
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.501960784313725 0.501960784313725 0.501960784313725 1.0
+         ambient 0.501960784313725 0.501960784313725 0.501960784313725 1.0
+      }
+   }
+}
+
+material WhiteSmoke
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.96078431372549 0.96078431372549 0.96078431372549 1.0
+         ambient 0.96078431372549 0.96078431372549 0.96078431372549 1.0
+      }
+   }
+}
+
+material 0075_ForestGreen
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.133333333333333 0.545098039215686 0.133333333333333 1.0
+         ambient 0.133333333333333 0.545098039215686 0.133333333333333 1.0
+      }
+   }
+}
+
+material 0046_Gold
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1.0 0.843137254901961 0.0 1.0
+         ambient 1.0 0.843137254901961 0.0 1.0
+      }
+   }
+}
+
+material 0097_DeepSkyBlue
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.0 0.749019607843137 1.0 1.0
+         ambient 0.0 0.749019607843137 1.0 1.0
+      }
+   }
+}
+
+material SandyBrown
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.956862745098039 0.643137254901961 0.376470588235294 1.0
+         ambient 0.956862745098039 0.643137254901961 0.376470588235294 1.0
+      }
+   }
+}
+
+material BurlyWood
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.870588235294118 0.72156862745098 0.529411764705882 1.0
+         ambient 0.870588235294118 0.72156862745098 0.529411764705882 1.0
+      }
+   }
+}
+
+material 0009_Linen
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.980392156862745 0.941176470588235 0.901960784313726 1.0
+         ambient 0.980392156862745 0.941176470588235 0.901960784313726 1.0
+      }
+   }
+}
+
+material 0039_DarkOrange
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1.0 0.549019607843137 0.0 1.0
+         ambient 1.0 0.549019607843137 0.0 1.0
+      }
+   }
+}
+
+material DarkGreen
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.0 0.392156862745098 0.0 1.0
+         ambient 0.0 0.392156862745098 0.0 1.0
+      }
+   }
+}
+
+material SketchupDefault
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.972549019607843 1.0 0.56078431372549
+         ambient 0.972549019607843 1.0 0.56078431372549
+      }
+   }
+}
+
+material SketchupDefault_Back
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.776470588235294 0.6 0.188235294117647
+         ambient 0.776470588235294 0.6 0.188235294117647
+      }
+   }
+}
