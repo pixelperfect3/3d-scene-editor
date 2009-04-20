@@ -71,25 +71,23 @@ int main(int argc, char **argv)
 		return 1;
 	}
 
-	char* wiimote1 = NULL;
-	char* wiimote2 = NULL;
+	char* ir_tracker_name = NULL;
+	char* nunchuk_name = NULL;
 
 	USES_CONVERSION;
 	if (argc == 1) {
-		// keyboard wheelchair mode
 		// do nothing
 	} else if (argc == 2) {
-		// joystick wheelchair mode
-		wiimote1 = W2A(argv[1]);
-
+		//one wiimote
+		ir_tracker_name = W2A(argv[1]);
 	} else if (argc == 3) {
-		// manual wheelchair mode
-		wiimote1 = W2A(argv[1]);
-		wiimote2 = W2A(argv[2]);
+		//two wiimotes
+		ir_tracker_name = W2A(argv[1]);
+		nunchuk_name = W2A(argv[2]);
 	}
 	
     // Create application object
-    PresenceApplication app = PresenceApplication(wiimote1, wiimote2);
+    PresenceApplication app = PresenceApplication(ir_tracker_name, nunchuk_name);
 
     try {
         app.go();

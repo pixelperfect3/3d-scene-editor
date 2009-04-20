@@ -2,25 +2,20 @@
 #include "KeyboardGestureDriver.h"
 #include "ogreconsole.h"
 
-PresenceApplication::PresenceApplication(char* wiimote1_name, char* wiimote2_name) {
-	if (wiimote2_name) {
-		wiimote = new WiiMoteClient(wiimote1_name);
-		nunchuk = new WiiMoteClient(wiimote2_name);
-		std::cout << "Using Wiimotes \"" << wiimote1_name << "\" (for tracking) and \"" << wiimote2_name << "\" (for nunchuk).\n";
-	} else if (wiimote1_name) {
-		if (true) {
-			wiimote = new WiiMoteClient(wiimote1_name);
-			nunchuk = NULL;
-			std::cout << "Using Wiimote \"" << wiimote1_name << "\" (for tracking).\n";
-		} else {
-			wiimote = NULL;
-			nunchuk = new WiiMoteClient(wiimote1_name);
-			std::cout << "Using Wiimote \"" << wiimote1_name << "\" (for nunchuk).\n";
-		}
+PresenceApplication::PresenceApplication(char* ir_tracker_name, char* nunchuk_name) {
+	if (ir_tracker_name) {
+		wiimote = new WiiMoteClient(ir_tracker_name);
+		std::cout << "Using Wiimote \"" << ir_tracker_name << "\" (for IR tracking).\n";
 	} else {
 		wiimote = NULL;
+		std::cout << "Not using Wiimote for IR tracking.\n";
+	}
+	if (nunchuk_name) {
+		nunchuk = new WiiMoteClient(nunchuk_name);
+		std::cout << "Using Wiimotes \"" << nunchuk_name << "\" (for nunchuk).\n";
+	} else {
 		nunchuk = NULL;
-		std::cout << "Not using Wiimotes.\n";
+		std::cout << "Not using Wiimote for nunchuk inputs.\n";
 	}
 	mGUIRenderer =0;
 	mGUISystem = 0;
@@ -45,11 +40,12 @@ PresenceApplication::PresenceApplication(char* wiimote1_name, char* wiimote2_nam
 	};
 	for(int i=0;i<NUM_OBJMODELS;i++)
 		buttonobjModels[i] = temp[i];
+	//Fixes errors in destructor:
+	model_manager = NULL;
+	fsm = NULL;
 }
 
 PresenceApplication::~PresenceApplication() {
-	delete model_manager;
-	delete fsm;
 	if (nunchuk && nunchuk != wiimote) {
 		delete nunchuk;
 	}
@@ -70,6 +66,12 @@ PresenceApplication::~PresenceApplication() {
 	{
 		delete mGUIRenderer;
 		mGUIRenderer = 0;
+	}
+	if (fsm) {
+		delete fsm;
+	}
+	if (model_manager) {
+		delete model_manager;
 	}
 }
 
@@ -307,11 +309,13 @@ void PresenceApplication::loadMenuItems(int numberOfObjects){
 void PresenceApplication::createFrameListener(void) {
 	model_manager = new ModelManager(mSceneMgr, mCamera);
 	fsm = new GestureFSM(model_manager);
-	KeyboardGestureDriver *driver = new KeyboardGestureDriver(fsm,model_manager, mWindow, mCamera, mGUIRenderer, nunchuk);
+	KeyboardGestureDriver *driver = new KeyboardGestureDriver(fsm, model_manager, mWindow, mCamera, mGUIRenderer, nunchuk);
 	mFrameListener = driver;
     mRoot->addFrameListener(mFrameListener);
 	if (wiimote) {
 		gesturer = new WiiMoteGesturer(wiimote, driver, model_manager);
 		mRoot->addFrameListener(gesturer);
+	} else {
+		gesturer = NULL;
 	}
 }

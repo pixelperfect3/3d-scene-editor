@@ -33,10 +33,11 @@ public:
 		this->nunchuk = nunchuk;
 	}
 
-	~HeadTrackerFrameListener() {
+	virtual ~HeadTrackerFrameListener() {
 		if (vtrak) {
 			delete vtrak;
 		}
+		nunchuk = NULL;
 	}
 	
 	virtual void injectMouseButtonPressed(int button) = 0; //Inject nunchuk button presses

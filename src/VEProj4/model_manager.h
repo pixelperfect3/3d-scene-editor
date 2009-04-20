@@ -42,7 +42,8 @@ public:
 	}
 	~ModelManager() {
 		camera = NULL;
-		vector<SimpleModel*>::iterator it;
+		selected = NULL;
+		mgr = NULL;
 		nodeList.clear();
 		blockList.clear();
 	}
