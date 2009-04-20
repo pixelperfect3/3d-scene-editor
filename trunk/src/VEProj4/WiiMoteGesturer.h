@@ -71,6 +71,7 @@ public:
 				}
 				break;
 			case 2:
+				//Translation:
 				double distance[2];
 				double tmp[2];
 				Midpoint(points[0], points[1], tmp);
@@ -81,26 +82,22 @@ public:
 				for (int ii = 0; ii < 2; ii++) {
 					midpoint[ii] = tmp[ii];
 				}
-			//case 3:
-				{
-					bool leftToRight = points[0][0] < points[1][0];
-					int leftIndex = leftToRight ? 0 : 1;
-					int rightIndex = leftToRight ? 1 : 0;
-					Vector2 left = Vector2(points[leftIndex][0], points[leftIndex][1]);
-					Vector2 right = Vector2(points[rightIndex][0], points[rightIndex][1]);
-					if (left.x == right.x) {
-						std::cout << "Arc-tan not defined.\n";
-						break;
-					}
-					Radian angle = Radian(atan((right.y - left.y) / (right.x - left.x)));
-					if (!newGesture) {
-						modelManager->rotate_update(prev_angle - angle);
-						std::cout << "Angle: " << angle.valueDegrees() << ", delta angle: " << (prev_angle - angle).valueDegrees() << ".\n";
-					} else {
-						std::cout << "New angle: " << angle.valueDegrees() << "\n";
-					}
-					prev_angle = angle;
+				//Rotation:
+				bool leftToRight = points[0][0] < points[1][0];
+				int leftIndex = leftToRight ? 0 : 1;
+				int rightIndex = leftToRight ? 1 : 0;
+				Vector2 left = Vector2(points[leftIndex][0], points[leftIndex][1]);
+				Vector2 right = Vector2(points[rightIndex][0], points[rightIndex][1]);
+				if (left.x == right.x) {
+					std::cout << "Arc-tan not defined.\n";
+					prev_angle = Radian(90);
+					break;
 				}
+				Radian angle = Radian(atan((right.y - left.y) / (right.x - left.x)));
+				if (!newGesture) {
+					modelManager->rotate_update(prev_angle - angle);
+				}
+				prev_angle = angle;
 				break;
 		}
 		DrawPoints(active_points, points);

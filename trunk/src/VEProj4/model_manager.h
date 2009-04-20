@@ -92,10 +92,11 @@ public:
 		selected = NULL;
 	}
 	void translate_update(Vector3 delta) {
-		assert(selected);
-		Quaternion orient(camera->getOrientation());
-		delta = orient * -delta;
-		translate_impl(delta);
+		if (selected) {
+			Quaternion orient(camera->getOrientation());
+			delta = orient * -delta;
+			translate_impl(delta);
+		}
 	}
 	void translate_cancelled() {
 		assert(selected);
@@ -107,10 +108,11 @@ public:
 		resetModel(selected, selected->parent->getPosition());
 	}
 	void rotate_update(Radian delta) {
-		assert(selected);
-		selected->parent->rotate(axis, delta);
-		if (collisionDect(selected)) {
-			selected->parent->rotate(axis, -delta);
+		if (selected) {
+			selected->parent->rotate(axis, delta);
+			if (collisionDect(selected)) {
+				selected->parent->rotate(axis, -delta);
+			}
 		}
 	}
 	void rotate_cancelled() {
@@ -134,14 +136,31 @@ public:
 		if (result.first) {
 			//Because it's a ray from the camera, it will always be in the camera's FOV :)
 			Vector3 point = mouseRay.getPoint(result.second);
+			Real distance = camera->getPosition().distance(point);
 
-			//std::cout << "Mouse: { " << mouse.x << ", " << 1.0 - mouse.y << " }, Intersection at { " << point.x << ", " << point.y << ", " << point.z << " }\n";
-			//TODO : check for intersection with house (if it's behind or in one of the house blocks).
-			//TODO : check to make sure that it does intersect with the house's parcel/lot.
-			Vector3 old_position = selected->parent->getPosition();
-			selected->parent->setPosition(point);
-			if (collisionDect(selected)) {
-				selected->parent->setPosition(old_position);
+			//Check whether the object was just dragged "through" the house.
+			bool obstructed = false;
+			RaySceneQuery* raySceneQuery = camera->getSceneManager()->createRayQuery(mouseRay);
+			RaySceneQueryResult::iterator it;
+			RaySceneQueryResult& qryResult=raySceneQuery->execute();
+			for (it = qryResult.begin(); it != qryResult.end(); it++) {
+				if (Ogre::StringUtil::startsWith(it->movable->getName(), "block")) {
+					SceneNode *selectedNode = it->movable->getParentSceneNode();
+					Vector3 blockPosition = selectedNode->getPosition();
+					if (camera->getPosition().distance(blockPosition) < distance) {
+						obstructed = true;
+						std::cout << "Obstruction: can't drag the model \"through\" the house.\n";
+						break;
+					}
+				}
+			}
+			if (!obstructed) {
+				//TODO : check to make sure that it *does* intersect with the house's parcel/lot.
+				Vector3 old_position = selected->parent->getPosition();
+				selected->parent->setPosition(point);
+				if (collisionDect(selected)) {
+					selected->parent->setPosition(old_position);
+				}
 			}
 		} else {
 			std::cout << "No intersection.\n";

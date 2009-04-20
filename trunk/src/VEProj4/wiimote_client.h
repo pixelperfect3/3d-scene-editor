@@ -32,7 +32,7 @@ public:
 	void handle_button_changes(const vrpn_BUTTONCB info);
 	bool enable_rumble(bool rumble);
 	bool set_leds(const int leds);
-	bool set_mode(const int mode, bool value); //one of _MODE_IR or _MODE_MOTION_SENSE
+	bool set_mode(const int mode, bool value); //one of VRPN_WIIMOTE_CHANNEL_MODE_IR or _MODE_MOTION_SENSE
 	/* (Remote) Wiimote data */
 #define WIIMOTE_CLIENT_NUM_BUTTONS (64)
 	unsigned wiimote_index;                   //which wiimote this is
