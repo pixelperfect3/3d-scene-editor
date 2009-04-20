@@ -154,7 +154,7 @@ protected:
 		for(int i=1;i<=NUM_OBJMODELS;i++){
 			String guiObjectName = "MenuButton" + StringConverter::toString(i);
 			if((CEGUI::utf8*)guiObjectName.c_str() == buttonName){
-				fsm->create_model(buttonobjModels[i-1],Vector3(-4,0,11));
+				fsm->create_model(buttonobjModels[i-1]);
 			}
 		}
 

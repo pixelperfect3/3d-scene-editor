@@ -50,6 +50,12 @@ public:
 		nodeList.clear();
 		blockList.clear();
 	}
+	Vector3 getDefaultPosition() {
+		return Vector3(-4,0,11);
+	}
+	SimpleModel *placeModel(String meshName) {
+		return placeModel(meshName, getDefaultPosition());
+	}
 	SimpleModel *placeModel(String meshName, Vector3 pos) {
 		SceneNode *node = createSceneNode(meshName + StringConverter::toString(model_num), meshName, pos);
 		SimpleModel* m = new SimpleModel();

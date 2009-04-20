@@ -76,7 +76,6 @@ private:
 	bool mShutdownRequested;
 	bool init;
 protected:
-	Vector3 defaultPosition;
 	GestureFSM *fsm;
 	ModelManager *model_manager;
 public:
@@ -85,9 +84,7 @@ public:
 	KeyboardGestureDriver(GestureFSM *fsm, ModelManager *manager, RenderWindow* win, Camera* cam,
 		CEGUI::Renderer* renderer, WiiMoteClient *nunchuk) :
 			HeadTrackerFrameListener(win, cam, nunchuk), mGUIRenderer(renderer), mShutdownRequested(false),
-			defaultPosition(-4, 0, 11), angle(0),
-			delta_delta(5), delta_angle(Degree(45)),
-			init(true) {
+			angle(0), delta_delta(5), delta_angle(Degree(45)), init(true) {
 		mMouse->setEventCallback(this);
 		mKeyboard->setEventCallback(this);
 		showDebugOverlay(false);
@@ -156,7 +153,7 @@ public:
 	void createModel(char *meshName) {
 		//TODO : place new models to the fore/left of the camera.
 		// I'd attach an (invisible) object to the camera, then "getPosition" whenever we need to place a new model".
-		fsm->create_model(meshName, defaultPosition);
+		fsm->create_model(meshName);
 	}
 
 	virtual bool processUnbufferedKeyInput(const FrameEvent& evt) {

@@ -24,9 +24,9 @@ public:
 		manager = NULL;
 		selection = NULL;
 	}
-	void create_model(String meshName, Vector3 pos) {
+	void create_model(String meshName) {
 		if (!selected) {
-			selection = manager->placeModel(meshName, pos);
+			selection = manager->placeModel(meshName);
 			selected = true;
 			selection->parent->showBoundingBox(true);
 			//go ahead and start translating.
@@ -46,6 +46,7 @@ public:
 			selection = model;
 			selection->parent->showBoundingBox(true);
 			manager->select(selection);
+			translating = true;
 		} else {
 			std::cout << "No SimpleModel found for node " << node->getName() << "\n";
 		}
