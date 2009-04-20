@@ -62,7 +62,7 @@ public:
 				{
 					if (!newGesture) {
 						double distance[2];
-						Distance(points[0], old_mouse, distance); //TODO : necessary?
+						Distance(points[0], old_mouse, distance);
 						mouseDriver->MouseMoved(points[0], old_mouse, distance);
 						for (int ii = 0; ii < 3; ii++) {
 							old_mouse[ii] = points[0][ii];

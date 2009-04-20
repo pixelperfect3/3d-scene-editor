@@ -80,10 +80,6 @@ public:
 
 	// The redraw frame function
 	bool frameStarted(const FrameEvent &evt) {
-			//TODO : "delta" head position, "delta" quaternion (use an initial reading to "center" the head).
-			//TODO : smooth position/orientation values.
-			//TODO : throw out orientation values that are almost "upside down", or otherwise "weird".
-
 		bool res = ExampleFrameListener::frameStarted(evt);
 
 		if (vtrak) { //Andrew said "vtrak->isConnected" doesn't always play nice.

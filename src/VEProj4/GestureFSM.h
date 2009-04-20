@@ -5,7 +5,6 @@
 #include "model_manager.h"
 
 class GestureFSM {
-//TODO : assert FSM is in a valid state before and after every method call...
 private:
 	bool selected;
 	bool rotating;

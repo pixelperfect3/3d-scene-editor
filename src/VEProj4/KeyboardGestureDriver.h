@@ -272,7 +272,7 @@ public:
 	}
 	/** x and y are values in the range [0, 1] */
 	void mouseSelection(double x, double y) {
-		// Try to do a raycast from the mouse. TODO: Should be changed to the red pointer instead?
+		// Try to do a raycast from the mouse.
 		Ogre::Ray ray = mCamera->getCameraToViewportRay(x, y);
 
 		bool found = false;

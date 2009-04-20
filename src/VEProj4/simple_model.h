@@ -7,7 +7,6 @@ using namespace std;
 
 struct SimpleModel {
 public:
-	//TODO : "bounding-box" coords? (to get a tree really close to the house)
 	int model_num;
 	Ogre::String meshName;
 	Ogre::Vector3 start;
@@ -25,8 +24,6 @@ static void resetModel(SimpleModel *m, Ogre::Radian orientation) {
 	assert(m);
 	m->orientation = orientation;
 }
-
-//TODO : maybe just a static list of SimpleModels.
 
 istream& operator>>(istream& is, SimpleModel m);
 ostream& operator <<(ostream &os, SimpleModel m);
