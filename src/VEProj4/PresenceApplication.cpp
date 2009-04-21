@@ -102,7 +102,7 @@ void PresenceApplication::createAudio(void)
 
 	// Velocity of the source sound.
 	ALfloat SourceVel[] = { 0.0f, 0.0f, 0.0f };		
-	audMgr->addSound("click", "res\\audio\\click1.wav");
+	audMgr->addSound("click", "res\\audio\\click1.wav", SourcePos, SourceVel, 0);
 	//audMgr->addSound("track1", "res\\audio\\track1.wav", SourcePos, SourceVel, 0);
 
 }
