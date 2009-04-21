@@ -2,6 +2,7 @@
 #include "KeyboardGestureDriver.h"
 #include "ogreconsole.h"
 
+
 PresenceApplication::PresenceApplication(char* ir_tracker_name, char* nunchuk_name) {
 	if (ir_tracker_name) {
 		wiimote = new WiiMoteClient(ir_tracker_name);
@@ -22,25 +23,6 @@ PresenceApplication::PresenceApplication(char* ir_tracker_name, char* nunchuk_na
 	mGUISystem = 0;
 	mEditorGuiSheet = 0;
 
-	char* temp[NUM_OBJMODELS] = {
-		"tree_amarelo.mesh",
-		"tree_magnolia.mesh",
-		"tree_bamboo.mesh",
-		"tree_cabbagepalm.mesh",
-		"tree_palm.mesh",
-		"plant_sagopalm.mesh",
-		"plant_yucca.mesh",
-		"plant_red.mesh",
-		"plant_octopus.mesh",
-		"plant_monstera.mesh",
-		"chair_wood.mesh",
-		"chair_set_rustic.mesh",
-		"chair_lounge.mesh",
-		"chair_cushion.mesh",
-		"chair_set_plastic.mesh"
-	};
-	for(int i=0;i<NUM_OBJMODELS;i++)
-		buttonobjModels[i] = temp[i];
 	//Fixes errors in destructor:
 	model_manager = NULL;
 	fsm = NULL;
@@ -117,7 +99,7 @@ void PresenceApplication::createScene(void)
 	OgreConsole::getSingleton().init(mRoot);
 	OgreConsole::getSingleton().setVisible(false);
 
-	mSceneMgr->setShadowTechnique(SHADOWTYPE_NONE);
+	mSceneMgr->setShadowTechnique(SHADOWTYPE_STENCIL_MODULATIVE);
 	//if (mRoot->getRenderSystem()->getCapabilities()->hasCapability(RSC_HWRENDER_TO_TEXTURE))
  //   {
  //       // In D3D, use a 1024x1024 shadow texture
@@ -185,39 +167,10 @@ void PresenceApplication::createScene(void)
 	mTip->setPosition(CEGUI::UVector2(CEGUI::UDim(.08125f, 0), CEGUI::UDim(.9000f, 0)));
 	wmgr.getWindow("Menu")->addChildWindow(mTip);
 
-	mDescriptionMap[(CEGUI::utf8*)"Cancel"] = 
-		(CEGUI::utf8*)" Close Model Selector";
-	mDescriptionMap[(CEGUI::utf8*)"MenuButton1"] = 
-		(CEGUI::utf8*)" Amarillo Tree";
-	mDescriptionMap[(CEGUI::utf8*)"MenuButton2"] = 
-		(CEGUI::utf8*)" Bamboo Tree";
-	mDescriptionMap[(CEGUI::utf8*)"MenuButton3"] = 
-		(CEGUI::utf8*)" Cabbage Palm Tree";
-	mDescriptionMap[(CEGUI::utf8*)"MenuButton4"] = 
-		(CEGUI::utf8*)" Magnolia Tree";
-	mDescriptionMap[(CEGUI::utf8*)"MenuButton5"] = 
-		(CEGUI::utf8*)" Palm Tree";
-	mDescriptionMap[(CEGUI::utf8*)"MenuButton6"] = 
-		(CEGUI::utf8*)" Sago Palm Tree";
-	mDescriptionMap[(CEGUI::utf8*)"MenuButton7"] = 
-		(CEGUI::utf8*)" Yucca Plant";
-	mDescriptionMap[(CEGUI::utf8*)"MenuButton8"] = 
-		(CEGUI::utf8*)" Red Plant";
-	mDescriptionMap[(CEGUI::utf8*)"MenuButton9"] = 
-		(CEGUI::utf8*)" Octopus Plant";
-	mDescriptionMap[(CEGUI::utf8*)"MenuButton10"] = 
-		(CEGUI::utf8*)" Monstera Plant";
-	mDescriptionMap[(CEGUI::utf8*)"MenuButton11"] = 
-		(CEGUI::utf8*)" Wood Chair";
-	mDescriptionMap[(CEGUI::utf8*)"MenuButton12"] = 
-		(CEGUI::utf8*)" Rusti Chair Set";
-	mDescriptionMap[(CEGUI::utf8*)"MenuButton13"] = 
-		(CEGUI::utf8*)" Lounge Chair";
-	mDescriptionMap[(CEGUI::utf8*)"MenuButton14"] = 
-		(CEGUI::utf8*)" Cushion Chair";
-	mDescriptionMap[(CEGUI::utf8*)"MenuButton15"] = 
-		(CEGUI::utf8*)" Plastic Chair Set";
-
+	mDescriptionMap[(CEGUI::utf8*)"Cancel"] = (CEGUI::utf8*)" Close Model Selector";
+	for (int ii = 0; ii < NUM_OBJMODELS; ii++) {
+		mDescriptionMap[(CEGUI::utf8*) staticModels[ii].button.c_str()] = (CEGUI::utf8*) staticModels[ii].description.c_str();
+	}
 
 	init_pointers(mSceneMgr);
 }
@@ -270,7 +223,7 @@ void PresenceApplication::setupEventHandlers(){
 	trashButton->subscribeEvent(
 		CEGUI::PushButton::EventClicked,CEGUI::Event::Subscriber(&PresenceApplication::handleTrash, this));
 
-	CEGUI::Window* undoButton =CEGUI::WindowManager::getSingleton().createWindow((CEGUI::utf8*)"TaharezLook/ImageButton", (CEGUI::utf8*)"Undo");
+	/*CEGUI::Window* undoButton =CEGUI::WindowManager::getSingleton().createWindow((CEGUI::utf8*)"TaharezLook/ImageButton", (CEGUI::utf8*)"Undo");
 	undoButton->setAlpha(.7);
 	CEGUI::Imageset* imageSet3 = CEGUI::ImagesetManager::getSingleton().getImageset((CEGUI::utf8*)"UndoSet");
 	undoButton->setProperty("NormalImage", CEGUI::PropertyHelper::imageToString(
@@ -283,7 +236,7 @@ void PresenceApplication::setupEventHandlers(){
 	undoButton->setSize(CEGUI::UVector2( CEGUI::UDim(0.1f, 0), CEGUI::UDim(0.13f, 0)));
 	undoButton->setPosition(CEGUI::UVector2(CEGUI::UDim(0.71062f, 0), CEGUI::UDim(0.021250f, 0)));
 	undoButton->subscribeEvent(
-		CEGUI::PushButton::EventClicked,CEGUI::Event::Subscriber(&PresenceApplication::handleUndo, this));
+		CEGUI::PushButton::EventClicked,CEGUI::Event::Subscriber(&PresenceApplication::handleUndo, this));*/
 
 }
 
