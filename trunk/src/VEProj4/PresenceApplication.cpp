@@ -260,14 +260,14 @@ void PresenceApplication::loadMenuItems(int numberOfObjects){
 		(CEGUI::utf8*)"MenuObjects2");
 
 	for(int i=0; i<numberOfObjects; i++){
-		String guiObjectName = "MenuButton" + StringConverter::toString(buttonCounter++);
+		String guiObjectName = "MenuButton" + StringConverter::toString(buttonCounter);
 		String MenuObjectNorm = "NewImage" + StringConverter::toString(objectCounter++);
 		String MenuObjectHover = "NewImage" + StringConverter::toString(objectCounter++);
 
 		CEGUI::Window* button = CEGUI::WindowManager::getSingleton().createWindow((CEGUI::utf8*)"TaharezLook/ImageButton",
 			(CEGUI::utf8*)guiObjectName.c_str());
 		button->setSize(CEGUI::UVector2( CEGUI::UDim(0.1f, 0), CEGUI::UDim(0.13f, 0)));
-		if(objectCounter >= 45){
+		if(buttonCounter > 22){
 			button->setProperty("NormalImage", CEGUI::PropertyHelper::imageToString(
 				&imageSet1->getImage((CEGUI::utf8*)MenuObjectNorm.c_str())));
 			button->setProperty("HoverImage", CEGUI::PropertyHelper::imageToString(
@@ -289,6 +289,7 @@ void PresenceApplication::loadMenuItems(int numberOfObjects){
 			posY += .14;
 		}
 		else posX += 0.1;
+		buttonCounter++;
 	}
 }
 
