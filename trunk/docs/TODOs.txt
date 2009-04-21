@@ -2,12 +2,10 @@
 Nunchuk turn quicker - Ethan.
 Head-tracker.
 keep camera inbounds.
-Fix bounds on models.
 Fix bounds on lawn - Ethan.
 Rotation is backwards - Ethan.
 Click when in either mode - Ethan.
 Swap models and trash locations - Sid.
-What happens when models are placed inside house bounds?
 Create (quick) gesture tutorials program (2D animations?)
 Project website - Shayan
 Rotate camera when dragging an object "past" the edge of the screen?
@@ -20,6 +18,8 @@ Menu icons in wrong position - Sid
 == Won't fix ==
 Allow potted plants and accents to be placed on porch.
 Undo Options.
+Fix bounds on models.
+What happens when models are placed inside house bounds?
 
 
 == Done ==
