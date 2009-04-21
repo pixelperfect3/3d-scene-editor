@@ -1,5 +1,4 @@
 == TODOs ==
-Nunchuk turn quicker - Ethan.
 Head-tracker.
 keep camera inbounds.
 Fix bounds on lawn - Ethan.
@@ -23,6 +22,7 @@ What happens when models are placed inside house bounds?
 
 
 == Done ==
+Nunchuk turn quicker - Ethan.
 Remove shadows from faulty trees - Sid/Ethan.
 Delete button - Ethan.
 Drop objects in front of the camera - Ethan.
