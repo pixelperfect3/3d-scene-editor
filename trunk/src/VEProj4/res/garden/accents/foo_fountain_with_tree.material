@@ -1,28 +1,16 @@
-material Tile_Orange_Burnt
+material leaves
 {
    technique
    {
       pass
       {
+         scene_blend alpha_blend
+         depth_check on
+         depth_write off
          diffuse 1 1 1 1.0
          texture_unit
          {
-            texture Tile_Orange_Burnt.jpg
-         }
-      }
-   }
-}
-
-material Vegetation_Bark_Ponderosa
-{
-   technique
-   {
-      pass
-      {
-         diffuse 1 1 1 1.0
-         texture_unit
-         {
-            texture Vegetation_Bark_Ponderosa.jpg
+            texture leaves.png
          }
       }
    }
@@ -43,7 +31,7 @@ material Tile_Mosaic_Browns
    }
 }
 
-material Water_Sparkling
+material Vegetation_Bark_Ponderosa
 {
    technique
    {
@@ -52,25 +40,22 @@ material Water_Sparkling
          diffuse 1 1 1 1.0
          texture_unit
          {
-            texture Water_Sparkling.jpg
+            texture Vegetation_Bark_Ponderosa.jpg
          }
       }
    }
 }
 
-material leaves
+material Water_Deep
 {
    technique
    {
       pass
       {
-         scene_blend alpha_blend
-         depth_check on
-         depth_write off
          diffuse 1 1 1 1.0
          texture_unit
          {
-            texture leaves.png
+            texture Water_Deep.jpg
          }
       }
    }
@@ -94,7 +79,7 @@ material Water_Pool_Light
    }
 }
 
-material Water_Deep
+material Tile_Orange_Burnt
 {
    technique
    {
@@ -103,7 +88,22 @@ material Water_Deep
          diffuse 1 1 1 1.0
          texture_unit
          {
-            texture Water_Deep.jpg
+            texture Tile_Orange_Burnt.jpg
+         }
+      }
+   }
+}
+
+material Water_Sparkling
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Water_Sparkling.jpg
          }
       }
    }

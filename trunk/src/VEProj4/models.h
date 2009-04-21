@@ -46,8 +46,8 @@ const static ModelDesc staticModels[NUM_OBJMODELS] = {
 	// break
 	ModelDesc( "foo_fountain_2.mesh", "Fountain 2", 23 ), //ginormous - FIXED
 	ModelDesc( "foo_fountain_large.mesh", "Large Fountain", 24 ),
-	ModelDesc( "foo_fountain_with_tree.mesh", "Fountain with Trees", 25 ),
-	ModelDesc( "foo_lamppost_1.mesh", "Lamp Post", 26 ),
+	ModelDesc( "foo_fountain_with_tree.mesh", "Fountain with Trees", 25 ), // a little too big - FIXED
+	ModelDesc( "foo_lamppost_1.mesh", "Lamp Post", 26 ), // a little too big - FIXED
 	ModelDesc( "foo_lamppost_classic.mesh", "classic lamppost", 27 ),
 	ModelDesc( "foo_lamppost_diamond.mesh", "lamppost diamond", 28 ),
 	ModelDesc( "foo_lamppost_ornate.mesh", "ornate lamppost", 29 ),
