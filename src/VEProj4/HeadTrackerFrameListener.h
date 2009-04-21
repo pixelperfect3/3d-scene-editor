@@ -49,7 +49,7 @@ public:
 	// returns the delta_angle from the nunchuk
 	double getDeltaAngle() {
 		double delta_angle = nunchuk->joystick_pos[0];
-		double drift = 0.02;
+		double drift = 0.04;
 		double max = 2.0;
 		if (-drift < delta_angle && delta_angle < drift) {
 			delta_angle = 0.0;
@@ -117,7 +117,7 @@ public:
 			bool cButtonPressed = nunchuk->buttons[WIIMOTE_CLIENT_BUTTON_NUNCHUK_C];
 
 			// Change the camera position based on the nunchuk input
-			float degrees_per_sec = 60;
+			float degrees_per_sec = 80;
 			float deltaY = getDeltaAngle() * degrees_per_sec * evt.timeSinceLastFrame;
 			Quaternion quatY(Radian(Degree(deltaY)), Vector3::NEGATIVE_UNIT_Y);
 			mCamera->rotate(quatY);
