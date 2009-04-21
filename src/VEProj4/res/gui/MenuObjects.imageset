@@ -31,6 +31,18 @@
     <Image Name="NewImage28" XPos="256" YPos="3328" Width="256" Height="256" />
     <Image Name="NewImage29" XPos="0" YPos="3584" Width="256" Height="256" />
     <Image Name="NewImage30" XPos="256" YPos="3584" Width="256" Height="256" />
-    <Image Name="NewImage31" XPos="0" YPos="0" Width="256" Height="256" />
-    <Image Name="NewImage32" XPos="0" YPos="0" Width="256" Height="256" />
+    <Image Name="NewImage31" XPos="0" YPos="3840" Width="256" Height="256" />
+    <Image Name="NewImage32" XPos="256" YPos="3840" Width="256" Height="256" />
+    <Image Name="NewImage33" XPos="0" YPos="4096" Width="256" Height="256" />
+    <Image Name="NewImage34" XPos="256" YPos="4096" Width="256" Height="256" />
+    <Image Name="NewImage35" XPos="0" YPos="4352" Width="256" Height="256" />
+    <Image Name="NewImage36" XPos="256" YPos="4352" Width="256" Height="256" />
+    <Image Name="NewImage37" XPos="0" YPos="4608" Width="256" Height="256" />
+    <Image Name="NewImage38" XPos="256" YPos="4608" Width="256" Height="256" />
+    <Image Name="NewImage39" XPos="0" YPos="4864" Width="256" Height="256" />
+    <Image Name="NewImage40" XPos="256" YPos="4864" Width="256" Height="256" />
+    <Image Name="NewImage41" XPos="0" YPos="5120" Width="256" Height="256" />
+    <Image Name="NewImage42" XPos="256" YPos="5120" Width="256" Height="256" />
+    <Image Name="NewImage43" XPos="0" YPos="5376" Width="256" Height="256" />
+    <Image Name="NewImage44" XPos="256" YPos="5376" Width="256" Height="256" />
 </Imageset>

@@ -255,6 +255,9 @@ void PresenceApplication::loadMenuItems(int numberOfObjects){
 	CEGUI::Imageset* imageSet = 
 		CEGUI::ImagesetManager::getSingleton().getImageset(
 		(CEGUI::utf8*)"MenuObjects");
+	CEGUI::Imageset* imageSet1 = 
+		CEGUI::ImagesetManager::getSingleton().getImageset(
+		(CEGUI::utf8*)"MenuObjects2");
 
 	for(int i=0; i<numberOfObjects; i++){
 		String guiObjectName = "MenuButton" + StringConverter::toString(buttonCounter++);
