@@ -1,27 +1,3 @@
-material <DimGray>
-{
-   technique
-   {
-      pass
-      {
-         diffuse 0.411764705882353 0.411764705882353 0.411764705882353 1.0
-         ambient 0.411764705882353 0.411764705882353 0.411764705882353 1.0
-      }
-   }
-}
-
-material <White>
-{
-   technique
-   {
-      pass
-      {
-         diffuse 1.0 1.0 1.0 1.0
-         ambient 1.0 1.0 1.0 1.0
-      }
-   }
-}
-
 material <Concrete>
 {
    technique
@@ -45,6 +21,30 @@ material <Orange>
       {
          diffuse 1.0 0.647058823529412 0.0 1.0
          ambient 1.0 0.647058823529412 0.0 1.0
+      }
+   }
+}
+
+material <White>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1.0 1.0 1.0 1.0
+         ambient 1.0 1.0 1.0 1.0
+      }
+   }
+}
+
+material <DimGray>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.411764705882353 0.411764705882353 0.411764705882353 1.0
+         ambient 0.411764705882353 0.411764705882353 0.411764705882353 1.0
       }
    }
 }

@@ -64,6 +64,6 @@ const static ModelDesc staticModels[NUM_OBJMODELS] = {
 	ModelDesc( "foo_paved_patio.mesh", "paved patio", 39 ),			// Too big - FIXED
 	ModelDesc( "foo_trellis_swing.mesh", "swing", 40 ),
 	ModelDesc( "foo_waterfall_stone.mesh", "stone waterfall", 41 ),	// One texture missing - ADDED
-	ModelDesc( "foo_tennis.mesh", "tennis court", 42 ), //huge
-	ModelDesc( "foo_basketball.mesh", "basketball court", 43 ) //a little big
+	ModelDesc( "foo_tennis.mesh", "tennis court", 42 ), //huge		- Fixed the size, but it's just a poor model
+	ModelDesc( "foo_basketball.mesh", "basketball court", 43 ) //a little big	-FIXED
 };

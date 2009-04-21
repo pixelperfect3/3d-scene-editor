@@ -1,75 +1,3 @@
-material <Gray6>
-{
-   technique
-   {
-      pass
-      {
-         diffuse 0.376470588235294 0.376470588235294 0.376470588235294 1.0
-         ambient 0.376470588235294 0.376470588235294 0.376470588235294 1.0
-      }
-   }
-}
-
-material <Black>
-{
-   technique
-   {
-      pass
-      {
-         diffuse 0.0 0.0 0.0 1.0
-         ambient 0.0 0.0 0.0 1.0
-      }
-   }
-}
-
-material jean_blue
-{
-   technique
-   {
-      pass
-      {
-         diffuse 0.141176470588235 0.184313725490196 0.258823529411765 1.0
-         ambient 0.141176470588235 0.184313725490196 0.258823529411765 1.0
-      }
-   }
-}
-
-material <Charcoal>
-{
-   technique
-   {
-      pass
-      {
-         diffuse 0.137254901960784 0.137254901960784 0.137254901960784 1.0
-         ambient 0.137254901960784 0.137254901960784 0.137254901960784 1.0
-      }
-   }
-}
-
-material <Beige>1
-{
-   technique
-   {
-      pass
-      {
-         diffuse 0.827450980392157 0.741176470588235 0.564705882352941 1.0
-         ambient 0.827450980392157 0.741176470588235 0.564705882352941 1.0
-      }
-   }
-}
-
-material <DarkGoldenrod>
-{
-   technique
-   {
-      pass
-      {
-         diffuse 0.72156862745098 0.525490196078431 0.0431372549019608 1.0
-         ambient 0.72156862745098 0.525490196078431 0.0431372549019608 1.0
-      }
-   }
-}
-
 material Vegetation_Grass_Artificial
 {
    technique
@@ -85,41 +13,20 @@ material Vegetation_Grass_Artificial
    }
 }
 
-material Fencing_Mesh_Blue
+material Fencing_Diamond_Mesh
 {
    technique
    {
       pass
       {
-         diffuse 1 1 1 1.0
+         scene_blend alpha_blend
+         depth_check on
+         depth_write off
+         diffuse 1 1 1 0.87
          texture_unit
          {
-            texture Fencing_Mesh_Blue.png
+            texture Fencing_Diamond_Mesh.png
          }
-      }
-   }
-}
-
-material <Redwood>
-{
-   technique
-   {
-      pass
-      {
-         diffuse 0.654901960784314 0.396078431372549 0.32156862745098 1.0
-         ambient 0.654901960784314 0.396078431372549 0.32156862745098 1.0
-      }
-   }
-}
-
-material <Brown>
-{
-   technique
-   {
-      pass
-      {
-         diffuse 0.466666666666667 0.345098039215686 0.211764705882353 1.0
-         ambient 0.466666666666667 0.345098039215686 0.211764705882353 1.0
       }
    }
 }
