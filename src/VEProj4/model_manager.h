@@ -134,6 +134,7 @@ public:
 		resetModel(selected, selected->parent->getPosition());
 	}
 	void rotate_update(Radian delta) {
+		delta = -delta; //HACK: rotation is backwards.
 		if (selected) {
 			selected->parent->rotate(axis, delta);
 			if (!isValidChange(selected)) {
