@@ -1,0 +1,83 @@
+material Color_E01
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1.0 1.0 0.0 1.0
+         ambient 1.0 1.0 0.0 1.0
+      }
+   }
+}
+
+material Color_F11
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.298039215686275 0.6 0.0 1.0
+         ambient 0.298039215686275 0.6 0.0 1.0
+      }
+   }
+}
+
+material Color_F16
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.2 0.4 0.0 1.0
+         ambient 0.2 0.4 0.0 1.0
+      }
+   }
+}
+
+material Color_000
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1.0 1.0 1.0 1.0
+         ambient 1.0 1.0 1.0 1.0
+      }
+   }
+}
+
+material Color_I09
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.47843137254902 0.47843137254902 0.8 1.0
+         ambient 0.47843137254902 0.47843137254902 0.8 1.0
+      }
+   }
+}
+
+material SketchupDefault
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1.0 1.0 1.0
+         ambient 1.0 1.0 1.0
+      }
+   }
+}
+
+material SketchupDefault_Back
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.670588235294118 0.690196078431373 0.8
+         ambient 0.670588235294118 0.690196078431373 0.8
+      }
+   }
+}
