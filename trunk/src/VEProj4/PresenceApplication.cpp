@@ -267,11 +267,18 @@ void PresenceApplication::loadMenuItems(int numberOfObjects){
 		CEGUI::Window* button = CEGUI::WindowManager::getSingleton().createWindow((CEGUI::utf8*)"TaharezLook/ImageButton",
 			(CEGUI::utf8*)guiObjectName.c_str());
 		button->setSize(CEGUI::UVector2( CEGUI::UDim(0.1f, 0), CEGUI::UDim(0.13f, 0)));
+		if(objectCounter >= 45){
+			button->setProperty("NormalImage", CEGUI::PropertyHelper::imageToString(
+				&imageSet1->getImage((CEGUI::utf8*)MenuObjectNorm.c_str())));
+			button->setProperty("HoverImage", CEGUI::PropertyHelper::imageToString(
+				&imageSet1->getImage((CEGUI::utf8*)MenuObjectHover.c_str())));
+		}
+		else{
 		button->setProperty("NormalImage", CEGUI::PropertyHelper::imageToString(
 			&imageSet->getImage((CEGUI::utf8*)MenuObjectNorm.c_str())));
-		
 		button->setProperty("HoverImage", CEGUI::PropertyHelper::imageToString(
 			&imageSet->getImage((CEGUI::utf8*)MenuObjectHover.c_str())));
+		}
 		button->subscribeEvent(
 			CEGUI::PushButton::EventClicked,CEGUI::Event::Subscriber(&PresenceApplication::handleMenuObjects, this));
 
