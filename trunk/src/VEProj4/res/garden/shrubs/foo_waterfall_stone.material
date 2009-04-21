@@ -13,16 +13,58 @@ material [Metal_Corrogated_Shiny]1
    }
 }
 
-material Water_Pool_Light
+material Stone_Rubble_Mix
 {
    technique
    {
       pass
       {
-         scene_blend alpha_blend
-         depth_check on
-         depth_write off
-         diffuse 1 1 1 0.6
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Stone_Rubble_Mix.jpg
+         }
+      }
+   }
+}
+
+material Roofing_Slate_Dark
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Roofing_Slate_Dark.jpg
+         }
+      }
+   }
+}
+
+material Stone_Granite_Midnite
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Stone_Granite_Midnite.jpg
+         }
+      }
+   }
+}
+
+material Water_Pool
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
          texture_unit
          {
             texture Water_Pool.jpg
@@ -46,36 +88,6 @@ material Stone_Rainbow
    }
 }
 
-material Roofing_Slate_Dark
-{
-   technique
-   {
-      pass
-      {
-         diffuse 1 1 1 1.0
-         texture_unit
-         {
-            texture Roofing_Slate_Dark.jpg
-         }
-      }
-   }
-}
-
-material Water_Pool
-{
-   technique
-   {
-      pass
-      {
-         diffuse 1 1 1 1.0
-         texture_unit
-         {
-            texture Water_Pool.jpg
-         }
-      }
-   }
-}
-
 material Groundcover_RiverRock_4inch
 {
    technique
@@ -91,16 +103,19 @@ material Groundcover_RiverRock_4inch
    }
 }
 
-material Stone_Granite_Midnite
+material Water_Pool_Light
 {
    technique
    {
       pass
       {
-         diffuse 1 1 1 1.0
+         scene_blend alpha_blend
+         depth_check on
+         depth_write off
+         diffuse 1 1 1 0.6
          texture_unit
          {
-            texture Stone_Granite_Midnite.jpg
+            texture Water_Pool.jpg
          }
       }
    }
@@ -116,21 +131,6 @@ material [Metal_Corrogated_Shiny]2
          texture_unit
          {
             texture Metal_Corrogated_Shiny.jpg
-         }
-      }
-   }
-}
-
-material Stone_Rubble_Mix
-{
-   technique
-   {
-      pass
-      {
-         diffuse 1 1 1 1.0
-         texture_unit
-         {
-            texture Stone_Rubble_Mix.jpg
          }
       }
    }

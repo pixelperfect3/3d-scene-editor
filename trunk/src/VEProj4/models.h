@@ -57,12 +57,13 @@ const static ModelDesc staticModels[NUM_OBJMODELS] = {
 	ModelDesc( "umbrella_set_picnic.mesh", "Picnic umbrella", 33 ), // crashes - FIXED (wrong name)
 	ModelDesc( "umbrella_regular.mesh", "Regular umbrella", 34 ),
 	ModelDesc( "umbrella_shade.mesh", "shade umbrella", 35 ),
+	// HAD TO RE-EXPORT THE FOLLOWING:
 	ModelDesc( "foo_arbor_trellis.mesh", "Arbor Trellis", 36 ),		// wrong textures - FIXED
 	ModelDesc( "foo_white_trellis_arch.mesh", "Arch trellis", 37 ), // extremely transparent??
-	ModelDesc( "foo_gazebo.mesh", "Gazebo", 38 ),
-	ModelDesc( "foo_paved_patio.mesh", "paved patio", 39 ),
+	ModelDesc( "foo_gazebo.mesh", "Gazebo", 38 ),					// textures missing - FIXED. Also too big. - FIXED
+	ModelDesc( "foo_paved_patio.mesh", "paved patio", 39 ),			// Too big - FIXED
 	ModelDesc( "foo_trellis_swing.mesh", "swing", 40 ),
-	ModelDesc( "foo_waterfall_stone.mesh", "stone waterfall", 41 ),
+	ModelDesc( "foo_waterfall_stone.mesh", "stone waterfall", 41 ),	// One texture missing - ADDED
 	ModelDesc( "foo_tennis.mesh", "tennis court", 42 ), //huge
 	ModelDesc( "foo_basketball.mesh", "basketball court", 43 ) //a little big
 };

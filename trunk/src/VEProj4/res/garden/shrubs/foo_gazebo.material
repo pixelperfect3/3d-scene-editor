@@ -1,3 +1,15 @@
+material <Gray8>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.266666666666667 0.266666666666667 0.266666666666667 1.0
+         ambient 0.266666666666667 0.266666666666667 0.266666666666667 1.0
+      }
+   }
+}
+
 material <GAF_Country_Estates>
 {
    technique
@@ -9,18 +21,6 @@ material <GAF_Country_Estates>
          {
             texture Asphalt_Shingles-GAF_Country_Estates.jpg
          }
-      }
-   }
-}
-
-material <Gray8>
-{
-   technique
-   {
-      pass
-      {
-         diffuse 0.266666666666667 0.266666666666667 0.266666666666667 1.0
-         ambient 0.266666666666667 0.266666666666667 0.266666666666667 1.0
       }
    }
 }
