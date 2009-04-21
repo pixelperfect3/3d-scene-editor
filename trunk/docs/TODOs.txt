@@ -1,6 +1,6 @@
 == TODOs ==
 Create (quick) gesture tutorials program (2D animations?)
-Project website - ???
+Project website - Shayan
 Rotate camera when dragging an object "past" the edge of the screen?
 
 

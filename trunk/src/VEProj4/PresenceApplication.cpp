@@ -101,8 +101,10 @@ void PresenceApplication::createAudio(void)
 	ALfloat SourcePos[3] = { 0,0,0 };
 
 	// Velocity of the source sound.
-	ALfloat SourceVel[] = { 0.0f, 0.0f, 0.0f };		
+	ALfloat SourceVel[] = { 0.0f, 0.0f, 0.0f };
+	audMgr->addSound("camera", "res\\audio\\camera.wav", SourcePos, SourceVel, 0);
 	audMgr->addSound("click", "res\\audio\\click1.wav", SourcePos, SourceVel, 0);
+	audMgr->addSound("trash", "res\\audio\\recycle.wav", SourcePos, SourceVel, 0);
 	//audMgr->addSound("track1", "res\\audio\\track1.wav", SourcePos, SourceVel, 0);
 
 }
@@ -115,17 +117,17 @@ void PresenceApplication::createScene(void)
 	OgreConsole::getSingleton().init(mRoot);
 	OgreConsole::getSingleton().setVisible(false);
 
-	mSceneMgr->setShadowTechnique(SHADOWTYPE_TEXTURE_MODULATIVE);
-	if (mRoot->getRenderSystem()->getCapabilities()->hasCapability(RSC_HWRENDER_TO_TEXTURE))
-    {
-        // In D3D, use a 1024x1024 shadow texture
-        mSceneMgr->setShadowTextureSettings(1024, 2);
-    }
-    else
-    {
-        // Use 512x512 texture in GL since we can't go higher than the window res
-        mSceneMgr->setShadowTextureSettings(512, 2);
-    }
+	mSceneMgr->setShadowTechnique(SHADOWTYPE_NONE);
+	//if (mRoot->getRenderSystem()->getCapabilities()->hasCapability(RSC_HWRENDER_TO_TEXTURE))
+ //   {
+ //       // In D3D, use a 1024x1024 shadow texture
+ //       mSceneMgr->setShadowTextureSettings(1024, 2);
+ //   }
+ //   else
+ //   {
+ //       // Use 512x512 texture in GL since we can't go higher than the window res
+ //       mSceneMgr->setShadowTextureSettings(512, 2);
+ //   }
     mSceneMgr->setShadowColour(ColourValue(0.5, 0.5, 0.5));
 	mSceneMgr->setShadowFarDistance(10000);
 
@@ -137,14 +139,15 @@ void PresenceApplication::createScene(void)
 	light->setDiffuseColour(0.5,0.5,0.5);
 	light->setSpecularColour(0.5,0.5,0.5);
 	light->setDirection(1,-1,1	);
-	light->setCastShadows(true);
+	//light->setCastShadows(true);
 
-	mSceneMgr->setSkyBox(true, "Examples/Skybox" );
+	mSceneMgr->setSkyBox(true, "Examples/Skybox");
 	
 	
 	mainSceneNode = static_cast<SceneNode*>(mSceneMgr->getRootSceneNode()->createChild("mainScene")); 
 	Entity* mainSceneEn = mSceneMgr->createEntity("home","home_with_lawn.mesh");
 	mainSceneNode->attachObject(mainSceneEn);
+	mainSceneEn->setCastShadows(false);
 
 	// setup GUI system
 	mGUIRenderer = new CEGUI::OgreCEGUIRenderer(mWindow, 
@@ -317,7 +320,7 @@ void PresenceApplication::loadMenuItems(int numberOfObjects){
 		si->setPosition(CEGUI::UVector2(CEGUI::UDim(posX, 0), CEGUI::UDim(posY, 0)));
 		if(posX > .8 && posY <.8) {
 			posX = .05;
-			posY += .12;
+			posY += .14;
 		}
 		else posX += 0.1;
 
@@ -328,7 +331,7 @@ void PresenceApplication::loadMenuItems(int numberOfObjects){
 void PresenceApplication::createFrameListener(void) {
 	model_manager = new ModelManager(mSceneMgr, mCamera);
 	fsm = new GestureFSM(model_manager);
-	KeyboardGestureDriver *driver = new KeyboardGestureDriver(fsm, model_manager, mWindow, mCamera, mGUIRenderer, nunchuk);
+	KeyboardGestureDriver *driver = new KeyboardGestureDriver(fsm, model_manager, mWindow, mCamera, mGUIRenderer, nunchuk, audMgr);
 	mFrameListener = driver;
     mRoot->addFrameListener(mFrameListener);
 	if (wiimote) {

@@ -64,6 +64,7 @@ protected:
 	void loadMenuItems(int numberOfObjects);
 
 	bool handleModels(const CEGUI::EventArgs& e){
+		audMgr->play("click");
 		CEGUI::WindowManager& wmgr = CEGUI::WindowManager::getSingleton();
 
 		wmgr.getWindow("Menu")->setVisible(true);
@@ -75,6 +76,7 @@ protected:
 		return true;
 	}
 	bool handleCancel(const CEGUI::EventArgs& e){
+		audMgr->play("click");
 		CEGUI::WindowManager& wmgr = CEGUI::WindowManager::getSingleton();
 		wmgr.getWindow("Menu")->setVisible(false);
 		wmgr.getWindow("Models")->setVisible(true);
@@ -92,6 +94,7 @@ protected:
 		//wmgr.getWindow("Trash")->setVisible(false);
 		//wmgr.getWindow("Menu")->setVisible(false);
 		//CEGUI::MouseCursor::getSingleton().hide();
+		audMgr->play("camera");
 		((ExampleFrameListener*) mFrameListener)->screenCapture();
 		//CEGUI::MouseCursor::getSingleton().show();
 		//wmgr.getWindow("Models")->setVisible(true);
@@ -99,12 +102,13 @@ protected:
 		//wmgr.getWindow("Trash")->setVisible(true);
 		
 		// play the sound - SHOULD CHANGE TO "camera"
-		audMgr->play("click");
+		
 
 		return true;
 
 	}
 	bool handleTrash(const CEGUI::EventArgs& e){
+	audMgr->play("trash");
 		CEGUI::WindowManager& wmgr = CEGUI::WindowManager::getSingleton();
 		fsm->delete_selection(); //TODO : pressing trash-can de-selects the object before it can be deleted.
 		return true;
@@ -147,6 +151,7 @@ protected:
 	}
 
 	bool handleMenuObjects(const CEGUI::EventArgs& e){
+		audMgr->play("click");
 		CEGUI::WindowManager& wmgr = CEGUI::WindowManager::getSingleton();
 		wmgr.getWindow("Menu")->setVisible(false);
 		wmgr.getWindow("Models")->setVisible(true);
@@ -169,6 +174,7 @@ protected:
 	}
 
 	bool handleUndo(const CEGUI::EventArgs& e){
+		audMgr->play("click");
 		return true;
 	}	
 	
