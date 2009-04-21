@@ -1,7 +1,12 @@
 == TODOs ==
-Remove shadows from faulty trees
+Nunchuk turn quicker.
+Head-tracker.
 keep camera inbounds
 Fix bounds on models.
+Fix bounds on lawn.
+Rotation is backwards.
+Click when in either mode.
+Swap models and trash locations.
 What happens when models are placed inside house bounds?
 
 Create (quick) gesture tutorials program (2D animations?)
@@ -19,6 +24,7 @@ Undo Options.
 
 
 == Done ==
+Remove shadows from faulty trees - Sid/Ethan.
 Delete button - Ethan.
 Drop objects in front of the camera - Ethan.
 Don't let models outside of the lot - Ethan.
