@@ -1,0 +1,50 @@
+material <GAF_Country_Estates>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Asphalt_Shingles-GAF_Country_Estates.jpg
+         }
+      }
+   }
+}
+
+material <Gray8>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.266666666666667 0.266666666666667 0.266666666666667 1.0
+         ambient 0.266666666666667 0.266666666666667 0.266666666666667 1.0
+      }
+   }
+}
+
+material SketchupDefault
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.882352941176471 0.882352941176471 0.784313725490196
+         ambient 0.882352941176471 0.882352941176471 0.784313725490196
+      }
+   }
+}
+
+material SketchupDefault_Back
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.501960784313725 0.501960784313725 0.784313725490196
+         ambient 0.501960784313725 0.501960784313725 0.784313725490196
+      }
+   }
+}
