@@ -129,7 +129,7 @@ void PresenceApplication::createScene(void)
 	mainSceneNode = static_cast<SceneNode*>(mSceneMgr->getRootSceneNode()->createChild("mainScene"));
 	Entity* mainSceneEn = mSceneMgr->createEntity("home","home.mesh");
 	mainSceneNode->attachObject(mainSceneEn);
-	mainSceneEn->setCastShadows(true);
+	mainSceneEn->setCastShadows(false);
 	
 	SceneNode *lawnNode = static_cast<SceneNode*>(mSceneMgr->getRootSceneNode()->createChild("lawn"));
 	Entity* lawnEn = mSceneMgr->createEntity("lawn","lawn.mesh");
@@ -191,6 +191,7 @@ void PresenceApplication::setupEventHandlers(){
 
 	CEGUI::Window* modelButton = wmgr.getWindow("Models");
 	modelButton->setAlpha(.7);
+	modelButton->setPosition(CEGUI::UVector2(CEGUI::UDim(0.864062f, 0), CEGUI::UDim(0.021250f, 0)));
 	modelButton->subscribeEvent(
 		CEGUI::PushButton::EventClicked,CEGUI::Event::Subscriber(&PresenceApplication::handleModels, this));
 
@@ -205,7 +206,7 @@ void PresenceApplication::setupEventHandlers(){
 		&imageSet->getImage((CEGUI::utf8*)"cameraHover")));
 	window->addChildWindow(cameraButton);
 	cameraButton->setSize(CEGUI::UVector2( CEGUI::UDim(0.1f, 0), CEGUI::UDim(0.13f, 0)));
-	cameraButton->setPosition(CEGUI::UVector2(CEGUI::UDim(0.198125f, 0), CEGUI::UDim(0.02125f, 0)));
+	cameraButton->setPosition(CEGUI::UVector2(CEGUI::UDim(0.168125f, 0), CEGUI::UDim(0.02125f, 0)));
 	cameraButton->subscribeEvent(
 		CEGUI::PushButton::EventClicked,CEGUI::Event::Subscriber(&PresenceApplication::handleScreenshot, this));
 
@@ -220,7 +221,7 @@ void PresenceApplication::setupEventHandlers(){
 		&imageSet2->getImage((CEGUI::utf8*)"TrashCanHover")));
 	window->addChildWindow(trashButton);
 	trashButton->setSize(CEGUI::UVector2( CEGUI::UDim(0.1f, 0), CEGUI::UDim(0.13f, 0)));
-	trashButton->setPosition(CEGUI::UVector2(CEGUI::UDim(0.864062f, 0), CEGUI::UDim(0.021250f, 0)));
+	trashButton->setPosition(CEGUI::UVector2(CEGUI::UDim(0.015625f, 0), CEGUI::UDim(0.0212499f, 0)));
 	trashButton->subscribeEvent(
 		CEGUI::PushButton::EventClicked,CEGUI::Event::Subscriber(&PresenceApplication::handleTrash, this));
 

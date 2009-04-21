@@ -1,0 +1,794 @@
+material <DarkGoldenrod>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.72156862745098 0.525490196078431 0.0431372549019608 1.0
+         ambient 0.72156862745098 0.525490196078431 0.0431372549019608 1.0
+      }
+   }
+}
+
+material Tile_Ceiling_Grid
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Tile_Ceiling_Grid.jpg
+         }
+      }
+   }
+}
+
+material <Brick-rough2>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Brick-rough2.jpg
+         }
+      }
+   }
+}
+
+material Asphalt_New
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Asphalt_New.jpg
+         }
+      }
+   }
+}
+
+material <Gray6>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.376470588235294 0.376470588235294 0.376470588235294 1.0
+         ambient 0.376470588235294 0.376470588235294 0.376470588235294 1.0
+      }
+   }
+}
+
+material Color_000
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1.0 1.0 1.0 1.0
+         ambient 1.0 1.0 1.0 1.0
+      }
+   }
+}
+
+material <WarmGray3>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.407843137254902 0.329411764705882 0.223529411764706 1.0
+         ambient 0.407843137254902 0.329411764705882 0.223529411764706 1.0
+      }
+   }
+}
+
+material Metal_Rough
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Metal_Rough.jpg
+         }
+      }
+   }
+}
+
+material Brick_Flemish_Bond1
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Brick_Flemish_Bond.jpg
+         }
+      }
+   }
+}
+
+material <Beige>1
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.827450980392157 0.741176470588235 0.564705882352941 1.0
+         ambient 0.827450980392157 0.741176470588235 0.564705882352941 1.0
+      }
+   }
+}
+
+material <DarkGray>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.317647058823529 0.317647058823529 0.317647058823529 1.0
+         ambient 0.317647058823529 0.317647058823529 0.317647058823529 1.0
+      }
+   }
+}
+
+material Material6
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.0 0.0 0.0 1.0
+         ambient 0.0 0.0 0.0 1.0
+      }
+   }
+}
+
+material Brick_Antique
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Brick_Antique.jpg
+         }
+      }
+   }
+}
+
+material <Brown>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.466666666666667 0.345098039215686 0.211764705882353 1.0
+         ambient 0.466666666666667 0.345098039215686 0.211764705882353 1.0
+      }
+   }
+}
+
+material <DarkGray>1
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.909803921568627 0.909803921568627 0.909803921568627 1.0
+         ambient 0.909803921568627 0.909803921568627 0.909803921568627 1.0
+      }
+   }
+}
+
+material Stone_Masonry_Multi
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Stone_Masonry_Multi.jpg
+         }
+      }
+   }
+}
+
+material <Charcoal>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.137254901960784 0.137254901960784 0.137254901960784 1.0
+         ambient 0.137254901960784 0.137254901960784 0.137254901960784 1.0
+      }
+   }
+}
+
+material Vegetation_Grass_Blue
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Vegetation_Grass_Blue.jpg
+         }
+      }
+   }
+}
+
+material <Redwood>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.654901960784314 0.396078431372549 0.32156862745098 1.0
+         ambient 0.654901960784314 0.396078431372549 0.32156862745098 1.0
+      }
+   }
+}
+
+material jean_blue
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.141176470588235 0.184313725490196 0.258823529411765 1.0
+         ambient 0.141176470588235 0.184313725490196 0.258823529411765 1.0
+      }
+   }
+}
+
+material <DarkRed>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.545098039215686 0.0 0.0 1.0
+         ambient 0.545098039215686 0.0 0.0 1.0
+      }
+   }
+}
+
+material Material2
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Cladding_Siding_White.jpg
+         }
+      }
+   }
+}
+
+material <WhiteSmoke>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.96078431372549 0.96078431372549 0.96078431372549 1.0
+         ambient 0.96078431372549 0.96078431372549 0.96078431372549 1.0
+      }
+   }
+}
+
+material <Silver>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.752941176470588 0.752941176470588 0.752941176470588 1.0
+         ambient 0.752941176470588 0.752941176470588 0.752941176470588 1.0
+      }
+   }
+}
+
+material Brick_Common_Bond
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Brick_Common_Bond.jpg
+         }
+      }
+   }
+}
+
+material Material4
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Wood_OSB.jpg
+         }
+      }
+   }
+}
+
+material <BurlyWood>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.870588235294118 0.72156862745098 0.529411764705882 1.0
+         ambient 0.870588235294118 0.72156862745098 0.529411764705882 1.0
+      }
+   }
+}
+
+material Translucent_Glass_Sky_Reflection
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Translucent_Glass_Sky_Reflection_.jpg
+         }
+      }
+   }
+}
+
+material Brick_Pavers__ZigZag
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Brick_Pavers_ZigZag.jpg
+         }
+      }
+   }
+}
+
+material Roofing_Shingles_Asphalt
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Roofing_Shingles_Asphalt.jpg
+         }
+      }
+   }
+}
+
+material Cladding_Siding_White
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Cladding_Siding_White.jpg
+         }
+      }
+   }
+}
+
+material Vegetation_Grass_Rough
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture 30-grass-textures.jpg
+         }
+      }
+   }
+}
+
+material Roofing_Shingles_Multi
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Roofing_Shingles_Multi.jpg
+         }
+      }
+   }
+}
+
+material Roofing_Shingles_GAF_Estates
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Roofing_Shingles_GAF_Estates.jpg
+         }
+      }
+   }
+}
+
+material Concrete_Form_6x12
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Concrete_Form_6x12.jpg
+         }
+      }
+   }
+}
+
+material Material5
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.698039215686274 0.105882352941176 0.192156862745098 1.0
+         ambient 0.698039215686274 0.105882352941176 0.192156862745098 1.0
+      }
+   }
+}
+
+material Fencing_Iron
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Fencing_Iron.png
+         }
+      }
+   }
+}
+
+material Roofing_Shingles_Wood
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Roofing_Shingles_Wood.jpg
+         }
+      }
+   }
+}
+
+material Fencing_Weathered
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Fencing_Weathered.jpg
+         }
+      }
+   }
+}
+
+material Roofing_Slate_Tan
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Roofing_Slate_Tan.jpg
+         }
+      }
+   }
+}
+
+material Wood_Floor1
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Wood_Floor2.jpg
+         }
+      }
+   }
+}
+
+material Concrete_Rough
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Concrete_Rough.jpg
+         }
+      }
+   }
+}
+
+material 11_-_Default1
+{
+   technique
+   {
+      pass
+      {
+         scene_blend alpha_blend
+         depth_check on
+         depth_write off
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture QIANG04.JPG
+         }
+      }
+   }
+}
+
+material Stone_Masonry_Multi
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Stone_Masonry_Multi.jpg
+         }
+      }
+   }
+}
+
+material <Gray_Glass>1
+{
+   technique
+   {
+      pass
+      {
+         scene_blend alpha_blend
+         depth_check on
+         depth_write off
+         diffuse 0.156862745098039 0.156862745098039 0.156862745098039 0.79
+         ambient 0.156862745098039 0.156862745098039 0.156862745098039 0.79
+      }
+   }
+}
+
+material <CoolGray3>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.87843137254902 0.870588235294118 0.850980392156863 1.0
+         ambient 0.87843137254902 0.870588235294118 0.850980392156863 1.0
+      }
+   }
+}
+
+material Fencing_Lattice_White
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Fencing_Lattice_White.png
+         }
+      }
+   }
+}
+
+material Vegetation_HoneyLocust
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Ground49BoH.JPG
+         }
+      }
+   }
+}
+
+material Vegetation_Grass_Artificial
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Vegetation_Grass_Artificial.jpg
+         }
+      }
+   }
+}
+
+material <Ivory>
+{
+   technique
+   {
+      pass
+      {
+         scene_blend alpha_blend
+         depth_check on
+         depth_write off
+         diffuse 0.96078431372549 0.96078431372549 0.96078431372549 0.1
+         ambient 0.96078431372549 0.96078431372549 0.96078431372549 0.1
+      }
+   }
+}
+
+material Vegetation_Grass1
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Vegetation_Grass1.jpg
+         }
+      }
+   }
+}
+
+material Concrete_Aggregate_Smoke
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Concrete_Aggregate_Smoke.jpg
+         }
+      }
+   }
+}
+
+material Concrete_Aggregate_Smoke
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Concrete_Aggregate_Smoke.jpg
+         }
+      }
+   }
+}
+
+material <Black>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.0 0.0 0.0 1.0
+         ambient 0.0 0.0 0.0 1.0
+      }
+   }
+}
+
+material Translucent_Glass_Blue
+{
+   technique
+   {
+      pass
+      {
+         scene_blend alpha_blend
+         depth_check on
+         depth_write off
+         diffuse 0.392156862745098 0.584313725490196 0.929411764705882 0.5
+         ambient 0.392156862745098 0.584313725490196 0.929411764705882 0.5
+      }
+   }
+}
+
+material SketchupDefault
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1.0 1.0 1.0
+         ambient 1.0 1.0 1.0
+      }
+   }
+}
+
+material SketchupDefault_Back
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.670588235294118 0.690196078431373 0.8
+         ambient 0.670588235294118 0.690196078431373 0.8
+      }
+   }
+}
