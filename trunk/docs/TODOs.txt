@@ -1,14 +1,13 @@
 == TODOs ==
-Nunchuk turn quicker.
+Nunchuk turn quicker - Ethan.
 Head-tracker.
-keep camera inbounds
+keep camera inbounds.
 Fix bounds on models.
-Fix bounds on lawn.
-Rotation is backwards.
-Click when in either mode.
-Swap models and trash locations.
+Fix bounds on lawn - Ethan.
+Rotation is backwards - Ethan.
+Click when in either mode - Ethan.
+Swap models and trash locations - Sid.
 What happens when models are placed inside house bounds?
-
 Create (quick) gesture tutorials program (2D animations?)
 Project website - Shayan
 Rotate camera when dragging an object "past" the edge of the screen?
