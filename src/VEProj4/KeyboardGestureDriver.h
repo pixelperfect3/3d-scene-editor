@@ -78,13 +78,14 @@ private:
 protected:
 	GestureFSM *fsm;
 	ModelManager *model_manager;
+	AudioManager* audMgr;
 public:
 	
 	// Constructor takes a RenderWindow because it uses that to determine input context
 	KeyboardGestureDriver(GestureFSM *fsm, ModelManager *manager, RenderWindow* win, Camera* cam,
-		CEGUI::Renderer* renderer, WiiMoteClient *nunchuk) :
+		CEGUI::Renderer* renderer, WiiMoteClient *nunchuk, AudioManager* audMgr1) :
 			HeadTrackerFrameListener(win, cam, nunchuk), mGUIRenderer(renderer), mShutdownRequested(false),
-			angle(0), delta_delta(5), delta_angle(Degree(45)), init(true) {
+			angle(0), delta_delta(5), delta_angle(Degree(45)), init(true),audMgr(audMgr1) {
 		mMouse->setEventCallback(this);
 		mKeyboard->setEventCallback(this);
 		showDebugOverlay(false);
@@ -284,6 +285,7 @@ public:
 				SceneNode *selectedNode = it->movable->getParentSceneNode();
 				fsm->select_node(selectedNode);
 				std::cout << "Found a node " << it->movable->getName() << "\n";
+				audMgr->play("click");
 				found = true;
 				break;
 			}

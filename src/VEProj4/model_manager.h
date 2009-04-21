@@ -93,6 +93,7 @@ public:
 		std::cout << "Creating new model: " << meshName << " (" << model_num << ").\n";
 		SceneNode* node = static_cast<SceneNode*>(mgr->getRootSceneNode()->createChild(entityName));
 		Entity *en = mgr->createEntity(entityName, meshName);
+		//en->setCastShadows(true);
 		node->attachObject(en);
 		node->setPosition(pos);
 		return node;
