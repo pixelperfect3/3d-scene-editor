@@ -20,6 +20,7 @@ private:
 	double midpoint[2];
 	double old_mouse[3];
 	Radian prev_angle;
+	double points[4][3];
 protected:
 	WiiMoteClient *wiimote;
 	MouseDriver *mouseDriver;
@@ -40,7 +41,10 @@ public:
 
 	virtual bool frameStarted(const FrameEvent &evt) {
 		wiimote->updateFromServer(); //may incur frame lag.
-		double points[4][3] = { {0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1} };
+		for (int ii = 0; ii < 4; ii++) {
+			points[ii][0] = points[ii][1] = 0;
+			points[ii][2] = -1;
+		}
 
 		int active_points = 0;
 		for (int ii = 0; ii < 4; ii++) {
@@ -57,54 +61,55 @@ public:
 		if (newGesture) {
 			mouseDriver->ToggleMouseCursor(active_points <= 1);
 		}
-		switch (active_points) {
-			case 1:
-				{
-					if (!newGesture) {
-						double distance[2];
-						Distance(points[0], old_mouse, distance);
-						mouseDriver->MouseMoved(points[0], old_mouse, distance);
-						for (int ii = 0; ii < 3; ii++) {
-							old_mouse[ii] = points[0][ii];
-						}
-					}
-				}
-				break;
-			case 2:
-				//Translation:
-				double distance[2];
-				double tmp[2];
-				Midpoint(points[0], points[1], tmp);
-				Distance(tmp, midpoint, distance);
-				if (!newGesture) {
-					modelManager->Translate2D(distance, Vector2(midpoint[0], midpoint[1]));
-				}
-				for (int ii = 0; ii < 2; ii++) {
-					midpoint[ii] = tmp[ii];
-				}
-				//Rotation:
-				bool leftToRight = points[0][0] < points[1][0];
-				int leftIndex = leftToRight ? 0 : 1;
-				int rightIndex = leftToRight ? 1 : 0;
-				Vector2 left = Vector2(points[leftIndex][0], points[leftIndex][1]);
-				Vector2 right = Vector2(points[rightIndex][0], points[rightIndex][1]);
-				if (left.x == right.x) {
-					std::cout << "Arc-tan not defined.\n";
-					prev_angle = Radian(90);
-					break;
-				}
-				Radian angle = Radian(atan((right.y - left.y) / (right.x - left.x)));
-				if (!newGesture) {
-					modelManager->rotate_update(prev_angle - angle);
-				}
-				prev_angle = angle;
-				break;
-		}
 		DrawPoints(active_points, points);
 		previous_points = active_points;
+		doMouse(newGesture);
+		if (active_points > 1) {
+			doTranslation(newGesture);
+			doRotation(newGesture);
+		}
 		return true;
 	}
-protected:
+protected:	
+	void doMouse(bool newGesture) {
+		if (!newGesture) {
+			double distance[2];
+			Distance(points[0], old_mouse, distance);
+			mouseDriver->MouseMoved(points[0], old_mouse, distance);
+			for (int ii = 0; ii < 3; ii++) {
+				old_mouse[ii] = points[0][ii];
+			}
+		}
+	}
+	void doTranslation(bool newGesture) {
+		double distance[2];
+		double tmp[2];
+		Midpoint(points[0], points[1], tmp);
+		Distance(tmp, midpoint, distance);
+		if (!newGesture) {
+			modelManager->Translate2D(distance, Vector2(midpoint[0], midpoint[1]));
+		}
+		for (int ii = 0; ii < 2; ii++) {
+			midpoint[ii] = tmp[ii];
+		}
+	}
+	void doRotation(bool newGesture) {
+		bool leftToRight = points[0][0] < points[1][0];
+		int leftIndex = leftToRight ? 0 : 1;
+		int rightIndex = leftToRight ? 1 : 0;
+		Vector2 left = Vector2(points[leftIndex][0], points[leftIndex][1]);
+		Vector2 right = Vector2(points[rightIndex][0], points[rightIndex][1]);
+		if (left.x == right.x) {
+			std::cout << "Arc-tan not defined.\n";
+			prev_angle = Radian(90);
+			return;
+		}
+		Radian angle = Radian(atan((right.y - left.y) / (right.x - left.x)));
+		if (!newGesture) {
+			modelManager->rotate_update(prev_angle - angle);
+		}
+		prev_angle = angle;
+	}
 	double Unitize(double val, double maxUnits, double percentFOV) {
 		double new_val = val / maxUnits;
 		new_val = max(percentFOV, new_val);
