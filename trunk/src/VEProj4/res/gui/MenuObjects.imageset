@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Imageset Name="MenuObjects" Imagefile="Objects.png" AutoScaled="true" >
+<Imageset Name="MenuObjects" Imagefile="Objects.png" NativeHorzRes="1600" NativeVertRes="1200" AutoScaled="true" >
     <Image Name="NewImage1" XPos="0" YPos="0" Width="256" Height="256" />
     <Image Name="NewImage2" XPos="256" YPos="0" Width="256" Height="256" />
     <Image Name="NewImage3" XPos="0" YPos="256" Width="256" Height="256" />

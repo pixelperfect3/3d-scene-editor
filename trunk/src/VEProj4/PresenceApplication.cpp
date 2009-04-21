@@ -129,11 +129,12 @@ void PresenceApplication::createScene(void)
 	mainSceneNode = static_cast<SceneNode*>(mSceneMgr->getRootSceneNode()->createChild("mainScene"));
 	Entity* mainSceneEn = mSceneMgr->createEntity("home","home.mesh");
 	mainSceneNode->attachObject(mainSceneEn);
-	mainSceneEn->setCastShadows(false);
+	mainSceneEn->setCastShadows(true);
 	
 	SceneNode *lawnNode = static_cast<SceneNode*>(mSceneMgr->getRootSceneNode()->createChild("lawn"));
 	Entity* lawnEn = mSceneMgr->createEntity("lawn","lawn.mesh");
 	lawnNode->attachObject(lawnEn);
+	lawnEn->setCastShadows(false);
 
 	// setup GUI system
 	mGUIRenderer = new CEGUI::OgreCEGUIRenderer(mWindow, 
