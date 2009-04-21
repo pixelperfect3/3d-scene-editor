@@ -1,7 +1,6 @@
 == TODOs ==
 Head-tracker.
-keep camera inbounds.
-Fix bounds on lawn - Ethan.
+keep camera inbounds - Ethan.
 Swap models and trash locations - Sid.
 Create (quick) gesture tutorials program (2D animations?)
 Project website - Shayan
@@ -20,6 +19,7 @@ What happens when models are placed inside house bounds?
 
 
 == Done ==
+Fix bounds on lawn - Ethan.
 Click when in either mode - Ethan.
 Rotation is backwards - Ethan.
 Nunchuk turn quicker - Ethan.
