@@ -42,27 +42,27 @@ const static ModelDesc staticModels[NUM_OBJMODELS] = {
 	ModelDesc( "foo_flower_spatha.mesh", "Spatha White Flowers", 19 ),
 	ModelDesc( "foo_flowers_snowbells.mesh", "Snowbell FLowers", 20 ),
 	ModelDesc( "foo_flowers_tropical.mesh", "Tropical Flowers", 21 ),
-	ModelDesc( "foo_fountain.mesh", "Fountain", 22 ),
+	ModelDesc( "foo_fountain.mesh", "Fountain", 22 ), //very large
 	// break
-	ModelDesc( "foo_fountain_2.mesh", "Fountain 2", 23 ),
+	ModelDesc( "foo_fountain_2.mesh", "Fountain 2", 23 ), //ginormous
 	ModelDesc( "foo_fountain_large.mesh", "Large Fountain", 24 ),
-	ModelDesc( "foo_fountain_with_trees.mesh", "Fountain with Trees", 25 ),
-	ModelDesc( "foo_lamppost.mesh", "Lamp Post", 26 ),
+	ModelDesc( "foo_fountain_with_tree.mesh", "Fountain with Trees", 25 ),
+	ModelDesc( "foo_lamppost_1.mesh", "Lamp Post", 26 ),
 	ModelDesc( "foo_lamppost_classic.mesh", "classic lamppost", 27 ),
 	ModelDesc( "foo_lamppost_diamond.mesh", "lamppost diamond", 28 ),
 	ModelDesc( "foo_lamppost_ornate.mesh", "ornate lamppost", 29 ),
 	ModelDesc( "foo_lamppost_victorian.mesh", "victorian lamppost", 30 ),
-	ModelDesc( "foo_umbrella_cygnus.mesh", "Swan umbrella", 31 ),
-	ModelDesc( "foo_umbrella_patio_set", "Patio set umbrella", 32 ),
-	ModelDesc( "foo_umbrella_picnic_set.mesh", "Picnic umbrella", 33 ),
-	ModelDesc( "foo_umbrella_regular.mesh", "Regular umbrella", 34 ),
-	ModelDesc( "foo_umbrella_shade.mesh", "shade umbrella", 35 ),
+	ModelDesc( "umbrella_cygnus.mesh", "Swan umbrella", 31 ),
+	ModelDesc( "umbrella_patio_set.mesh", "Patio set umbrella", 32 ),
+	ModelDesc( "umbrella_picnic_set.mesh", "Picnic umbrella", 33 ),
+	ModelDesc( "umbrella_regular.mesh", "Regular umbrella", 34 ),
+	ModelDesc( "umbrella_shade.mesh", "shade umbrella", 35 ),
 	ModelDesc( "foo_arbor_trellis.mesh", "Arbor Trellis", 36 ),
-	ModelDesc( "foo_arch_amber.mesh", "Arch trellis", 37 ),
+	ModelDesc( "foo_white_trellis_arch.mesh", "Arch trellis", 37 ),
 	ModelDesc( "foo_gazebo.mesh", "Gazebo", 38 ),
 	ModelDesc( "foo_paved_patio.mesh", "paved patio", 39 ),
-	ModelDesc( "foo_swing_arbor.mesh", "swing", 40 ),
+	ModelDesc( "foo_trellis_swing.mesh", "swing", 40 ),
 	ModelDesc( "foo_waterfall_stone.mesh", "stone waterfall", 41 ),
-	ModelDesc( "foo_tennis.mesh", "tennis court", 42 ),
-	ModelDesc( "foo_basketball.mesh", "basketball court", 43 )
+	ModelDesc( "foo_tennis.mesh", "tennis court", 42 ), //huge
+	ModelDesc( "foo_basketball.mesh", "basketball court", 43 ) //a little big
 };
