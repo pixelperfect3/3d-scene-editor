@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Imageset Name="MenuObjects2" Imagefile="Objects2.png" NativeHorzRes="1600" NativeVertRes="1200" AutoScaled="true" >
+    <Image Name="NewImage45" XPos="0" YPos="0" Width="256" Height="256" />
+    <Image Name="NewImage46" XPos="256" YPos="0" Width="256" Height="256" />
+    <Image Name="NewImage47" XPos="0" YPos="256" Width="256" Height="256" />
+    <Image Name="NewImage48" XPos="256" YPos="256" Width="256" Height="256" />
+    <Image Name="NewImage49" XPos="0" YPos="512" Width="256" Height="256" />
+    <Image Name="NewImage50" XPos="256" YPos="512" Width="256" Height="256" />
+    <Image Name="NewImage51" XPos="0" YPos="768" Width="256" Height="256" />
+    <Image Name="NewImage52" XPos="256" YPos="768" Width="256" Height="256" />
+    <Image Name="NewImage53" XPos="0" YPos="1024" Width="256" Height="256" />
+    <Image Name="NewImage54" XPos="256" YPos="1024" Width="256" Height="256" />
+    <Image Name="NewImage55" XPos="0" YPos="1280" Width="256" Height="256" />
+    <Image Name="NewImage56" XPos="256" YPos="1280" Width="256" Height="256" />
+    <Image Name="NewImage57" XPos="0" YPos="1536" Width="256" Height="256" />
+    <Image Name="NewImage58" XPos="256" YPos="1536" Width="256" Height="256" />
+    <Image Name="NewImage59" XPos="0" YPos="1792" Width="256" Height="256" />
+    <Image Name="NewImage60" XPos="256" YPos="1792" Width="256" Height="256" />
+    <Image Name="NewImage61" XPos="0" YPos="2048" Width="256" Height="256" />
+    <Image Name="NewImage62" XPos="256" YPos="2048" Width="256" Height="256" />
+    <Image Name="NewImage63" XPos="0" YPos="2304" Width="256" Height="256" />
+    <Image Name="NewImage64" XPos="256" YPos="2304" Width="256" Height="256" />
+    <Image Name="NewImage65" XPos="0" YPos="2560" Width="256" Height="256" />
+    <Image Name="NewImage66" XPos="256" YPos="2560" Width="256" Height="256" />
+    <Image Name="NewImage67" XPos="0" YPos="2816" Width="256" Height="256" />
+    <Image Name="NewImage68" XPos="256" YPos="2816" Width="256" Height="256" />
+    <Image Name="NewImage69" XPos="0" YPos="3072" Width="256" Height="256" />
+    <Image Name="NewImage70" XPos="256" YPos="3072" Width="256" Height="256" />
+    <Image Name="NewImage71" XPos="0" YPos="3328" Width="256" Height="256" />
+    <Image Name="NewImage72" XPos="256" YPos="3328" Width="256" Height="256" />
+    <Image Name="NewImage73" XPos="0" YPos="3584" Width="256" Height="256" />
+    <Image Name="NewImage74" XPos="256" YPos="3584" Width="256" Height="256" />
+    <Image Name="NewImage75" XPos="0" YPos="3840" Width="256" Height="256" />
+    <Image Name="NewImage76" XPos="256" YPos="3840" Width="256" Height="256" />
+    <Image Name="NewImage77" XPos="0" YPos="4096" Width="256" Height="256" />
+    <Image Name="NewImage78" XPos="256" YPos="4096" Width="256" Height="256" />
+    <Image Name="NewImage79" XPos="0" YPos="4352" Width="256" Height="256" />
+    <Image Name="NewImage80" XPos="256" YPos="4352" Width="256" Height="256" />
+    <Image Name="NewImage81" XPos="0" YPos="4608" Width="256" Height="256" />
+    <Image Name="NewImage82" XPos="256" YPos="4608" Width="256" Height="256" />
+    <Image Name="NewImage83" XPos="0" YPos="4864" Width="256" Height="256" />
+    <Image Name="NewImage84" XPos="256" YPos="4864" Width="256" Height="256" />
+    <Image Name="NewImage85" XPos="0" YPos="5120" Width="256" Height="256" />
+    <Image Name="NewImage86" XPos="256" YPos="5120" Width="256" Height="256" />
+</Imageset>

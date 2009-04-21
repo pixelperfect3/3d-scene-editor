@@ -5,6 +5,7 @@
 	<Imageset Name="CameraBut" Filename="CameraBut.imageset" />
 	<Imageset Name="ObjectBut" Filename="ObjectBut.imageset" />
 	<Imageset Name="MenuObjects" Filename="MenuObjects.imageset" />
+	<Imageset Name="MenuObjects2" Filename="MenuObjects2.imageset" />
 	<Imageset Name="UndoSet" Filename="UndoSet.imageset" />
     <Font Name="BlueHighway-12" Filename="bluehighway-12.font" />
     <Font Name="BlueHighway-10" Filename="bluehighway-10.font" />
