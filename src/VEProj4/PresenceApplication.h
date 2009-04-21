@@ -11,17 +11,13 @@
 #include "OgreCEGUIRenderer.h"
 #include "OgreCEGUIResourceProvider.h"
 #include "OgreCEGUITexture.h"
-
-#define NUM_OBJMODELS (15)
+#include "models.h"
 
 class PresenceApplication : public ExampleApplication
 {
 public:
     PresenceApplication(char*, char*);
 	~PresenceApplication();
-
-	char* buttonobjModels[NUM_OBJMODELS];	
-
 private:
 	CEGUI::OgreCEGUIRenderer* mGUIRenderer;
 	CEGUI::System* mGUISystem;
@@ -71,7 +67,7 @@ protected:
 		wmgr.getWindow("Models")->setVisible(false);
 		wmgr.getWindow("CameraButton")->setVisible(false);
 		wmgr.getWindow("Trash")->setVisible(false);
-		wmgr.getWindow("Undo")->setVisible(false);
+		//wmgr.getWindow("Undo")->setVisible(false);
 
 		return true;
 	}
@@ -82,7 +78,7 @@ protected:
 		wmgr.getWindow("Models")->setVisible(true);
 		wmgr.getWindow("CameraButton")->setVisible(true);
 		wmgr.getWindow("Trash")->setVisible(true);
-		wmgr.getWindow("Undo")->setVisible(true);
+		//wmgr.getWindow("Undo")->setVisible(true);
 		return true;
 	}
 
@@ -157,26 +153,27 @@ protected:
 		wmgr.getWindow("Models")->setVisible(true);
 		wmgr.getWindow("CameraButton")->setVisible(true);
 		wmgr.getWindow("Trash")->setVisible(true);
-		wmgr.getWindow("Undo")->setVisible(true);
+		//wmgr.getWindow("Undo")->setVisible(true);
 
 		CEGUI::WindowEventArgs& we = ((CEGUI::WindowEventArgs&)e);
 		CEGUI::String buttonName = we.window->getName();
 		std::cout<<buttonName<<std::endl;
 
-		for(int i=1;i<=NUM_OBJMODELS;i++){
-			String guiObjectName = "MenuButton" + StringConverter::toString(i);
+		for(int i = 0; i < NUM_OBJMODELS; i++){
+			String guiObjectName = staticModels[i].button;
 			if((CEGUI::utf8*)guiObjectName.c_str() == buttonName){
-				fsm->create_model(buttonobjModels[i-1]);
+				fsm->create_model(staticModels[i].mesh);
+				break;
 			}
 		}
 
 		return true;
 	}
 
-	bool handleUndo(const CEGUI::EventArgs& e){
+	/*bool handleUndo(const CEGUI::EventArgs& e){
 		audMgr->play("click");
 		return true;
-	}	
+	}*/	
 	
 
 };

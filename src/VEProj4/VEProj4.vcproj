@@ -239,6 +239,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\models.h"
+				>
+			</File>
+			<File
 				RelativePath=".\OgreConsole.h"
 				>
 			</File>

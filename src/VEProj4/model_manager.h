@@ -1,6 +1,7 @@
 #pragma once
 
 #include "simple_model.h"
+#include "models.h"
 #include "Ogre.h"
 #include <vector>
 #include <iostream>
@@ -89,14 +90,26 @@ public:
 		}
 		return model;
 	}
-	SceneNode *createSceneNode(String entityName, String meshName, Vector3 pos) {
+	SceneNode *createSceneNode(String entityName, String meshName, Vector3 pos, bool castShadows = true) {
 		std::cout << "Creating new model: " << meshName << " (" << model_num << ").\n";
 		SceneNode* node = static_cast<SceneNode*>(mgr->getRootSceneNode()->createChild(entityName));
 		Entity *en = mgr->createEntity(entityName, meshName);
-		//en->setCastShadows(true);
+		en->setCastShadows(castShadows);
+		if (isDisableShadow(meshName)) {
+			en->setCastShadows(false);
+		}
 		node->attachObject(en);
 		node->setPosition(pos);
 		return node;
+	}
+
+	bool isDisableShadow(String meshName) {
+		for (int ii = 0; ii < NUM_OBJMODELS; ii++) {
+			if (staticModels[ii].mesh == meshName) {
+				return !staticModels[ii].castShadows;
+			}
+		}
+		return false;
 	}
 	void select(SimpleModel *o) {
 		selected = o;
@@ -205,7 +218,7 @@ protected:
 	}
 	void createBlock(int block_num) {
 		String meshName = "block" + StringConverter::toString(block_num) + ".mesh";
-		SceneNode *node = createSceneNode("block" + StringConverter::toString(block_num), meshName, Vector3(0, 0, 0));
+		SceneNode *node = createSceneNode("block" + StringConverter::toString(block_num), meshName, Vector3(0, 0, 0), false);
 		SimpleModel* m = new SimpleModel();
 		m->parent = node;
 		m->meshName = meshName;

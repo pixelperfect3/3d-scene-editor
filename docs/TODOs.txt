@@ -1,4 +1,9 @@
 == TODOs ==
+Remove shadows from faulty trees
+keep camera inbounds
+Fix bounds on models.
+What happens when models are placed inside house bounds?
+
 Create (quick) gesture tutorials program (2D animations?)
 Project website - Shayan
 Rotate camera when dragging an object "past" the edge of the screen?
