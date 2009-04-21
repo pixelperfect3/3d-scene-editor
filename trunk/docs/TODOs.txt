@@ -1,14 +1,10 @@
 == TODOs ==
-Head-tracker.
-keep camera inbounds - Ethan.
-Swap models and trash locations - Sid.
 Create (quick) gesture tutorials program (2D animations?)
 Project website - Shayan
-Rotate camera when dragging an object "past" the edge of the screen?
 
 
 == Bugs ==
-Menu icons in wrong position - Sid
+Fix position of menu objects in PNG file.
 
 
 == Won't fix ==
@@ -16,9 +12,15 @@ Allow potted plants and accents to be placed on porch.
 Undo Options.
 Fix bounds on models.
 What happens when models are placed inside house bounds?
+keep camera inbounds.
+Rotate camera when dragging an object "past" the edge of the screen?
+Menu icons in wrong position - Sid
 
 
 == Done ==
+Screenshot without menus - Ethan.
+Head-tracker.
+Swap models and trash locations - Sid.
 Fix bounds on lawn - Ethan.
 Click when in either mode - Ethan.
 Rotation is backwards - Ethan.

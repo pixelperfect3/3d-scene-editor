@@ -26,6 +26,7 @@ PresenceApplication::PresenceApplication(char* ir_tracker_name, char* nunchuk_na
 	//Fixes errors in destructor:
 	model_manager = NULL;
 	fsm = NULL;
+	screenShotListener = NULL;
 }
 
 PresenceApplication::~PresenceApplication() {
@@ -56,6 +57,9 @@ PresenceApplication::~PresenceApplication() {
 	}
 	if (model_manager) {
 		delete model_manager;
+	}
+	if (screenShotListener) {
+		delete screenShotListener;
 	}
 }
 
@@ -99,7 +103,7 @@ void PresenceApplication::createScene(void)
 	OgreConsole::getSingleton().init(mRoot);
 	OgreConsole::getSingleton().setVisible(false);
 
-	mSceneMgr->setShadowTechnique(SHADOWTYPE_STENCIL_MODULATIVE);
+	//mSceneMgr->setShadowTechnique(SHADOWTYPE_STENCIL_MODULATIVE);
 	//if (mRoot->getRenderSystem()->getCapabilities()->hasCapability(RSC_HWRENDER_TO_TEXTURE))
  //   {
  //       // In D3D, use a 1024x1024 shadow texture
@@ -306,4 +310,6 @@ void PresenceApplication::createFrameListener(void) {
 	} else {
 		gesturer = NULL;
 	}
+	screenShotListener = new ScreenShotFrameListener(driver);
+	mRoot->addFrameListener(screenShotListener);
 }

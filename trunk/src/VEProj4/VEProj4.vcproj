@@ -255,6 +255,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ScreenshotFrameListener.h"
+				>
+			</File>
+			<File
 				RelativePath=".\simple_model.h"
 				>
 			</File>
