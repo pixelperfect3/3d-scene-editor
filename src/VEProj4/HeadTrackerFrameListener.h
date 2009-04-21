@@ -16,7 +16,7 @@ protected:
 	VTrak3DClient* vtrak;
 	WiiMoteClient *nunchuk; // the nunchuk for navigation
 public:
-	HeadTrackerFrameListener(RenderWindow* win, Camera* cam, WiiMoteClient *nunchuk, bool useVtrak = false) : ExampleFrameListener(win, cam),
+	HeadTrackerFrameListener(RenderWindow* win, Camera* cam, WiiMoteClient *nunchuk, bool useVtrak = true) : ExampleFrameListener(win, cam),
 	zButtonDown(false), cButtonDown(false) {
 		if (useVtrak) {
 			vtrak = new VTrak3DClient();
@@ -101,7 +101,8 @@ public:
 				for (int ii = 0; ii < 3; ii++) {
 					delta_pos[ii] = scale[ii] * (pos[ii] - headCenter[ii]);
 				}
-				Ogre::Vector3 delta_vector(-delta_pos[0], delta_pos[1], -delta_pos[2]);
+				Ogre::Vector3 delta_vector(delta_pos[0], delta_pos[1], delta_pos[2]);
+				delta_vector = mCamera->getOrientation() * delta_vector;
 				mCamera->setPosition(cameraOrigin + delta_vector);
 			} else {
 				//std::cout << "Not updating head-tracker data.\n";
@@ -125,6 +126,7 @@ public:
 			float deltaZ = getDeltaPosition() * units_per_sec * evt.timeSinceLastFrame;
 			Vector3 delta_pos = mCamera->getOrientation() * Vector3(0, 0, -deltaZ);
 			mCamera->move(delta_pos);
+			cameraOrigin += delta_pos;
 
 			if (!zButtonDown && zButtonPressed) {
 				injectMouseButtonPressed(1);
