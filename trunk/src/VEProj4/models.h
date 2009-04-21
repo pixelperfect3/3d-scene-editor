@@ -57,8 +57,8 @@ const static ModelDesc staticModels[NUM_OBJMODELS] = {
 	ModelDesc( "umbrella_set_picnic.mesh", "Picnic umbrella", 33 ), // crashes - FIXED (wrong name)
 	ModelDesc( "umbrella_regular.mesh", "Regular umbrella", 34 ),
 	ModelDesc( "umbrella_shade.mesh", "shade umbrella", 35 ),
-	ModelDesc( "foo_arbor_trellis.mesh", "Arbor Trellis", 36 ),		// wrong textures
-	ModelDesc( "foo_white_trellis_arch.mesh", "Arch trellis", 37 ),
+	ModelDesc( "foo_arbor_trellis.mesh", "Arbor Trellis", 36 ),		// wrong textures - FIXED
+	ModelDesc( "foo_white_trellis_arch.mesh", "Arch trellis", 37 ), // extremely transparent??
 	ModelDesc( "foo_gazebo.mesh", "Gazebo", 38 ),
 	ModelDesc( "foo_paved_patio.mesh", "paved patio", 39 ),
 	ModelDesc( "foo_trellis_swing.mesh", "swing", 40 ),
