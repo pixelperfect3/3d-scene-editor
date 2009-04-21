@@ -144,10 +144,14 @@ void PresenceApplication::createScene(void)
 	mSceneMgr->setSkyBox(true, "Examples/Skybox");
 	
 	
-	mainSceneNode = static_cast<SceneNode*>(mSceneMgr->getRootSceneNode()->createChild("mainScene")); 
-	Entity* mainSceneEn = mSceneMgr->createEntity("home","home_with_lawn.mesh");
+	mainSceneNode = static_cast<SceneNode*>(mSceneMgr->getRootSceneNode()->createChild("mainScene"));
+	Entity* mainSceneEn = mSceneMgr->createEntity("home","home.mesh");
 	mainSceneNode->attachObject(mainSceneEn);
 	mainSceneEn->setCastShadows(false);
+	
+	SceneNode *lawnNode = static_cast<SceneNode*>(mSceneMgr->getRootSceneNode()->createChild("lawn"));
+	Entity* lawnEn = mSceneMgr->createEntity("lawn","lawn.mesh");
+	lawnNode->attachObject(lawnEn);
 
 	// setup GUI system
 	mGUIRenderer = new CEGUI::OgreCEGUIRenderer(mWindow, 
@@ -290,7 +294,7 @@ void PresenceApplication::loadMenuItems(int numberOfObjects){
 
 	Real posX = 0.05; //Math::RangeRandom(0.0, 0.0);
 	Real posY = 0.05; //Math::RangeRandom(0.0, 0.0);
-	unsigned int siCounter = 1;
+	unsigned int buttonCounter = 1;
 	unsigned int objectCounter = 1;
 
 	CEGUI::Imageset* imageSet = 
@@ -298,32 +302,28 @@ void PresenceApplication::loadMenuItems(int numberOfObjects){
 		(CEGUI::utf8*)"MenuObjects");
 
 	for(int i=0; i<numberOfObjects; i++){
-		String guiObjectName = "MenuButton" + StringConverter::toString(siCounter);
-		String MenuObjectNorm = "NewImage" + StringConverter::toString(objectCounter);
-		String MenuObjectHover = "NewImage" + StringConverter::toString(++objectCounter);
+		String guiObjectName = "MenuButton" + StringConverter::toString(buttonCounter++);
+		String MenuObjectNorm = "NewImage" + StringConverter::toString(objectCounter++);
+		String MenuObjectHover = "NewImage" + StringConverter::toString(objectCounter++);
 
-		CEGUI::Window* si = CEGUI::WindowManager::getSingleton().createWindow((CEGUI::utf8*)"TaharezLook/ImageButton",
+		CEGUI::Window* button = CEGUI::WindowManager::getSingleton().createWindow((CEGUI::utf8*)"TaharezLook/ImageButton",
 			(CEGUI::utf8*)guiObjectName.c_str());
-		si->setSize(CEGUI::UVector2( CEGUI::UDim(0.1f, 0), CEGUI::UDim(0.13f, 0)));
-		si->setProperty("NormalImage", CEGUI::PropertyHelper::imageToString(
+		button->setSize(CEGUI::UVector2( CEGUI::UDim(0.1f, 0), CEGUI::UDim(0.13f, 0)));
+		button->setProperty("NormalImage", CEGUI::PropertyHelper::imageToString(
 			&imageSet->getImage((CEGUI::utf8*)MenuObjectNorm.c_str())));
 		
-		si->setProperty("HoverImage", CEGUI::PropertyHelper::imageToString(
+		button->setProperty("HoverImage", CEGUI::PropertyHelper::imageToString(
 			&imageSet->getImage((CEGUI::utf8*)MenuObjectHover.c_str())));
-		si->subscribeEvent(
+		button->subscribeEvent(
 			CEGUI::PushButton::EventClicked,CEGUI::Event::Subscriber(&PresenceApplication::handleMenuObjects, this));
 
-		siCounter++;
-		objectCounter++;
-
-		editorWindow->addChildWindow(si);
-		si->setPosition(CEGUI::UVector2(CEGUI::UDim(posX, 0), CEGUI::UDim(posY, 0)));
+		editorWindow->addChildWindow(button);
+		button->setPosition(CEGUI::UVector2(CEGUI::UDim(posX, 0), CEGUI::UDim(posY, 0)));
 		if(posX > .8 && posY <.8) {
 			posX = .05;
 			posY += .14;
 		}
 		else posX += 0.1;
-
 	}
 }
 

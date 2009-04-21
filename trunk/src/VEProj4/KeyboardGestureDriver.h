@@ -266,7 +266,9 @@ public:
 	bool isModelObject(MovableObject *m) {
 		return Ogre::StringUtil::startsWith(m->getName(), "tree") ||
 		       Ogre::StringUtil::startsWith(m->getName(), "plant") ||
-		       Ogre::StringUtil::startsWith(m->getName(), "chair");
+		       Ogre::StringUtil::startsWith(m->getName(), "chair") || 
+		       Ogre::StringUtil::startsWith(m->getName(), "umbrella") || 
+		       Ogre::StringUtil::startsWith(m->getName(), "foo");
 	}
 	/** x and y are values in the range [0, 1] */
 	void mouseSelection(double x, double y) {
