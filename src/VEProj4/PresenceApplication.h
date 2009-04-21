@@ -46,6 +46,9 @@ protected:
     // Just override the mandatory create scene method
     void createScene(void);
 
+	// Override the audio create method
+	void createAudio(void);
+
     // Create new frame listener
     void createFrameListener(void);
 
@@ -80,6 +83,8 @@ protected:
 		wmgr.getWindow("Undo")->setVisible(true);
 		return true;
 	}
+
+	// creates a screenshot
 	bool handleScreenshot(const CEGUI::EventArgs& e){
 		CEGUI::WindowManager& wmgr = CEGUI::WindowManager::getSingleton();
 		//wmgr.getWindow("Models")->setVisible(false);
@@ -93,6 +98,8 @@ protected:
 		//wmgr.getWindow("Screenshot")->setVisible(true);
 		//wmgr.getWindow("Trash")->setVisible(true);
 		
+		// play the sound - SHOULD CHANGE TO "camera"
+		audMgr->play("click");
 
 		return true;
 

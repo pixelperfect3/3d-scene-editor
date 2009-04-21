@@ -25,6 +25,9 @@ Description: Base class for all the OGRE examples
 #include "OgreConfigFile.h"
 #include "ExampleFrameListener.h"
 
+// For audio
+#include "AudioManager.h"
+
 #if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
 #include <CoreFoundation/CoreFoundation.h>
 
@@ -106,6 +109,9 @@ protected:
     RenderWindow* mWindow;
 	Ogre::String mResourcePath;
 
+	// The AudioManager
+	AudioManager* audMgr;
+
     // These internal methods package up the stages in the startup process
     /** Sets up the application - returns false if the user chooses to abandon configuration. */
     virtual bool setup(void)
@@ -139,6 +145,9 @@ protected:
 
 		// Create the scene
         createScene();
+
+		// Setup the audio
+		createAudio();
 
         createFrameListener();
 
@@ -190,6 +199,8 @@ protected:
     }
 
     virtual void createScene(void) = 0;    // pure virtual - this has to be overridden
+
+	virtual void createAudio(void) = 0; // virtual
 
     virtual void destroyScene(void){}    // Optional to override this
 
