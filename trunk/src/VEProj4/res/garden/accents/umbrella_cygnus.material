@@ -4,11 +4,8 @@ material silver
    {
       pass
       {
-         diffuse 1 1 1 1.0
-         texture_unit
-         {
-            texture silver.bmp
-         }
+         diffuse 0.580392156862745 0.592156862745098 0.596078431372549 1.0
+         ambient 0.580392156862745 0.592156862745098 0.596078431372549 1.0
       }
    }
 }
