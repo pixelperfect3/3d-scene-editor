@@ -1,16 +1,17 @@
 #pragma once
 
+#include "CEGUI/CEGUI.h"
+#include "OgreCEGUIRenderer.h"
+#include "OgreCEGUIResourceProvider.h"
+#include "OgreCEGUITexture.h"
+
 #include "ExampleApplication.h"
 #include "ExampleFrameListener.h"
 #include "model_manager.h"
 #include "GestureFSM.h"
 #include "wiimote_client.h"
 #include "WiiMoteGesturer.h"
-
-#include "CEGUI/CEGUI.h"
-#include "OgreCEGUIRenderer.h"
-#include "OgreCEGUIResourceProvider.h"
-#include "OgreCEGUITexture.h"
+#include "ScreenshotFrameListener.h"
 #include "models.h"
 
 class PresenceApplication : public ExampleApplication
@@ -37,6 +38,7 @@ protected:
 	WiiMoteClient *wiimote;  //IR tracker
 	WiiMoteClient *nunchuk;  //nunchuk (for lookaround)
 	WiiMoteGesturer *gesturer;
+	ScreenShotFrameListener *screenShotListener;
 	
 
     // Just override the mandatory create scene method
@@ -84,22 +86,8 @@ protected:
 
 	// creates a screenshot
 	bool handleScreenshot(const CEGUI::EventArgs& e){
-		CEGUI::WindowManager& wmgr = CEGUI::WindowManager::getSingleton();
-		//wmgr.getWindow("Models")->setVisible(false);
-		//wmgr.getWindow("Screenshot")->setVisible(false);
-		//wmgr.getWindow("Trash")->setVisible(false);
-		//wmgr.getWindow("Menu")->setVisible(false);
-		//CEGUI::MouseCursor::getSingleton().hide();
 		audMgr->play("camera");
-		((ExampleFrameListener*) mFrameListener)->screenCapture();
-		//CEGUI::MouseCursor::getSingleton().show();
-		//wmgr.getWindow("Models")->setVisible(true);
-		//wmgr.getWindow("Screenshot")->setVisible(true);
-		//wmgr.getWindow("Trash")->setVisible(true);
-		
-		// play the sound - SHOULD CHANGE TO "camera"
-		
-
+		screenShotListener->handleScreenshot(e);
 		return true;
 
 	}
@@ -169,12 +157,5 @@ protected:
 
 		return true;
 	}
-
-	/*bool handleUndo(const CEGUI::EventArgs& e){
-		audMgr->play("click");
-		return true;
-	}*/	
-	
-
 };
 
