@@ -1,18 +1,3 @@
-material Stone_Marble_VermontDanby
-{
-   technique
-   {
-      pass
-      {
-         diffuse 1 1 1 1.0
-         texture_unit
-         {
-            texture Stone_Marble_VermontDanby.jpg
-         }
-      }
-   }
-}
-
 material Water_Sparkling
 {
    technique
@@ -23,6 +8,21 @@ material Water_Sparkling
          texture_unit
          {
             texture Water_Sparkling.jpg
+         }
+      }
+   }
+}
+
+material Stone_Marble_VermontDanby
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Stone_Marble_VermontDanby.jpg
          }
       }
    }

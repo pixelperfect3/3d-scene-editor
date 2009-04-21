@@ -42,9 +42,9 @@ const static ModelDesc staticModels[NUM_OBJMODELS] = {
 	ModelDesc( "foo_flower_spatha.mesh", "Spatha White Flowers", 19 ),
 	ModelDesc( "foo_flowers_snowbells.mesh", "Snowbell FLowers", 20 ),
 	ModelDesc( "foo_flowers_tropical.mesh", "Tropical Flowers", 21 ),
-	ModelDesc( "foo_fountain.mesh", "Fountain", 22 ), //very large
+	ModelDesc( "foo_fountain.mesh", "Fountain", 22 ), //very large - FIXED
 	// break
-	ModelDesc( "foo_fountain_2.mesh", "Fountain 2", 23 ), //ginormous
+	ModelDesc( "foo_fountain_2.mesh", "Fountain 2", 23 ), //ginormous - FIXED
 	ModelDesc( "foo_fountain_large.mesh", "Large Fountain", 24 ),
 	ModelDesc( "foo_fountain_with_tree.mesh", "Fountain with Trees", 25 ),
 	ModelDesc( "foo_lamppost_1.mesh", "Lamp Post", 26 ),
